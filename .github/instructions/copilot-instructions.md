@@ -49,37 +49,45 @@ Critical success pattern found in `analysis_project.chatmode.md`:
 4. Implement content height calculation for dynamic page sizing
 5. Auto-cleanup temporary files leaving only final PDFs
 
-### Production Integration Patterns
-Templates include optional framework integration:
-```python
-# Framework detection pattern
-try:
-    from src.utils.fmw_utils import start_logging, Config
-    FRAMEWORK_AVAILABLE = True
-except ImportError:
-    FRAMEWORK_AVAILABLE = False
-    # Fallback to standalone mode
-```
-
 ## Development Guidelines
 
 ### When Creating New Prompts
-1. **Follow the numbered capability structure** seen in existing templates
-2. **Include comprehensive error handling** for framework dependencies
-3. **Implement bilingual support** for international documentation needs
-4. **Add Mermaid diagram specifications** for visual process documentation
-5. **Specify exact file outputs** to avoid confusion about deliverables
-6. **Use context engineering principles** from prompt optimizer system
-7. **Apply appropriate techniques** (Chain-of-Thought, Few-shot, XML tags)
+
+#### 🔴 MUST (Blocking - prompt fails without these)
+1. **Define success criteria BEFORE writing** - metrics, targets, evaluation method
+2. **Include explicit output format specification** - structure, length, style
+3. **Specify exact file naming conventions** - avoid confusion about deliverables
+4. **Add essential context** - date, role, task, constraints (see checklist below)
+
+#### 🟡 SHOULD (Quality impact)
+5. **Follow the numbered capability structure** seen in existing templates
+6. **Include comprehensive error handling** for framework dependencies
+7. **Use context engineering principles** from prompt optimizer system
+8. **Apply appropriate techniques** (Chain-of-Thought, Few-shot, XML tags)
+
+#### 🟢 CONSIDER (Enhancement)
+9. **Implement bilingual support** for international documentation needs
+10. **Add Mermaid diagram specifications** for visual process documentation
+11. **Add few-shot examples (2-3)** for complex or ambiguous tasks
+12. **Include failure impact analysis** for business stakeholders
 
 ### Quality Standards
-- Each prompt must include **specific business context** extraction
-- Document **state transition logic** for workflow-based systems  
-- Provide **failure impact analysis** for business stakeholders
-- Include **automated cleanup procedures** for temporary files
-- Specify **exact technical dependencies** (selenium, markdown-it-py)
-- **Define success criteria** before building
-- **Test empirically** with diverse inputs
+
+| Metric | Minimum | Target | Measurement |
+|--------|---------|--------|-------------|
+| Typical cases accuracy | 85% | 95% | Test with 10-15 cases |
+| Edge cases handled | 70% | 90% | Test with 5-10 cases |
+| Format compliance | 90% | 100% | Automated check |
+| Zero critical failures | Required | Required | Manual review |
+
+**Quality Checklist:**
+- [ ] Each prompt includes **specific business context** extraction
+- [ ] Document **state transition logic** for workflow-based systems  
+- [ ] Provide **failure impact analysis** for business stakeholders
+- [ ] Include **automated cleanup procedures** for temporary files
+- [ ] Specify **exact technical dependencies** (selenium, markdown-it-py)
+- [ ] **Define success criteria** before building
+- [ ] **Test empirically** with 20+ diverse inputs (typical, edge, error)
 
 ### Debugging Common Issues
 - **Blank PDFs**: Use server-side markdown rendering, not client-side only
@@ -130,6 +138,27 @@ except ImportError:
 - **Essential context only**: Current date, role, task, constraints
 - **Context length management**: XML tags, summarization, external memory
 
+### Essential Context Checklist (Copy to every prompt)
+```xml
+<essential_context>
+  <!-- TEMPORAL (When) -->
+  Current date: {{ CURRENT_DATE }}
+  
+  <!-- ROLE (Who) -->
+  You are a [EXPERTISE_DOMAIN] specialist with [EXPERIENCE_LEVEL] experience.
+  
+  <!-- TASK (What) -->
+  Your objective is to [PRIMARY_ACTION] that [SUCCESS_CRITERION].
+  
+  <!-- CONSTRAINTS (Boundaries) -->
+  MUST: [Required behaviors - be explicit]
+  MUST NOT: [Forbidden behaviors - be explicit]
+  
+  <!-- OUTPUT (Format) -->
+  Respond in [FORMAT] with [STRUCTURE].
+</essential_context>
+```
+
 ### Quality Assurance
 - Define success criteria BEFORE building
 - Test with 20+ diverse cases (typical, edge, error)
@@ -143,6 +172,30 @@ except ImportError:
 - **Chain-of-Thought**: Complex reasoning, multi-step problems
 - **Prompt Chaining**: Multi-step workflows with dependencies
 - **Multi-Agent**: Complex tasks with tool use, >8K context, specialized subtasks
+
+### Technique Selection Decision Tree
+```mermaid
+flowchart TD
+    A[New Prompt Task] --> B{Task Complexity?}
+    B -->|Simple/Well-defined| C[Zero-shot]
+    B -->|Needs format examples| D[Few-shot 2-5]
+    B -->|Multi-step reasoning| E[Chain-of-Thought]
+    B -->|Multi-step workflow| F{Context Size?}
+    F -->|<4K tokens| G[Prompt Chaining]
+    F -->|>8K tokens| H[Multi-Agent]
+    
+    C --> I{Accuracy <90%?}
+    I -->|Yes| D
+    I -->|No| J[✅ Deploy]
+    
+    D --> K{Still <90%?}
+    K -->|Yes| E
+    K -->|No| J
+    
+    E --> L{Still failing?}
+    L -->|Yes| F
+    L -->|No| J
+```
 
 ## Output File Management
 Templates consistently specify:
