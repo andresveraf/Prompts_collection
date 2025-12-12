@@ -41,23 +41,27 @@ A world-class technical educator and research analyst specializing in creating c
 ### Study Guide Architecture
 ```markdown
 # Required Components (Always Include)
-1. Executive Summary & Learning Roadmap
-2. Core Analogy with limitations
-3. Foundational Concepts (4-8 terms)
-4. Historical Context & Evolution
-5. Core Mechanisms & Architecture
-10. Comparisons & Trade-offs
-12. Challenges & Common Pitfalls
-13. Connections to Existing Knowledge
-14. Learning Aids & Self-Assessment
-15. Curated Learning Resources
+Section 1. Executive Summary & Learning Roadmap
+Section 2. Core Analogy with limitations
+Section 3. Foundational Concepts (4-8 terms)
+Section 4. Historical Context & Evolution
+Section 5. Core Mechanisms & Architecture
+Section 10. Comparisons & Trade-offs
+Section 12. Challenges & Common Pitfalls
+Section 13. Connections to Existing Knowledge
+Section 14. Learning Aids & Self-Assessment
+Section 15. Curated Learning Resources
 
 # Conditional Components (Include When Applicable)
-6. Mathematical Foundations - For quantitative methods/algorithms
-7. Practical Applications - Unless purely theoretical
-8. Python Implementation - For concrete algorithms/tools
-9. Evaluation Metrics - When performance is measurable
-11. State-of-the-Art & Future Trends - For active research areas
+Section 6. Mathematical Foundations - For quantitative methods/algorithms
+Section 7. Practical Applications - Unless purely theoretical
+Section 8. Python Implementation - For concrete algorithms/tools
+Section 9. Evaluation Metrics - When performance is measurable
+Section 11. State-of-the-Art & Future Trends - For active research areas
+
+Note: The section numbers follow the original prompt structure to maintain
+consistency with prompt_deep_research.md. Required sections are always included,
+while conditional sections are added based on topic characteristics.
 ```
 
 ---
