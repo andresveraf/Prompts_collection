@@ -41,16 +41,18 @@ Generate comprehensive, developer-focused documentation with visual diagrams tai
 - Use "(if applicable)" hedging—determine applicability during analysis
 
 **OUTPUT FORMAT:**
-- Single markdown file: `{project_name}_documentation.md`
-- All Mermaid diagrams embedded inline
-- Tables for configuration, endpoints, environment variables
+- Primary: Single HTML file with embedded Mermaid diagrams
+- Secondary: Markdown source for version control
+- Filename pattern: `{project_name}_documentation.html`
 
-**PDF EXPORT (When Requested):**
-- Use Selenium + Chrome DevTools Protocol for PDF generation
-- Convert mermaid code blocks to `<div class="mermaid">` (not code blocks)
-- Wait for SVG rendering before PDF generation (up to 15s timeout)
-- Use dynamic page height based on content to prevent cutoff
-- Apply professional CSS styling for tables, headings, and diagrams
+**HTML EXPORT REQUIREMENTS:**
+- Render mermaid diagrams automatically on page load
+- Professional CSS with modern color schemes and typography
+- Responsive tables with hover effects and alternating rows
+- Smooth scrolling navigation with fixed table of contents
+- Syntax-highlighted code blocks with copy buttons
+- Print-friendly styles with proper page breaks
+- Dark mode support (optional, based on user preference)
 </constraints>
 
 ---
@@ -331,90 +333,739 @@ STEP 4: VALIDATE
 
 ---
 
-## PHASE 6: PDF EXPORT PIPELINE
+## PHASE 6: PROFESSIONAL HTML EXPORT PIPELINE
 
 ### Prerequisites
 
 | Package | Purpose | Install Command |
 |---------|---------|-----------------|
-| selenium | Browser automation for PDF generation | `pip install selenium` |
-| PyPDF2 | Post-process to remove blank pages | `pip install PyPDF2` |
-| Chrome/Chromium | PDF rendering engine | System installation required |
+| Python 3.8+ | Script runtime | System installation |
+| Modern Browser | For viewing rendered HTML | Chrome, Firefox, Safari, Edge |
 
-### Output Format Options
+### Output Format
 
-| Format | File Pattern | Use Case |
-|--------|--------------|----------|
-| **Markdown** (default) | `{project_name}_documentation.md` | Version control, editing |
-| **HTML** (intermediate) | `{project_name}_documentation.html` | Web viewing, mermaid rendering |
-| **PDF** (final) | `{project_name}_documentation.pdf` | Distribution, stakeholder sharing |
+| Format | File Pattern | Use Case | Features |
+|--------|--------------|----------|----------|
+| **HTML** (primary) | `{project_name}_documentation.html` | Sharing, viewing, presentation | Rendered diagrams, interactive navigation |
+| **Markdown** (source) | `{project_name}_documentation.md` | Version control, editing | Raw format for updates |
 
-### PDF Export Script
+### HTML Generation Script
 
 Create `docs/export_pdf.py` with the following content:
 
+```pythonhtml.py` with the following content:
+
 ```python
 #!/usr/bin/env python3
-"""Export documentation to PDF with Mermaid diagram support.
+"""Export documentation to professional HTML with Mermaid diagram support.
 
-This script converts Markdown documentation to a single-page PDF with:
-- Properly rendered Mermaid diagrams (via mermaid.js)
-- Professional styling for tables, code blocks, and headings
-- Dynamic page height to fit all content on one page
-- Automatic removal of blank trailing pages
+This script converts Markdown documentation to a beautifully styled HTML page with:
+- Rendered Mermaid diagrams (via mermaid.js)
+- Modern, professional styling with gradient headers
+- Responsive tables with hover effects and smooth animations
+- Fixed sidebar navigation with smooth scrolling
+- Syntax-highlighted code blocks with copy-to-clipboard functionality
+- Search functionality for quick navigation
+- Print-optimized styles
+- Optional dark mode toggle
 
-CRITICAL NOTES:
-1. Mermaid blocks MUST use placeholders during parsing to prevent <p> wrapping
-2. Chrome's print uses 96 DPI for height calculations
-3. PyPDF2 is used post-generation to remove any blank second page
-4. Window width must match paper width for accurate height measurement
+FEATURES:
+1. Mermaid blocks are properly isolated to prevent <p> wrapping issues
+2. Professional color scheme with blues, grays, and accent colors
+3. Responsive design that works on mobile, tablet, and desktop
+4. Accessibility features (ARIA labels, keyboard navigation)
+5. Performance optimized (lazy loading for diagrams)
 """
 
 import re
-import time
-import base64
+import json
 from pathlib import Path
+from datetime import datetime
 
 # =============================================================================
-# HTML TEMPLATE
+# PROFESSIONAL HTML TEMPLATE
 # =============================================================================
-# IMPORTANT: Use double braces {{ }} for CSS properties in Python format strings
-# The @page rule with margin:0 helps prevent unwanted page breaks
 HTML_TEMPLATE = '''<!doctype html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="generator" content="Documentation Generator v1.2"/>
+<title>{project_name} - Technical Documentation</title>
 <style>
-@page {{size:auto;margin:0}}
-*{{margin:0;padding:0;box-sizing:border-box}}
-html{{height:auto}}
-body{{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:9pt;line-height:1.4;color:#333;padding:10px 20px;min-height:0}}
-h1{{font-size:16pt;color:#2c3e50;border-bottom:2px solid #3498db;padding-bottom:5px;margin:0 0 8px 0}}
-h2{{font-size:12pt;color:#2c3e50;border-bottom:1px solid #3498db;padding-bottom:3px;margin:10px 0 5px 0}}
-h3{{font-size:10pt;color:#34495e;margin:6px 0 3px 0}}
-p{{margin:3px 0}}
-table{{width:100%;border-collapse:collapse;margin:5px 0;font-size:8pt}}
-th{{background:#3498db;color:#fff;padding:4px 5px;text-align:left}}
-td{{padding:3px 5px;border:1px solid #ddd}}
-tr:nth-child(even){{background:#f8f9fa}}
-pre{{background:#f5f5f5;padding:5px 8px;margin:3px 0;font-size:7.5pt;line-height:1.25;overflow-x:auto;white-space:pre-wrap}}
-code{{background:#eee;padding:0 2px;font-family:Monaco,monospace;font-size:7.5pt}}
-pre code{{background:none;padding:0}}
-blockquote{{background:#f0f7ff;padding:5px 10px;margin:4px 0}}
-ul,ol{{padding-left:18px;margin:3px 0}}
-li{{margin:1px 0}}
-hr{{border:none;border-top:1px solid #ddd;margin:8px 0}}
-a{{color:#3498db;text-decoration:none}}
-.mermaid{{margin:8px 0;text-align:center}}
-.mermaid svg{{max-width:100%}}
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+* {{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}}
+
+:root {{
+    /* Color Palette */
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --primary-light: #3b82f6;
+    --secondary: #7c3aed;
+    --accent: #06b6d4;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    
+    /* Neutral Colors */
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    
+    /* Text */
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-inverse: #ffffff;
+    
+    /* Backgrounds */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    
+    /* Borders */
+    --border-color: #e5e7eb;
+    --border-radius: 8px;
+    --border-radius-sm: 4px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    /* Typography */
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    
+    /* Layout */
+    --sidebar-width: 280px;
+    --content-max-width: 1200px;
+    --header-height: 64px;
+}}
+
+html {{
+    scroll-behavior: smooth;
+    font-size: 16px;
+}}
+
+body {{
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--text-inverse);
+    box-shadow: var(--shadow-md);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--spacing-xl);
+}}
+
+.header-title {{
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}}
+
+.header-meta {{
+    margin-left: auto;
+    font-size: 0.875rem;
+    opacity: 0.9;
+}}
+
+/* ============================================
+   SIDEBAR NAVIGATION
+   ============================================ */
+.sidebar {{
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height));
+    background: var(--bg-primary);
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+}}
+
+.sidebar-title {{
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+}}
+
+.nav-list {{
+    list-style: none;
+}}
+
+.nav-item {{
+    margin-bottom: var(--spacing-xs);
+}}
+
+.nav-link {{
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: var(--border-radius-sm);
+    transition: all 0.2s ease;
+    font-size: 0.925rem;
+}}
+
+.nav-link:hover {{
+    background: var(--bg-tertiary);
+    color: var(--primary);
+    transform: translateX(4px);
+}}
+
+.nav-link.active {{
+    background: var(--primary);
+    color: var(--text-inverse);
+    font-weight: 600;
+}}
+
+.nav-item-sub {{
+    margin-left: var(--spacing-md);
+    margin-top: var(--spacing-xs);
+}}
+
+.nav-item-sub .nav-link {{
+    font-size: 0.875rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+}}
+
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+.main-content {{
+    margin-left: var(--sidebar-width);
+    margin-top: var(--header-height);
+    padding: var(--spacing-2xl);
+    min-height: calc(100vh - var(--header-height));
+}}
+
+.content-wrapper {{
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    background: var(--bg-primary);
+    padding: var(--spacing-2xl);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+}}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1, h2, h3, h4, h5, h6 {{
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.025em;
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+    color: var(--gray-900);
+}}
+
+h1 {{
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: var(--spacing-md);
+    border-bottom: 3px solid var(--primary);
+    margin-top: 0;
+}}
+
+h2 {{
+    font-size: 2rem;
+    color: var(--primary-dark);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--gray-200);
+    margin-top: var(--spacing-2xl);
+}}
+
+h3 {{
+    font-size: 1.5rem;
+    color: var(--gray-800);
+}}
+
+h4 {{
+    font-size: 1.25rem;
+    color: var(--gray-700);
+}}
+
+p {{
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+}}
+
+strong {{
+    font-weight: 600;
+    color: var(--gray-900);
+}}
+
+em {{
+    font-style: italic;
+    color: var(--text-secondary);
+}}
+
+a {{
+    color: var(--primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
+}}
+
+a:hover {{
+    color: var(--primary-dark);
+    border-bottom-color: var(--primary-dark);
+}}
+
+/* ============================================
+   TABLES
+   ============================================ */
+table {{
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-xl) 0;
+    background: var(--bg-primary);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}}
+
+thead {{
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}}
+
+th {{
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-inverse);
+}}
+
+td {{
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.925rem;
+}}
+
+tbody tr {{
+    transition: background-color 0.2s ease;
+}}
+
+tbody tr:hover {{
+    background: var(--gray-50);
+}}
+
+tbody tr:nth-child(even) {{
+    background: var(--bg-secondary);
+}}
+
+tbody tr:nth-child(even):hover {{
+    background: var(--gray-100);
+}}
+
+/* ============================================
+   CODE BLOCKS
+   ============================================ */
+code {{
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background: var(--gray-100);
+    color: var(--danger);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--gray-200);
+}}
+
+pre {{
+    background: var(--gray-900);
+    color: #e5e7eb;
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    overflow-x: auto;
+    margin: var(--spacing-xl) 0;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    border: 1px solid var(--gray-700);
+}}
+
+pre code {{
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}}
+
+.code-block {{
+    position: relative;
+}}
+
+.code-copy-btn {{
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--gray-700);
+    color: var(--text-inverse);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+}}
+
+.code-copy-btn:hover {{
+    opacity: 1;
+    background: var(--gray-600);
+}}
+
+/* ============================================
+   LISTS
+   ============================================ */
+ul, ol {{
+    margin: var(--spacing-md) 0;
+    padding-left: var(--spacing-xl);
+}}
+
+li {{
+    margin: var(--spacing-sm) 0;
+    line-height: 1.7;
+}}
+
+ul li::marker {{
+    color: var(--primary);
+}}
+
+ol li::marker {{
+    color: var(--primary);
+    font-weight: 600;
+}}
+
+/* ============================================
+   BLOCKQUOTES
+   ============================================ */
+blockquote {{
+    margin: var(--spacing-xl) 0;
+    padding: var(--spacing-lg);
+    background: linear-gradient(to right, var(--primary), transparent);
+    background-size: 4px 100%;
+    background-repeat: no-repeat;
+    background-position: left;
+    background-color: var(--bg-secondary);
+    border-left: 4px solid var(--primary);
+    border-radius: var(--border-radius-sm);
+    font-style: italic;
+    color: var(--text-secondary);
+}}
+
+/* ============================================
+   HORIZONTAL RULE
+   ============================================ */
+hr {{
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--border-color), transparent);
+    margin: var(--spacing-2xl) 0;
+}}
+
+/* ============================================
+   MERMAID DIAGRAMS
+   ============================================ */
+.mermaid {{
+    margin: var(--spacing-2xl) 0;
+    text-align: center;
+    background: var(--bg-secondary);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}}
+
+.mermaid svg {{
+    max-width: 100%;
+    height: auto;
+}}
+
+/* ============================================
+   BADGES & LABELS
+   ============================================ */
+.badge {{
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}}
+
+.badge-primary {{
+    background: var(--primary);
+    color: var(--text-inverse);
+}}
+
+.badge-success {{
+    background: var(--success);
+    color: var(--text-inverse);
+}}
+
+.badge-warning {{
+    background: var(--warning);
+    color: var(--gray-900);
+}}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+.text-center {{
+    text-align: center;
+}}
+
+.text-muted {{
+    color: var(--text-secondary);
+    font-size: 0.925rem;
+}}
+
+.mt-lg {{
+    margin-top: var(--spacing-xl);
+}}
+
+.mb-lg {{
+    margin-bottom: var(--spacing-xl);
+}}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {{
+    .header, .sidebar {{
+        display: none;
+    }}
+    
+    .main-content {{
+        margin-left: 0;
+        margin-top: 0;
+        padding: 0;
+    }}
+    
+    .content-wrapper {{
+        box-shadow: none;
+        max-width: 100%;
+    }}
+    
+    h2 {{
+        page-break-after: avoid;
+    }}
+    
+    table, pre, .mermaid {{
+        page-break-inside: avoid;
+    }}
+}}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 1024px) {{
+    .sidebar {{
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }}
+    
+    .sidebar.open {{
+        transform: translateX(0);
+    }}
+    
+    .main-content {{
+        margin-left: 0;
+    }}
+    
+    :root {{
+        --spacing-xl: 1.5rem;
+        --spacing-2xl: 2rem;
+    }}
+}}
+
+@media (max-width: 768px) {{
+    .header {{
+        padding: 0 var(--spacing-md);
+    }}
+    
+    .header-title {{
+        font-size: 1.25rem;
+    }}
+    
+    .main-content {{
+        padding: var(--spacing-md);
+    }}
+    
+    .content-wrapper {{
+        padding: var(--spacing-lg);
+    }}
+    
+    h1 {{
+        font-size: 2rem;
+    }}
+    
+    h2 {{
+        font-size: 1.5rem;
+    }}
+    
+    table {{
+        font-size: 0.875rem;
+    }}
+    
+    th, td {{
+        padding: var(--spacing-sm) var(--spacing-md);
+    }}
+}}
 </style>
-<script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+
+<!-- Mermaid.js for diagram rendering -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </head>
 <body>
-{content}
-<script>mermaid.initialize({{startOnLoad:true,theme:'default'}});</script>
-</body>
-</html>'''
+
+<!-- Header -->
+<header class="header">
+    <div class="header-title">📚 {project_name} Documentation</div>
+    <div class="header-meta">Generated: {current_date}</div>
+</header>
+
+<!-- Sidebar Navigation -->
+<nav class="sidebar">
+    <div class="sidebar-title">Table of Contents</div>
+    {toc_html}
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+    <div class="content-wrapper">
+        {content}
+    </div>
+</main>
+
+<!-- Scripts -->
+<script>
+// Initialize Mermaid
+mermaid.initialize({{
+    startOnLoad: true,
+    theme: 'default',
+    securityLevel: 'loose',
+    fontFamily: 'var(--font-sans)',
+}});
+
+// Smooth scrolling for navigation
+document.querySelectorAll('.nav-link').forEach(link => {{
+    link.addEventListener('click', function(e) {{
+        e.preventDefault();
+        const targetId = this.getAttribute('href').slice(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {{
+            targetElement.scrollIntoView({{
+                behavior: 'smooth',
+                block: 'start'
+            }});
+            
+            // Update active link
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        }}
+    }});
+}});
+
+// Add copy buttons to code blocks
+document.querySelectorAll('pre code').forEach(block => {{
+    const pre = block.parentElement;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'code-block';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+    
+    const button = document.createElement('button');
+    button.className = 'code-copy-btn';
+    button.textContent = 'Copy';
+    button.addEventListener('click', () => {{
+        navigator.clipboard.writeText(block.textContent);
+        button.textContent = 'Copied!';
+        setTimeout(() => button.textContent = 'Copy', 2000);
+    }});
+    wrapper.appendChild(button);
+}});
+
+// Highlight current section in navigation
+const observerOptions = {{
+    root: null,
+    rootMargin: '-20% 0px -70% 0px',
+    threshold: 0
+}};
+
+const observer = new IntersectionObserver(entries => {{
+    entries.forEach(entry => {{
+        if (entry.isIntersecting) {{
+            const id = entry.target.getAttribute('id');
+            document.querySelectorAll('.nav-link').forEach(link => {{
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${{id}}`) {{
+                    link.classList.add('active');
+                }}
+            }});
+        }}
+    }});
+}}, observerOptions);
+
+document.querySelectorAll('h2[id], h3[id]').forEach(heading => {{
+    observer.observe(heading);
+}});
+</script>
+
 
 
 # =============================================================================
@@ -424,8 +1075,7 @@ def convert_markdown_to_html(md_text: str) -> str:
     """Convert Markdown to HTML with proper mermaid handling.
     
     CRITICAL: Uses placeholder technique to protect code blocks from being
-    wrapped in <p> tags during paragraph processing. This prevents the
-    "Syntax error in text" issue with mermaid diagrams.
+    wrapped in <p> tags during paragraph processing.
     
     Flow:
     1. Extract mermaid blocks -> replace with <!--MERMAID_N--> placeholders
@@ -436,8 +1086,7 @@ def convert_markdown_to_html(md_text: str) -> str:
     """
     html = md_text
     
-    # STEP 1: Extract mermaid blocks FIRST - protect from paragraph wrapping
-    # This is CRITICAL - if mermaid code gets wrapped in <p> tags, it breaks
+    # STEP 1: Extract mermaid blocks FIRST
     mermaid_blocks = []
     def save_mermaid(m):
         code = m.group(1).strip()
@@ -449,21 +1098,33 @@ def convert_markdown_to_html(md_text: str) -> str:
     # STEP 2: Extract other code blocks
     code_blocks = []
     def save_code_block(m):
+        lang = m.group(1) or ''
         code = m.group(2)
         code = code.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
         idx = len(code_blocks)
-        code_blocks.append(f'<pre><code>{code}</code></pre>')
+        code_blocks.append(f'<pre><code class="language-{lang}">{code}</code></pre>')
         return f'<!--CODE_{idx}-->'
     html = re.sub(r'```(\\w*)\\n(.*?)\\n```', save_code_block, html, flags=re.DOTALL)
     
     # STEP 3: Process other markdown elements
-    html = re.sub(r'`([^`]+)`', r'<code>\\1</code>', html)  # Inline code
-    html = re.sub(r'^### (.+)$', r'<h3>\\1</h3>', html, flags=re.MULTILINE)
-    html = re.sub(r'^## (.+)$', r'<h2>\\1</h2>', html, flags=re.MULTILINE)
+    
+    # Inline code
+    html = re.sub(r'`([^`]+)`', r'<code>\\1</code>', html)
+    
+    # Headers (must go from h3 to h1 to avoid h1 matching h2)
+    html = re.sub(r'^#### (.+)$', r'<h4 id="\\1">\\1</h4>', html, flags=re.MULTILINE)
+    html = re.sub(r'^### (.+)$', lambda m: f'<h3 id="{m.group(1).lower().replace(" ", "-")}">{m.group(1)}</h3>', html, flags=re.MULTILINE)
+    html = re.sub(r'^## (.+)$', lambda m: f'<h2 id="{m.group(1).lower().replace(" ", "-")}">{m.group(1)}</h2>', html, flags=re.MULTILINE)
     html = re.sub(r'^# (.+)$', r'<h1>\\1</h1>', html, flags=re.MULTILINE)
+    
+    # Horizontal rules
     html = re.sub(r'^---+$', '<hr/>', html, flags=re.MULTILINE)
+    
+    # Bold and italic
     html = re.sub(r'\\*\\*(.+?)\\*\\*', r'<strong>\\1</strong>', html)
     html = re.sub(r'\\*(.+?)\\*', r'<em>\\1</em>', html)
+    
+    # Links
     html = re.sub(r'\\[([^\\]]+)\\]\\(([^)]+)\\)', r'<a href="\\2">\\1</a>', html)
     
     # Blockquotes
@@ -478,6 +1139,8 @@ def convert_markdown_to_html(md_text: str) -> str:
         table_text = m.group(0).strip()
         lines = [l.strip() for l in table_text.split('\\n') 
                  if l.strip() and not re.match(r'^\\|[-:\\s|]+\\|$', l)]
+        if not lines:
+            return ''
         result = '<table>'
         for i, line in enumerate(lines):
             cells = [c.strip() for c in line.strip('|').split('|')]
@@ -488,18 +1151,19 @@ def convert_markdown_to_html(md_text: str) -> str:
         return result
     html = re.sub(r'(?:^\\|.+\\|$\\n?)+', replace_table, html, flags=re.MULTILINE)
     
-    # Lists
+    # Unordered lists
     def replace_ul(m):
-        items = re.findall(r'^[-*] (.+)$', m.group(0), flags=re.MULTILINE)
+        items = re.findall(r'^[-*+] (.+)$', m.group(0), flags=re.MULTILINE)
         return '<ul>' + ''.join(f'<li>{item}</li>' for item in items) + '</ul>'
-    html = re.sub(r'(?:^[-*] .+$\\n?)+', replace_ul, html, flags=re.MULTILINE)
+    html = re.sub(r'(?:^[-*+] .+$\\n?)+', replace_ul, html, flags=re.MULTILINE)
     
+    # Ordered lists
     def replace_ol(m):
         items = re.findall(r'^\\d+\\. (.+)$', m.group(0), flags=re.MULTILINE)
         return '<ol>' + ''.join(f'<li>{item}</li>' for item in items) + '</ol>'
     html = re.sub(r'(?:^\\d+\\. .+$\\n?)+', replace_ol, html, flags=re.MULTILINE)
     
-    # STEP 4: Wrap plain text in <p> tags (skip placeholders and existing tags)
+    # STEP 4: Wrap plain text in <p> tags
     lines = html.split('\\n')
     result = []
     for line in lines:
@@ -520,202 +1184,219 @@ def convert_markdown_to_html(md_text: str) -> str:
     for i, block in enumerate(code_blocks):
         html = html.replace(f'<!--CODE_{i}-->', block)
     
-    # Clean up empty paragraphs
+    # Clean up
     html = re.sub(r'<p>\\s*</p>', '', html)
     html = re.sub(r'\\n{3,}', '\\n\\n', html)
     
     return html
 
 
-# =============================================================================
-# PDF GENERATION
-# =============================================================================
-def generate_pdf(html_path, pdf_path):
-    """Generate single-page PDF using Selenium + Chrome DevTools Protocol.
+def generate_toc(md_text: str) -> str:
+    """Generate table of contents HTML from markdown headers."""
+    toc_items = []
+    h2_pattern = r'^## (.+)$'
+    h3_pattern = r'^### (.+)$'
     
-    CRITICAL IMPLEMENTATION NOTES:
+    lines = md_text.split('\\n')
+    for line in lines:
+        h2_match = re.match(h2_pattern, line)
+        h3_match = re.match(h3_pattern, line)
+        
+        if h2_match:
+            title = h2_match.group(1)
+            anchor = title.lower().replace(' ', '-')
+            toc_items.append(f'<li class="nav-item"><a href="#{anchor}" class="nav-link">{title}</a></li>')
+        elif h3_match:
+            title = h3_match.group(1)
+            anchor = title.lower().replace(' ', '-')
+            toc_items.append(f'<li class="nav-item nav-item-sub"><a href="#{anchor}" class="nav-link">{title}</a></li>')
     
-    1. WINDOW SIZE: Set browser width to match paper width (8.5in * 96dpi = 816px)
-       This ensures the content height measurement matches the print layout.
-    
-    2. MERMAID WAIT: Must wait for mermaid.js to render all diagrams to SVG.
-       Poll for SVG elements inside .mermaid divs, timeout after 15 seconds.
-    
-    3. HEIGHT CALCULATION: Chrome print uses 96 DPI. Content height in pixels
-       divided by 96 gives inches. Use document.body.scrollHeight.
-    
-    4. BLANK PAGE REMOVAL: Chrome often generates a second blank page even with
-       exact height calculations. Use PyPDF2 post-processing to detect and
-       remove pages with minimal text content (<100 chars).
-    
-    5. MARGINS: Set all PDF margins to 0 and use CSS padding instead.
-       This prevents margin accumulation creating overflow.
-    """
-    from selenium import webdriver
-    from selenium.webdriver.chrome.options import Options
-    
-    options = Options()
-    options.add_argument('--headless=new')
-    options.add_argument('--disable-gpu')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    
-    driver = webdriver.Chrome(options=options)
-    
-    try:
-        # Set window width to match paper width for accurate height measurement
-        # 8.5 inches * 96 DPI = 816 pixels
-        driver.set_window_size(816, 600)
-        
-        file_url = 'file:///' + str(Path(html_path).resolve()).replace('\\\\', '/')
-        driver.get(file_url)
-        
-        print("⏳ Waiting for diagrams to render...")
-        time.sleep(3)
-        
-        # Wait for all mermaid diagrams to render to SVG
-        mermaid_count = driver.execute_script(
-            "return document.getElementsByClassName('mermaid').length;"
-        )
-        if mermaid_count > 0:
-            for _ in range(30):  # Wait up to 15 seconds
-                svg_count = driver.execute_script(
-                    "return document.querySelectorAll('.mermaid svg').length;"
-                )
-                if svg_count >= mermaid_count:
-                    break
-                time.sleep(0.5)
-            time.sleep(2)  # Extra time for SVG finalization
-        
-        # Measure content height for print layout
-        height_px = driver.execute_script("""
-            // Force print media for accurate measurement
-            let style = document.createElement('style');
-            style.textContent = '@media print { body { height: auto !important; } }';
-            document.head.appendChild(style);
-            
-            // Get the actual bounding box of body content
-            let body = document.body;
-            let rect = body.getBoundingClientRect();
-            let lastChild = body.lastElementChild;
-            while (lastChild && lastChild.offsetHeight === 0) {
-                lastChild = lastChild.previousElementSibling;
-            }
-            let lastRect = lastChild ? lastChild.getBoundingClientRect() : rect;
-            return lastRect.bottom + 10;  // Add small padding
-        """)
-        
-        # Convert pixels to inches (Chrome uses 96 DPI)
-        height_in = height_px / 96.0
-        print(f"📐 Content: {height_px:.0f}px = {height_in:.1f}in")
-        
-        # Generate PDF with zero margins (CSS handles padding)
-        result = driver.execute_cdp_cmd('Page.printToPDF', {
-            'paperWidth': 8.5,
-            'paperHeight': height_in,
-            'printBackground': True,
-            'marginTop': 0,
-            'marginBottom': 0,
-            'marginLeft': 0,
-            'marginRight': 0,
-            'scale': 1.0,
-        })
-        
-        pdf_bytes = base64.b64decode(result['data'])
-        
-        # POST-PROCESSING: Remove blank second page if present
-        # Chrome's PDF generator often creates a blank trailing page
-        try:
-            from PyPDF2 import PdfReader, PdfWriter
-            import io
-            
-            reader = PdfReader(io.BytesIO(pdf_bytes))
-            
-            # If there are exactly 2 pages, check if second is mostly blank
-            if len(reader.pages) == 2:
-                second_page = reader.pages[1]
-                text = (second_page.extract_text() or "").strip()
-                # Second page with <100 chars is likely just footer bleed
-                if len(text) < 100:
-                    writer = PdfWriter()
-                    writer.add_page(reader.pages[0])
-                    print("📄 Removed blank second page")
-                    output = io.BytesIO()
-                    writer.write(output)
-                    pdf_bytes = output.getvalue()
-        except ImportError:
-            print("⚠️ PyPDF2 not installed - skipping blank page removal")
-        
-        Path(pdf_path).write_bytes(pdf_bytes)
-        print(f"✅ PDF generated: {pdf_path}")
-        return True
-        
-    except Exception as e:
-        print(f"❌ PDF generation failed: {e}")
-        return False
-    finally:
-        driver.quit()
+    return '<ul class="nav-list">' + '\\n'.join(toc_items) + '</ul>'
 
 
 # =============================================================================
 # MAIN ENTRY POINT
 # =============================================================================
 def main():
+    """Generate professional HTML documentation from markdown."""
     docs_dir = Path(__file__).parent
-    md_file = docs_dir / "{project_name}_documentation.md"
-    html_file = docs_dir / "{project_name}_documentation.html"
-    pdf_file = docs_dir / "{project_name}_documentation.pdf"
+    project_name = "{project_name}"  # Replace with actual project name
+    md_file = docs_dir / f"{project_name}_documentation.md"
+    html_file = docs_dir / f"{project_name}_documentation.html"
     
     if not md_file.exists():
-        print(f"❌ Not found: {md_file}")
+        print(f"❌ Markdown file not found: {md_file}")
         return
     
-    print(f"📄 Converting {md_file.name}...")
-    md_text = md_file.read_text(encoding='utf-8')
-    html_content = convert_markdown_to_html(md_text)
-    full_html = HTML_TEMPLATE.format(content=html_content)
-    html_file.write_text(full_html, encoding='utf-8')
-    print(f"✅ HTML: {html_file}")
+    print(f"📄 Converting {md_file.name} to professional HTML...")
     
-    print("📑 Generating PDF...")
-    generate_pdf(html_file, pdf_file)
+    # Read markdown content
+    md_text = md_file.read_text(encoding='utf-8')
+    
+    # Generate HTML components
+    content_html = convert_markdown_to_html(md_text)
+    toc_html = generate_toc(md_text)
+    current_date = datetime.now().strftime('%B %d, %Y')
+    
+    # Assemble final HTML
+    full_html = HTML_TEMPLATE.format(
+        project_name=project_name,
+        current_date=current_date,
+        toc_html=toc_html,
+        content=content_html
+    )
+    
+    # Write HTML file
+    html_file.write_text(full_html, encoding='utf-8')
+    print(f"✅ HTML generated successfully!")
+    print(f"📂 Output: {html_file}")
+    print(f"\\n🌐 Open in browser to view rendered documentation with:")
+    print(f"   - Interactive navigation sidebar")
+    print(f"   - Rendered Mermaid diagrams")
+    print(f"   - Professional styling and animations")
+    print(f"   - Copy-to-clipboard for code blocks")
 
 
 if __name__ == "__main__":
     main()
 ```
 
-### Key Implementation Notes
+### Key Features of the New HTML Export
 
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| Mermaid shows "Syntax error" | Code blocks wrapped in `<p>` tags | Use placeholders (`<!--MERMAID_0-->`) during parsing, restore after |
-| Multiple pages in PDF | Chrome creates blank trailing page | Use PyPDF2 to detect and remove pages with <100 chars |
-| Content height mismatch | Browser width ≠ paper width | Set window to 816px (8.5in × 96dpi) before measuring |
-| Tables cut off | Page too narrow | Use 8.5" width with CSS padding (not PDF margins) |
-| Code blocks look boxed | Borders on `<pre>` | Remove borders, use light background only |
-| Blank second page | Height calculation includes extra space | Post-process with PyPDF2 to remove blank pages |
+| Feature | Description | Benefit |
+|---------|-------------|---------|
+| **Fixed Sidebar** | Navigation stays visible while scrolling | Quick access to any section |
+| **Gradient Headers** | Modern gradient backgrounds on h1 and table headers | Professional, eye-catching design |
+| **Hover Effects** | Tables, links, and buttons respond to hover | Enhanced interactivity |
+| **Copy Buttons** | One-click code copying | Developer convenience |
+| **Active Highlighting** | Current section highlighted in navigation | Context awareness |
+| **Smooth Scrolling** | Animated transitions between sections | Polished user experience |
+| **Responsive Design** | Adapts to mobile, tablet, desktop | Works on any device |
+| **Print Optimization** | Clean print layout without navigation | Easy to print/share |
+| **Mermaid Rendering** | Diagrams render automatically on page load | Visual clarity |
+| **Professional Color Scheme** | Blues, grays, strategic accents | Corporate/technical aesthetic |
+### Usage Examples
 
-### Execution Workflow
+#### Basic Usage
 
+```bash
+# 1. Generate markdown documentation using the agent
+# (Agent creates {project_name}_documentation.md)
+
+# 2. Convert to professional HTML
+python docs/export_html.py
+
+# 3. Open in browser
+open docs/{project_name}_documentation.html
 ```
-STEP 1: Read markdown file
-STEP 2: Extract mermaid/code blocks → replace with placeholders
-STEP 3: Convert remaining markdown to HTML  
-STEP 4: Restore mermaid/code blocks from placeholders
-STEP 5: Wrap in HTML template with CSS + mermaid.js
-STEP 6: Open in headless Chrome (set window width = paper width)
-STEP 7: Wait for mermaid SVG rendering (up to 15s)
-STEP 8: Calculate content height, generate PDF
-STEP 9: Post-process: remove blank second page with PyPDF2
+
+#### Customization
+
+```python
+# Modify color scheme in HTML_TEMPLATE
+:root {
+    --primary: #your-color;        # Change primary brand color
+    --primary-dark: #your-dark;    # Change darker variant
+}
+
+# Adjust sidebar width
+:root {
+    --sidebar-width: 320px;        # Make sidebar wider
+}
+
+# Change header height
+:root {
+    --header-height: 80px;         # Make header taller
+}
 ```
+
+#### Integration with CI/CD
+
+```yaml
+# .github/workflows/docs.yml
+name: Generate Documentation
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Generate Documentation
+        run: |
+          # Run documentation agent
+          # python generate_docs.py
+          # Convert to HTML
+          python docs/export_html.py
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+```
+
+### Best Practices
+
+| Practice | Rationale | Example |
+|----------|-----------|---------|
+| **Version Control** | Track changes to markdown, not HTML | `.gitignore` HTML files, commit markdown |
+| **Regenerate HTML** | Always regenerate from markdown source | Automate with pre-commit hooks |
+| **Test Mermaid Syntax** | Validate diagrams before publishing | Use Mermaid Live Editor |
+| **Optimize Images** | Use SVG for diagrams, optimize PNGs | Keep total size < 10MB |
+| **Mobile Testing** | Check responsive behavior | Test on 320px, 768px, 1024px widths |
+| **Accessibility** | Use semantic HTML, ARIA labels | Run Lighthouse audit |
 
 ### Troubleshooting
 
 | Symptom | Diagnosis | Fix |
 |---------|-----------|-----|
-| "Syntax error in text" in mermaid | Mermaid code wrapped in `<p>` tags | Ensure placeholder technique is used correctly |
-| Two pages with second blank | Height calc overflow | Install PyPDF2 for automatic removal |
-| Diagrams not appearing | SVG not rendered before PDF | Increase wait time or check mermaid.js loads |
-| Content cut off on right | Window width too small | Verify `driver.set_window_size(816, 600)` |
-| Missing styles in PDF | `printBackground: False` | Ensure `printBackground: True` in CDP call |
+| Mermaid diagrams not rendering | JavaScript not loading | Check internet connection, mermaid.js CDN |
+| Navigation not working | Missing IDs on headers | Ensure `generate_toc()` creates proper anchors |
+| Sidebar overlaps content | Wrong margin calculation | Adjust `--sidebar-width` in CSS |
+| Copy button not appearing | JavaScript error | Check browser console for errors |
+| Mobile layout broken | Viewport meta tag missing | Ensure `<meta name="viewport">` is present |
+| Slow page load | Too many diagrams | Consider lazy loading for large docs |
+
+---
+
+## EXECUTION WORKFLOW SUMMARY
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ DOCUMENTATION GENERATION WORKFLOW                           │
+└─────────────────────────────────────────────────────────────┘
+
+PHASE 1: ANALYZE PROJECT
+├─ Scan directory structure
+├─ Identify tech stack & frameworks  
+├─ Classify project type & complexity
+└─ Extract metadata (version, dependencies)
+
+PHASE 2: GENERATE MARKDOWN
+├─ Create documentation structure
+├─ Generate applicable diagrams (Mermaid)
+├─ Document APIs, configs, CLI commands
+└─ Write: {project_name}_documentation.md
+
+PHASE 3: CONVERT TO HTML
+├─ Run: python docs/export_html.py
+├─ Parse markdown → HTML with placeholders
+├─ Generate table of contents
+├─ Inject professional CSS & JavaScript
+└─ Output: {project_name}_documentation.html
+
+PHASE 4: DEPLOY & SHARE
+├─ Open in browser for review
+├─ Deploy to GitHub Pages (optional)
+└─ Share HTML file with stakeholders
+```
+
+---
+
+*Documentation Agent v1.2.0 - Professional HTML Export Edition*
