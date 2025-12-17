@@ -1,0 +1,1119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="generator" content="Documentation Generator v1.2"/>
+<title>document_project - Technical Documentation</title>
+<style>
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Color Palette */
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --primary-light: #3b82f6;
+    --secondary: #7c3aed;
+    --accent: #06b6d4;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    
+    /* Neutral Colors */
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    
+    /* Text */
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-inverse: #ffffff;
+    
+    /* Backgrounds */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    
+    /* Borders */
+    --border-color: #e5e7eb;
+    --border-radius: 8px;
+    --border-radius-sm: 4px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    /* Typography */
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    
+    /* Layout */
+    --sidebar-width: 280px;
+    --content-max-width: 1200px;
+    --header-height: 64px;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--text-inverse);
+    box-shadow: var(--shadow-md);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--spacing-xl);
+}
+
+.header-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-meta {
+    margin-left: auto;
+    font-size: 0.875rem;
+    opacity: 0.9;
+}
+
+/* ============================================
+   SIDEBAR NAVIGATION
+   ============================================ */
+.sidebar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height));
+    background: var(--bg-primary);
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.sidebar-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.nav-list {
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: var(--spacing-xs);
+}
+
+.nav-link {
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: var(--border-radius-sm);
+    transition: all 0.2s ease;
+    font-size: 0.925rem;
+}
+
+.nav-link:hover {
+    background: var(--bg-tertiary);
+    color: var(--primary);
+    transform: translateX(4px);
+}
+
+.nav-link.active {
+    background: var(--primary);
+    color: var(--text-inverse);
+    font-weight: 600;
+}
+
+.nav-item-sub {
+    margin-left: var(--spacing-md);
+    margin-top: var(--spacing-xs);
+}
+
+.nav-item-sub .nav-link {
+    font-size: 0.875rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+.main-content {
+    margin-left: var(--sidebar-width);
+    margin-top: var(--header-height);
+    padding: var(--spacing-2xl);
+    min-height: calc(100vh - var(--header-height));
+}
+
+.content-wrapper {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    background: var(--bg-primary);
+    padding: var(--spacing-2xl);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.025em;
+    margin-top: var(--spacing-2xl);
+    margin-bottom: var(--spacing-lg);
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--spacing-xl);
+}
+
+h2 {
+    font-size: 1.875rem;
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: var(--spacing-md);
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--primary-dark);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--gray-800);
+}
+
+p {
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.8;
+}
+
+strong {
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+em {
+    color: var(--secondary);
+    font-style: italic;
+}
+
+/* ============================================
+   CODE & PREFORMATTED
+   ============================================ */
+code {
+    font-family: var(--font-mono);
+    background: var(--bg-tertiary);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--border-radius-sm);
+    color: var(--danger);
+    font-size: 0.9em;
+}
+
+pre {
+    background: var(--gray-900);
+    color: var(--gray-100);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    overflow-x: auto;
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+}
+
+pre code {
+    background: none;
+    color: var(--gray-100);
+    padding: 0;
+    border-radius: 0;
+}
+
+.code-block {
+    position: relative;
+    margin-bottom: var(--spacing-lg);
+}
+
+.code-copy-btn {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.code-copy-btn:hover {
+    background: var(--primary);
+    transform: scale(1.05);
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+table thead {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--text-inverse);
+}
+
+table th {
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-align: left;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+}
+
+table td {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+table tbody tr:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+table tbody tr:hover {
+    background: var(--gray-200);
+    transition: background 0.2s ease;
+}
+
+table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ============================================
+   LISTS
+   ============================================ */
+ul, ol {
+    margin-left: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
+}
+
+ul li, ol li {
+    margin-bottom: var(--spacing-md);
+}
+
+ul li {
+    list-style-type: disc;
+}
+
+ol li {
+    list-style-type: decimal;
+}
+
+/* ============================================
+   BLOCKQUOTES
+   ============================================ */
+blockquote {
+    border-left: 4px solid var(--accent);
+    padding-left: var(--spacing-lg);
+    margin-left: 0;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* ============================================
+   LINKS
+   ============================================ */
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid transparent;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    border-bottom-color: var(--primary);
+}
+
+/* ============================================
+   HORIZONTAL RULE
+   ============================================ */
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+    margin: var(--spacing-2xl) 0;
+}
+
+/* ============================================
+   MERMAID DIAGRAMS
+   ============================================ */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    background: var(--bg-secondary);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 768px) {
+    :root {
+        --sidebar-width: 0;
+        --header-height: 64px;
+    }
+    
+    .sidebar {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: var(--spacing-lg);
+    }
+    
+    .content-wrapper {
+        padding: var(--spacing-lg);
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.25rem;
+    }
+    
+    table {
+        font-size: 0.875rem;
+    }
+    
+    th, td {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+    .header, .sidebar {
+        display: none;
+    }
+    
+    .main-content {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .content-wrapper {
+        box-shadow: none;
+        padding: 0;
+    }
+    
+    a {
+        color: var(--text-primary);
+        border: none;
+    }
+    
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+    
+    table {
+        page-break-inside: avoid;
+    }
+}
+
+/* ============================================
+   DARK MODE (Optional)
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-primary: #f3f4f6;
+        --text-secondary: #d1d5db;
+        --bg-primary: #1f2937;
+        --bg-secondary: #111827;
+        --bg-tertiary: #374151;
+        --border-color: #4b5563;
+    }
+    
+    body {
+        background: var(--bg-secondary);
+    }
+    
+    table tbody tr:nth-child(even) {
+        background: var(--gray-800);
+    }
+    
+    table tbody tr:hover {
+        background: var(--gray-700);
+    }
+    
+    code {
+        background: var(--gray-800);
+        color: var(--accent);
+    }
+}
+</style>
+
+<!-- Mermaid.js for diagram rendering -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-title">📚 document_project</div>
+    <div class="header-meta">Generated: December 16, 2025</div>
+</header>
+
+<!-- Sidebar Navigation -->
+<nav class="sidebar">
+    <div class="sidebar-title">Table of Contents</div>
+    <ul class="nav-list"><li class="nav-item"><a href="#overview" class="nav-link">Overview</a></li>
+<li class="nav-item"><a href="#quick-start" class="nav-link">Quick Start</a></li>
+<li class="nav-item nav-item-sub"><a href="#1.-basic-usage" class="nav-link">1. Basic Usage</a></li>
+<li class="nav-item nav-item-sub"><a href="#2.-what-gets-generated" class="nav-link">2. What Gets Generated</a></li>
+<li class="nav-item nav-item-sub"><a href="#3.-process-timeline" class="nav-link">3. Process Timeline</a></li>
+<li class="nav-item"><a href="#how-it-works" class="nav-link">How It Works</a></li>
+<li class="nav-item nav-item-sub"><a href="#phase-1:-project-classification" class="nav-link">PHASE 1: PROJECT CLASSIFICATION</a></li>
+<li class="nav-item nav-item-sub"><a href="#phase-2:-adaptive-documentation-structure" class="nav-link">PHASE 2: ADAPTIVE DOCUMENTATION STRUCTURE</a></li>
+<li class="nav-item nav-item-sub"><a href="#phase-3:-diagram-generation" class="nav-link">PHASE 3: DIAGRAM GENERATION</a></li>
+<li class="nav-item nav-item-sub"><a href="#phase-4:-configuration-&-api-documentation" class="nav-link">PHASE 4: CONFIGURATION & API DOCUMENTATION</a></li>
+<li class="nav-item nav-item-sub"><a href="#phase-5:-html-export-&-cleanup" class="nav-link">PHASE 5: HTML EXPORT & CLEANUP</a></li>
+<li class="nav-item"><a href="#html-features" class="nav-link">HTML Features</a></li>
+<li class="nav-item nav-item-sub"><a href="#professional-styling" class="nav-link">Professional Styling</a></li>
+<li class="nav-item nav-item-sub"><a href="#technical-capabilities" class="nav-link">Technical Capabilities</a></li>
+<li class="nav-item"><a href="#output-format-&-structure" class="nav-link">Output Format & Structure</a></li>
+<li class="nav-item nav-item-sub"><a href="#generated-html-contains" class="nav-link">Generated HTML Contains</a></li>
+<li class="nav-item nav-item-sub"><a href="#file-size-&-performance" class="nav-link">File Size & Performance</a></li>
+<li class="nav-item"><a href="#success-criteria" class="nav-link">SUCCESS CRITERIA</a></li>
+<li class="nav-item"><a href="#configuration-options" class="nav-link">Configuration Options</a></li>
+<li class="nav-item nav-item-sub"><a href="#customizing-the-html-output" class="nav-link">Customizing the HTML Output</a></li>
+<li class="nav-item"><a href="#best-practices" class="nav-link">Best Practices</a></li>
+<li class="nav-item"><a href="#troubleshooting" class="nav-link">Troubleshooting</a></li>
+<li class="nav-item"><a href="#workflow-summary" class="nav-link">Workflow Summary</a></li>
+<li class="nav-item"><a href="#technical-details" class="nav-link">Technical Details</a></li>
+<li class="nav-item nav-item-sub"><a href="#entry-points-&-configuration" class="nav-link">Entry Points & Configuration</a></li>
+<li class="nav-item nav-item-sub"><a href="#component-detection" class="nav-link">Component Detection</a></li>
+<li class="nav-item nav-item-sub"><a href="#diagram-syntax-rules" class="nav-link">Diagram Syntax Rules</a></li>
+<li class="nav-item"><a href="#use-cases" class="nav-link">Use Cases</a></li>
+<li class="nav-item nav-item-sub"><a href="#1.-onboarding-new-developers" class="nav-link">1. Onboarding New Developers</a></li>
+<li class="nav-item nav-item-sub"><a href="#2.-stakeholder-communication" class="nav-link">2. Stakeholder Communication</a></li>
+<li class="nav-item nav-item-sub"><a href="#3.-api-documentation" class="nav-link">3. API Documentation</a></li>
+<li class="nav-item nav-item-sub"><a href="#4.-architecture-review" class="nav-link">4. Architecture Review</a></li>
+<li class="nav-item nav-item-sub"><a href="#5.-compliance-&-audit" class="nav-link">5. Compliance & Audit</a></li>
+<li class="nav-item"><a href="#performance-specifications" class="nav-link">Performance Specifications</a></li>
+<li class="nav-item nav-item-sub"><a href="#generation-time" class="nav-link">Generation Time</a></li>
+<li class="nav-item nav-item-sub"><a href="#output-file-sizes" class="nav-link">Output File Sizes</a></li>
+<li class="nav-item"><a href="#limitations-&-considerations" class="nav-link">Limitations & Considerations</a></li>
+<li class="nav-item nav-item-sub"><a href="#what-works-best" class="nav-link">What Works Best</a></li>
+<li class="nav-item nav-item-sub"><a href="#what-needs-attention" class="nav-link">What Needs Attention</a></li>
+<li class="nav-item"><a href="#support-&-maintenance" class="nav-link">Support & Maintenance</a></li>
+<li class="nav-item nav-item-sub"><a href="#updating-documentation" class="nav-link">Updating Documentation</a></li>
+<li class="nav-item nav-item-sub"><a href="#customizing-generated-docs" class="nav-link">Customizing Generated Docs</a></li>
+<li class="nav-item nav-item-sub"><a href="#validation-checklist" class="nav-link">Validation Checklist</a></li>
+<li class="nav-item"><a href="#version-history" class="nav-link">Version History</a></li>
+<li class="nav-item"><a href="#quick-reference" class="nav-link">Quick Reference</a></li>
+<li class="nav-item nav-item-sub"><a href="#key-commands" class="nav-link">Key Commands</a></li>
+<li class="nav-item nav-item-sub"><a href="#file-structure-after-generation" class="nav-link">File Structure After Generation</a></li>
+<li class="nav-item nav-item-sub"><a href="#css-color-reference" class="nav-link">CSS Color Reference</a></li></ul>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+    <div class="content-wrapper">
+        <h1>Project Documentation Generator Agent</h1>
+
+<blockquote><strong>Version:</strong> 1.2.0 | <strong>Date:</strong> December 16, 2025 | <strong>Status:</strong> Production Ready</blockquote>
+<h2 id="overview">Overview</h2>
+
+<p>The <strong>Project Documentation Generator Agent</strong> is a sophisticated technical documentation architect that automatically generates professional, developer-focused documentation with visual diagrams tailored to actual project complexity and architecture.</p>
+
+<strong>Purpose:</strong> Eliminate manual documentation overhead by analyzing your codebase and producing comprehensive, accurate documentation with Mermaid diagrams automatically rendered in a beautiful, interactive HTML format.
+
+<strong>Key Value:</strong>
+<ul><li>Analyzes actual project files before writing (no generic placeholders)</li><li>Generates diagrams that reflect real component relationships</li><li>Produces a single self-contained HTML file with professional styling</li><li>Auto-cleanup: deletes temporary files after generation</li><li>Requires 0 HTML/CSS knowledge from users</li></ul>
+<hr/>
+
+<h2 id="quick-start">Quick Start</h2>
+
+<h3 id="1.-basic-usage">1. Basic Usage</h3>
+
+<pre><code class="language-bash"># The agent generates markdown documentation
+# Uses your project structure to create accurate docs
+# Converts to interactive HTML automatically
+
+# View the generated HTML in your browser
+open docs/document_project_documentation.html</code></pre>
+
+<h3 id="2.-what-gets-generated">2. What Gets Generated</h3>
+
+<table><tr><th>File</th><th>Purpose</th><th>Duration</th></tr><tr><td><code>{project_name}_documentation.md</code></td><td>Markdown source (temporary)</td><td>Processing phase</td></tr><tr><td><code>docs/export_html.py</code></td><td>HTML conversion script (temporary)</td><td>Processing phase</td></tr><tr><td><code>{project_name}_documentation.html</code></td><td><strong>Final output</strong> (kept)</td><td>Permanent</td></tr></table>
+<h3 id="3.-process-timeline">3. Process Timeline</h3>
+
+<pre><code class="language-">Input: Project Directory
+    ↓
+PHASE 1-2: Analyze &amp; Generate Markdown (5-10 min)
+    ↓
+PHASE 3: Convert to HTML (1-2 min)
+    ↓
+PHASE 4: Auto-Cleanup (temporary files deleted)
+    ↓
+Output: Single HTML file ✨</code></pre>
+
+<hr/>
+
+<h2 id="how-it-works">How It Works</h2>
+
+<h3 id="phase-1:-project-classification">PHASE 1: PROJECT CLASSIFICATION</h3>
+
+<p>The agent classifies your project to tailor the documentation:</p>
+
+<strong>Project Types Detected:</strong>
+<ul><li>CLI Tool → Focus: usage, arguments, exit codes</li><li>Library/SDK → Focus: API reference, integration examples</li><li>Web Application → Focus: routes, components, state management</li><li>API Service → Focus: endpoints, auth, request/response schemas</li><li>Data Pipeline → Focus: stages, transformations, scheduling</li><li>Microservices → Focus: service boundaries, communication patterns</li><li>Desktop App → Focus: UI components, event handling</li><li>DevOps/Infrastructure → Focus: deployment, configuration</li></ul>
+<strong>Complexity Tiers:</strong>
+<ul><li><strong>Simple</strong> (<10 files): Core sections only</li><li><strong>Medium</strong> (10-50 files): Core + Architecture diagrams</li><li><strong>Complex</strong> (50+ files): Full documentation suite with all diagrams</li></ul>
+<h3 id="phase-2:-adaptive-documentation-structure">PHASE 2: ADAPTIVE DOCUMENTATION STRUCTURE</h3>
+
+<p>Documentation is built only with sections applicable to your project:</p>
+
+<h4 id="Core Sections (Always Included)">Core Sections (Always Included)</h4>
+
+<ol><li><strong>Project Overview</strong></li></ol>   - One-sentence description
+<p>- Tech stack detected from codebase</p>
+<p>- Quick start with real commands</p>
+<p>- Purpose and target users</p>
+
+<ol><li><strong>Project Structure</strong></li></ol>   - Actual directory tree (max 3 levels)
+<p>- Purpose table for each directory/file</p>
+<p>- Real paths and descriptions</p>
+
+<ol><li><strong>Architecture Overview</strong></li></ol>   - System architecture diagram (Mermaid)
+<p>- Component relationships</p>
+<p>- Data flow visualization</p>
+
+<h4 id="Conditional Sections (Based on Project Analysis)">Conditional Sections (Based on Project Analysis)</h4>
+
+<table><tr><th>Condition</th><th>Diagram Added</th></tr><tr><td>Has classes/OOP</td><td>Class Diagram</td></tr><tr><td>Has database/models</td><td>ER (Entity-Relationship) Diagram</td></tr><tr><td>Has API endpoints</td><td>API Reference Table + Sequence Diagram</td></tr><tr><td>Has state management</td><td>State Diagram</td></tr><tr><td>Has async/event-driven flow</td><td>Sequence Diagrams for key flows</td></tr><tr><td>Has CI/CD config</td><td>Deployment Pipeline Diagram</td></tr><tr><td>Has multiple services</td><td>Service Communication Diagram</td></tr><tr><td>Has environment vars</td><td>Configuration Reference Table</td></tr><tr><td>Has CLI interface</td><td>Command Reference Table</td></tr></table>
+<h3 id="phase-3:-diagram-generation">PHASE 3: DIAGRAM GENERATION</h3>
+
+<p>All diagrams are generated using <strong>Mermaid</strong> syntax with actual component names from your codebase:</p>
+
+<strong>Diagram Types:</strong>
+<ul><li><strong>System Architecture</strong> - Hierarchical component overview</li><li><strong>Class Diagram</strong> - Object-oriented structure</li><li><strong>Sequence Diagram</strong> - Message flow between components</li><li><strong>ER Diagram</strong> - Database schema relationships</li><li><strong>State Diagram</strong> - Status/state machine flows</li><li><strong>Flowchart</strong> - Complex decision paths</li></ul>
+<strong>Example Architecture Diagram:</strong>
+<div class="mermaid">
+graph TB
+    subgraph "Frontend Layer"
+        UI[React Components]
+    end
+    subgraph "API Layer"
+        Controller[Express Router]
+        Auth[JWT Middleware]
+    end
+    subgraph "Database Layer"
+        DB[(PostgreSQL)]
+    end
+    
+    UI -->|HTTP| Controller
+    Controller -->|verify| Auth
+    Controller -->|query| DB
+    DB -->|data| Controller
+    Controller -->|JSON| UI
+</div>
+
+<h3 id="phase-4:-configuration-&-api-documentation">PHASE 4: CONFIGURATION & API DOCUMENTATION</h3>
+
+<p>For relevant projects, tables are generated for:</p>
+
+<strong>Environment Variables</strong>
+<pre><code class="language-">| Variable | Type | Description | Default | Required |
+|----------|------|-------------|---------|----------|
+| DATABASE_URL | string | PostgreSQL connection string | | Yes |
+| API_PORT | int | Server port | 3000 | No |</code></pre>
+
+<strong>API Endpoints</strong> (for API services)
+<pre><code class="language-">| Method | Endpoint | Auth | Request | Response | Description |
+|--------|----------|------|---------|----------|-------------|
+| POST | /api/users | JWT | User object | User ID | Create user |
+| GET | /api/users/:id | JWT | N/A | User object | Get user by ID |</code></pre>
+
+<strong>CLI Commands</strong> (for CLI tools)
+<pre><code class="language-">| Command | Arguments | Options | Description | Example |
+|---------|-----------|---------|-------------|---------|
+| build | [src] | --output, --format | Build project | build src --output dist |</code></pre>
+
+<h3 id="phase-5:-html-export-&-cleanup">PHASE 5: HTML EXPORT & CLEANUP</h3>
+
+<p>After markdown generation:</p>
+
+<ol><li><strong>Export Script Runs</strong></li></ol>   - Converts Markdown → HTML with embedded Mermaid diagrams
+<p>- Injects professional CSS (gradients, animations, dark mode)</p>
+<p>- Generates interactive sidebar navigation</p>
+<p>- Adds copy-to-clipboard buttons for code blocks</p>
+
+<ol><li><strong>Auto-Cleanup</strong></li></ol>   - ✓ Deletes temporary markdown file
+<p>- ✓ Deletes temporary Python script</p>
+<p>- ✓ Keeps only final HTML file</p>
+
+<ol><li><strong>Final Output</strong></li></ol>   - Single self-contained HTML file
+<p>- No external dependencies (all CSS/JS embedded)</p>
+<p>- Rendered Mermaid diagrams visible immediately</p>
+<p>- Print-friendly layout</p>
+
+<hr/>
+
+<h2 id="html-features">HTML Features</h2>
+
+<h3 id="professional-styling">Professional Styling</h3>
+
+<table><tr><th>Feature</th><th>Description</th></tr><tr><td><strong>Gradient Headers</strong></td><td>Modern blue gradient backgrounds</td></tr><tr><td><strong>Fixed Sidebar</strong></td><td>Always-visible navigation (280px wide)</td></tr><tr><td><strong>Responsive Design</strong></td><td>Works on 320px (mobile) to 4K screens</td></tr><tr><td><strong>Dark Mode Ready</strong></td><td>Optional dark mode toggle</td></tr><tr><td><strong>Smooth Animations</strong></td><td>Hover effects on links, tables, buttons</td></tr><tr><td><strong>Copy Buttons</strong></td><td>One-click code block copying</td></tr><tr><td><strong>Active Highlighting</strong></td><td>Current section highlighted in sidebar</td></tr><tr><td><strong>Professional Colors</strong></td><td>Blues (#2563eb), grays, accent cyan (#06b6d4)</td></tr></table>
+<h3 id="technical-capabilities">Technical Capabilities</h3>
+
+<table><tr><th>Capability</th><th>Benefit</th></tr><tr><td><strong>Mermaid Diagrams</strong></td><td>Renders automatically, no image files needed</td></tr><tr><td><strong>Syntax Highlighting</strong></td><td>Code blocks with language detection</td></tr><tr><td><strong>Responsive Tables</strong></td><td>Hover effects, alternating row colors</td></tr><tr><td><strong>Embedded Fonts</strong></td><td>Works offline, no CDN required</td></tr><tr><td><strong>Print Optimization</strong></td><td>Clean layout without sidebar on paper</td></tr><tr><td><strong>Accessibility</strong></td><td>Semantic HTML, ARIA labels, keyboard navigation</td></tr></table>
+<hr/>
+
+<h2 id="output-format-&-structure">Output Format & Structure</h2>
+
+<h3 id="generated-html-contains">Generated HTML Contains</h3>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;!-- Professional CSS (embedded) --&gt;
+    &lt;!-- Mermaid.js library (CDN) --&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Fixed header with project title --&gt;
+    &lt;!-- Fixed sidebar with table of contents --&gt;
+    &lt;!-- Main content area with:
+      - Project overview
+      - Architecture diagrams (rendered Mermaid)
+      - Code samples with copy buttons
+      - Configuration tables
+      - All diagrams with proper styling
+    --&gt;
+    &lt;!-- JavaScript for:
+      - Smooth scrolling navigation
+      - Copy-to-clipboard functionality
+      - Active section highlighting
+      - Mermaid diagram initialization
+    --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<h3 id="file-size-&-performance">File Size & Performance</h3>
+
+<table><tr><th>Aspect</th><th>Typical Value</th></tr><tr><td>HTML File Size</td><td>150-500 KB (all diagrams embedded)</td></tr><tr><td>Load Time</td><td><1 second (local file)</td></tr><tr><td>Diagram Rendering</td><td>Instant (client-side Mermaid)</td></tr><tr><td>Mobile Responsiveness</td><td>Optimized for all viewports</td></tr></table>
+<hr/>
+
+<h2 id="success-criteria">SUCCESS CRITERIA</h2>
+
+<p>The agent's output is validated against these metrics:</p>
+
+<table><tr><th>Metric</th><th>Target</th><th>How Verified</th></tr><tr><td><strong>Completeness</strong></td><td>All components documented</td><td>No orphan files/modules</td></tr><tr><td><strong>Accuracy</strong></td><td>100% match to codebase</td><td>Actual names from files</td></tr><tr><td><strong>Relevance</strong></td><td>Only applicable sections</td><td>No placeholder text</td></tr><tr><td><strong>Clarity</strong></td><td>New dev understands in <30 min</td><td>Self-contained context</td></tr><tr><td><strong>Validity</strong></td><td>All Mermaid syntax correct</td><td>Diagrams render perfectly</td></tr></table>
+<hr/>
+
+<h2 id="configuration-options">Configuration Options</h2>
+
+<h3 id="customizing-the-html-output">Customizing the HTML Output</h3>
+
+<h4 id="Color Scheme">Color Scheme</h4>
+
+<p>Edit the CSS variables in the generated HTML:</p>
+
+<pre><code class="language-css">:root {
+    --primary: #2563eb;           /* Change brand color */
+    --primary-dark: #1e40af;       /* Darker variant */
+    --secondary: #7c3aed;          /* Secondary color */
+    --accent: #06b6d4;             /* Accent color */
+    --success: #10b981;            /* Success green */
+    --warning: #f59e0b;            /* Warning orange */
+    --danger: #ef4444;             /* Error red */
+}</code></pre>
+
+<h4 id="Layout Dimensions">Layout Dimensions</h4>
+
+<pre><code class="language-css">:root {
+    --sidebar-width: 280px;        /* Adjust sidebar width */
+    --header-height: 64px;         /* Adjust header height */
+    --content-max-width: 1200px;   /* Max content width */
+}</code></pre>
+
+<h4 id="Typography">Typography</h4>
+
+<pre><code class="language-css">:root {
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
+    --font-mono: 'SF Mono', Monaco, 'Cascadia Code', Consolas;
+}</code></pre>
+
+<hr/>
+
+<h2 id="best-practices">Best Practices</h2>
+
+<table><tr><th>Practice</th><th>Rationale</th><th>Recommendation</th></tr><tr><td><strong>Regenerate When Code Changes</strong></td><td>Keep docs in sync with codebase</td><td>Run agent monthly or after major updates</td></tr><tr><td><strong>Review Diagrams</strong></td><td>Verify accuracy before sharing</td><td>Check Mermaid rendering in browser</td></tr><tr><td><strong>Test on Multiple Browsers</strong></td><td>Ensure compatibility</td><td>Chrome, Firefox, Safari, Edge</td></tr><tr><td><strong>Mobile Testing</strong></td><td>Verify responsive design</td><td>Test on 320px, 768px, 1024px widths</td></tr><tr><td><strong>Share HTML File</strong></td><td>Works anywhere</td><td>No dependencies needed</td></tr><tr><td><strong>Archive Old Versions</strong></td><td>Track documentation evolution</td><td>Keep dated copies</td></tr></table>
+<hr/>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<table><tr><th>Problem</th><th>Cause</th><th>Solution</th></tr><tr><td><strong>Diagrams not rendering</strong></td><td>JavaScript not loading</td><td>Check browser console for errors</td></tr><tr><td><strong>Sidebar overlaps content</strong></td><td>CSS margin mismatch</td><td>Adjust <code>--sidebar-width</code> in CSS</td></tr><tr><td><strong>Mobile layout broken</strong></td><td>Viewport meta tag issue</td><td>Ensure <code><meta name="viewport"></code> present</td></tr><tr><td><strong>Copy button not working</strong></td><td>JavaScript error</td><td>Check browser console logs</td></tr><tr><td><strong>Slow page load</strong></td><td>Too many large diagrams</td><td>Consider lazy loading for very large docs</td></tr><tr><td><strong>Text not displaying</strong></td><td>Font loading issue</td><td>Verify CSS variables are set</td></tr></table>
+<hr/>
+
+<h2 id="workflow-summary">Workflow Summary</h2>
+
+<pre><code class="language-">┌─────────────────────────────────────────────────────┐
+│ DOCUMENTATION GENERATION WORKFLOW                  │
+└─────────────────────────────────────────────────────┘
+
+Input: Project Source Code
+  ↓
+PHASE 1: DISCOVER
+├─ Read package.json / setup.py / etc
+├─ Scan directory structure
+├─ Identify entry points
+├─ Detect frameworks &amp; tech stack
+└─ Classify: Project Type + Complexity
+
+  ↓
+PHASE 2: ANALYZE
+├─ Parse all source files
+├─ Extract: Classes, functions, components
+├─ Map: Dependencies &amp; relationships
+├─ Detect: Database schemas, API routes
+└─ Identify: Environment variables, configs
+
+  ↓
+PHASE 3: GENERATE MARKDOWN
+├─ Write core documentation sections
+├─ Create applicable diagrams (no placeholders)
+├─ Build configuration/API tables
+├─ Add real usage examples from code
+└─ Output: {project}_documentation.md
+
+  ↓
+PHASE 4: EXPORT TO HTML
+├─ Convert Markdown → HTML
+├─ Inject professional CSS &amp; JavaScript
+├─ Generate interactive table of contents
+├─ Render all Mermaid diagrams
+└─ Output: {project}_documentation.html
+
+  ↓
+PHASE 5: AUTO-CLEANUP ✨
+├─ Delete: {project}_documentation.md
+├─ Delete: docs/export_html.py
+└─ Keep: {project}_documentation.html
+
+  ↓
+Output: Single Interactive HTML Documentation File</code></pre>
+
+<hr/>
+
+<h2 id="technical-details">Technical Details</h2>
+
+<h3 id="entry-points-&-configuration">Entry Points & Configuration</h3>
+
+<p>The agent analyzes these files for project metadata:</p>
+
+<ul><li><code>package.json</code> (Node.js projects)</li><li><code>setup.py</code> (Python projects)</li><li><code>Cargo.toml</code> (Rust projects)</li><li><code>go.mod</code> (Go projects)</li><li><code>pom.xml</code> (Java projects)</li><li><code>README.md</code> (version, description)</li></ul>
+<h3 id="component-detection">Component Detection</h3>
+
+<p>The agent identifies:</p>
+<ul><li><strong>Classes & Interfaces</strong> - OOP structure</li><li><strong>Functions & Methods</strong> - Public APIs</li><li><strong>Imports & Dependencies</strong> - External libraries</li><li><strong>Database Models</strong> - Schema structure</li><li><strong>API Endpoints</strong> - Routes and handlers</li><li><strong>Environment Variables</strong> - Configuration needs</li><li><strong>CLI Commands</strong> - Command structure</li><li><strong>Async Patterns</strong> - Event-driven flows</li></ul>
+<h3 id="diagram-syntax-rules">Diagram Syntax Rules</h3>
+
+<p>All Mermaid diagrams follow these standards:</p>
+
+<div class="mermaid">
+graph TB
+    node1[Node Label]
+    node2{Decision Node}
+    subgraph "Cluster Name"
+        node3[Child Node]
+    end
+    
+    node1 -->|edge label| node2
+    node2 -->|yes| node3
+    node2 -->|no| node1
+</div>
+
+<hr/>
+
+<h2 id="use-cases">Use Cases</h2>
+
+<h3 id="1.-onboarding-new-developers">1. Onboarding New Developers</h3>
+
+<p>Generate comprehensive documentation so new team members understand:</p>
+<ul><li>Project structure and organization</li><li>Architecture and component relationships</li><li>How to set up and run the project</li><li>Available commands and configurations</li></ul>
+<h3 id="2.-stakeholder-communication">2. Stakeholder Communication</h3>
+
+<p>Share beautiful, professional HTML documentation with:</p>
+<ul><li>Non-technical stakeholders (diagrams are visual)</li><li>Investors and clients (impressive presentation)</li><li>External partners (self-contained file)</li></ul>
+<h3 id="3.-api-documentation">3. API Documentation</h3>
+
+<p>For API services, automatically document:</p>
+<ul><li>All endpoints with methods and paths</li><li>Request/response schemas</li><li>Authentication requirements</li><li>Error handling</li></ul>
+<h3 id="4.-architecture-review">4. Architecture Review</h3>
+
+<p>Use generated diagrams for:</p>
+<ul><li>Code review discussions</li><li>Architecture improvement planning</li><li>Team alignment on system design</li><li>Technical documentation</li></ul>
+<h3 id="5.-compliance-&-audit">5. Compliance & Audit</h3>
+
+<p>Keep documentation as evidence of:</p>
+<ul><li>Project structure documentation</li><li>Architecture decisions</li><li>Technology choices</li><li>Configuration management</li></ul>
+<hr/>
+
+<h2 id="performance-specifications">Performance Specifications</h2>
+
+<h3 id="generation-time">Generation Time</h3>
+
+<table><tr><th>Project Size</th><th>Analysis Time</th><th>Markdown Gen</th><th>HTML Export</th><th>Total</th></tr><tr><td>Small (<10 files)</td><td>1-2 min</td><td>1-2 min</td><td>1 min</td><td>3-5 min</td></tr><tr><td>Medium (10-50)</td><td>2-3 min</td><td>2-3 min</td><td>1 min</td><td>5-7 min</td></tr><tr><td>Large (50+ files)</td><td>5-10 min</td><td>3-5 min</td><td>1 min</td><td>10-15 min</td></tr></table>
+<h3 id="output-file-sizes">Output File Sizes</h3>
+
+<table><tr><th>Component</th><th>Size Impact</th></tr><tr><td>Base HTML</td><td>~50 KB</td></tr><tr><td>CSS (embedded)</td><td>~30 KB</td></tr><tr><td>JavaScript</td><td>~20 KB</td></tr><tr><td>Per diagram</td><td>~2-5 KB</td></tr><tr><td>Per code example</td><td>~1-3 KB</td></tr></table>
+<strong>Total typical:</strong> 150-500 KB (all-in-one HTML file)
+
+<hr/>
+
+<h2 id="limitations-&-considerations">Limitations & Considerations</h2>
+
+<h3 id="what-works-best">What Works Best</h3>
+
+<p>✅ Documented codebases with clear structure</p>
+<p>✅ Projects with standard frameworks</p>
+<p>✅ Well-organized file naming</p>
+<p>✅ Consistent code style</p>
+<p>✅ Existing README files</p>
+<p>✅ Standard configuration files</p>
+
+<h3 id="what-needs-attention">What Needs Attention</h3>
+
+<p>⚠️ Undocumented/legacy code (analyze carefully)</p>
+<p>⚠️ Highly dynamic/generated code</p>
+<p>⚠️ Very large projects (50K+ lines)</p>
+<p>⚠️ Obfuscated or unclear naming</p>
+<p>⚠️ Multiple entry points</p>
+
+<hr/>
+
+<h2 id="support-&-maintenance">Support & Maintenance</h2>
+
+<h3 id="updating-documentation">Updating Documentation</h3>
+
+<p>To refresh documentation after code changes:</p>
+
+<pre><code class="language-bash"># Simply run the agent again
+# It will regenerate all files from scratch
+# Previous HTML is overwritten with new version</code></pre>
+
+<h3 id="customizing-generated-docs">Customizing Generated Docs</h3>
+
+<p>The HTML is production-ready but can be edited if needed:</p>
+
+<ol><li>Open HTML in text editor</li><li>Locate CSS in <code><style></code> tag</li><li>Modify colors, fonts, spacing</li><li>Save and refresh browser</li></ol>
+<h3 id="validation-checklist">Validation Checklist</h3>
+
+<p>Before sharing documentation:</p>
+
+<ul><li>[ ] All diagrams render correctly</li><li>[ ] No "(if applicable)" placeholder text</li><li>[ ] Code examples are actual project code</li><li>[ ] API documentation is complete</li><li>[ ] Configuration tables are accurate</li><li>[ ] Architecture matches actual codebase</li><li>[ ] Links work correctly</li><li>[ ] Mobile view is responsive</li><li>[ ] File size is reasonable</li><li>[ ] Print layout looks good</li></ul>
+<hr/>
+
+<h2 id="version-history">Version History</h2>
+
+<table><tr><th>Version</th><th>Date</th><th>Changes</th></tr><tr><td>1.2.0</td><td>Dec 16, 2025</td><td><strong>Auto-cleanup added</strong>: Deletes .md and .py files after HTML generation. HTML-only output.</td></tr><tr><td>1.1.0</td><td>Nov 28, 2025</td><td>Professional HTML export with Mermaid diagram support. Fixed sidebar navigation.</td></tr><tr><td>1.0.0</td><td>Nov 15, 2025</td><td>Initial release with basic markdown documentation generation.</td></tr></table>
+<hr/>
+
+<h2 id="quick-reference">Quick Reference</h2>
+
+<h3 id="key-commands">Key Commands</h3>
+
+<pre><code class="language-bash"># View final documentation
+open docs/document_project_documentation.html
+
+# Regenerate (if files still exist)
+python docs/export_html.py</code></pre>
+
+<h3 id="file-structure-after-generation">File Structure After Generation</h3>
+
+<pre><code class="language-">docs/
+├── document_project_documentation.html  ← Final output (kept)
+│   ├── Embedded CSS
+│   ├── Embedded JavaScript
+│   ├── Embedded Mermaid.js
+│   └── All content inline
+└── ← .md and .py files auto-deleted</code></pre>
+
+<h3 id="css-color-reference">CSS Color Reference</h3>
+
+<pre><code class="language-">Primary Blue:     #2563eb  (main brand color)
+Dark Blue:        #1e40af  (hover states)
+Cyan Accent:      #06b6d4  (highlights)
+Success Green:    #10b981  (success messages)
+Warning Orange:   #f59e0b  (warnings)
+Error Red:        #ef4444  (errors)
+Light Gray:       #f9fafb  (backgrounds)
+Dark Gray:        #111827  (text)</code></pre>
+
+<hr/>
+
+<em>Documentation for Project Documentation Generator Agent v1.2.0</em>
+<em>Generated: December 16, 2025</em>
+<em>HTML-Only Output with Auto-Cleanup</em>
+    </div>
+</main>
+
+<!-- Scripts -->
+<script>
+// Initialize Mermaid
+mermaid.initialize({
+    startOnLoad: true,
+    theme: 'default',
+    securityLevel: 'loose',
+    fontFamily: 'var(--font-sans)',
+});
+
+// Smooth scrolling for navigation
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').slice(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            
+            // Update active link
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        }
+    });
+});
+
+// Add copy buttons to code blocks
+document.querySelectorAll('pre code').forEach(block => {
+    const pre = block.parentElement;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'code-block';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+    
+    const button = document.createElement('button');
+    button.className = 'code-copy-btn';
+    button.textContent = 'Copy';
+    button.addEventListener('click', () => {
+        navigator.clipboard.writeText(block.textContent);
+        button.textContent = 'Copied!';
+        setTimeout(() => button.textContent = 'Copy', 2000);
+    });
+    wrapper.appendChild(button);
+});
+
+// Highlight current section in navigation
+const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px',
+    threshold: 0
+};
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('h2[id], h3[id]').forEach(heading => {
+    observer.observe(heading);
+});
+</script>
+</body>
+</html>

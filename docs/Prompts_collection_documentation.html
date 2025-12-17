@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prompts Collection - Technical Documentation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #2563eb;
+            --dark: #1e40af;
+            --gray: #f3f4f6;
+            --text: #1f2937;
+            --border: #e5e7eb;
+        }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text);
+            background: var(--gray);
+            line-height: 1.6;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        .header-title { font-size: 1.5rem; font-weight: 700; }
+        .header-meta { margin-left: auto; opacity: 0.9; font-size: 0.9rem; }
+        .sidebar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            width: 280px;
+            height: calc(100vh - 64px);
+            background: #fff;
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            padding: 1.5rem;
+            box-shadow: inset -1px 0 0 var(--border);
+        }
+        .sidebar h3 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+        .nav-link {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        .nav-link:hover {
+            background: var(--gray);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+        .nav-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 600;
+        }
+        .main {
+            margin-left: 280px;
+            margin-top: 64px;
+            padding: 3rem 2rem;
+        }
+        .content {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 1rem;
+            margin: 0 0 1.5rem;
+            font-weight: 800;
+        }
+        h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin: 2.5rem 0 1rem;
+            font-weight: 700;
+        }
+        h3 {
+            font-size: 1.5rem;
+            color: var(--text);
+            margin: 1.5rem 0 1rem;
+            font-weight: 700;
+        }
+        h4 { font-size: 1.25rem; color: #374151; margin: 1rem 0 0.5rem; font-weight: 600; }
+        p { margin: 1rem 0; color: #374151; }
+        strong { font-weight: 600; color: var(--dark); }
+        em { font-style: italic; color: #6b7280; }
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: 0.2s;
+        }
+        a:hover { border-bottom-color: var(--primary); }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        thead {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: #fff;
+        }
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        tbody tr { transition: background-color 0.2s; }
+        tbody tr:nth-child(even) { background: #f9fafb; }
+        tbody tr:hover { background: #f0f4ff; }
+        code {
+            font-family: 'SF Mono', Monaco, monospace;
+            background: #f3f4f6;
+            color: #ef4444;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #111827;
+            color: #e5e7eb;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            overflow-x: auto;
+            position: relative;
+            border: 1px solid #374151;
+        }
+        pre code { background: none; color: inherit; padding: 0; font-size: 0.9rem; line-height: 1.5; }
+        .code-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            background: #374151;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            opacity: 0.7;
+            transition: 0.2s;
+        }
+        .code-btn:hover { opacity: 1; background: #1f2937; }
+        ul, ol { margin: 1rem 0; padding-left: 1.5rem; }
+        li { margin: 0.5rem 0; color: #374151; }
+        blockquote {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--gray);
+            border-left: 4px solid var(--primary);
+            border-radius: 4px;
+            font-style: italic;
+            color: #6b7280;
+        }
+        .mermaid {
+            margin: 2rem 0;
+            text-align: center;
+            background: var(--gray);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .mermaid svg { max-width: 100%; height: auto; }
+        hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 3rem 0;
+        }
+        @media(max-width: 1024px) {
+            .sidebar { width: 0; transform: translateX(-100%); transition: transform 0.3s; }
+            .main { margin-left: 0; }
+            .content { padding: 2rem; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+        }
+        @media(max-width: 768px) {
+            .header { padding: 0 1rem; }
+            .header-title { font-size: 1.25rem; }
+            .main { padding: 1rem; }
+            .content { padding: 1.5rem; margin: 0; border-radius: 0; }
+            table { font-size: 0.9rem; }
+            th, td { padding: 0.75rem; }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+<header class="header">
+    <div class="header-title">📚 Prompts Collection Documentation</div>
+    <div class="header-meta">Generated: December 16, 2025</div>
+</header>
+
+<nav class="sidebar">
+    <h3>Contents</h3>
+    <ul style="list-style: none;">
+        <li><a href="#overview" class="nav-link">Overview</a></li>
+        <li><a href="#quick-start" class="nav-link">Quick Start</a></li>
+        <li><a href="#core-components" class="nav-link">Core Components</a></li>
+        <li><a href="#project-architecture" class="nav-link">Project Architecture</a></li>
+        <li><a href="#workflow-patterns" class="nav-link">Workflow Patterns</a></li>
+        <li><a href="#agent-features-specifications" class="nav-link">Agent Features</a></li>
+        <li><a href="#implementation-guide" class="nav-link">Implementation Guide</a></li>
+        <li><a href="#file-structure-naming-conventions" class="nav-link">File Structure</a></li>
+        <li><a href="#technical-specifications" class="nav-link">Technical Specs</a></li>
+        <li><a href="#configuration-customization" class="nav-link">Configuration</a></li>
+        <li><a href="#use-cases-examples" class="nav-link">Use Cases</a></li>
+        <li><a href="#quality-assurance" class="nav-link">Quality Assurance</a></li>
+        <li><a href="#troubleshooting" class="nav-link">Troubleshooting</a></li>
+        <li><a href="#development-contribution" class="nav-link">Development</a></li>
+        <li><a href="#deployment" class="nav-link">Deployment</a></li>
+    </ul>
+</nav>
+
+<main class="main">
+    <div class="content">
+        <h1>Prompts Collection Documentation</h1>
+        <p><strong>Version:</strong> 1.0.0 | <strong>Last Updated:</strong> December 16, 2025 | <strong>Status:</strong> Production Ready</p>
+
+        <h2 id="overview">Overview</h2>
+        <p><strong>Prompts Collection</strong> is a curated repository of AI agents, prompts, and documentation generation tools designed for advanced AI-driven workflows. It provides reusable, production-ready agents for research automation, content generation, deep learning instruction, and comprehensive project documentation.</p>
+        <table>
+            <tr><th>Aspect</th><th>Details</th></tr>
+            <tr><td>Tech Stack</td><td>Markdown, AI Agents, Mermaid Diagrams, Python</td></tr>
+            <tr><td>Primary Use Cases</td><td>AI Research, Technical Documentation, Content Creation, Workflow Automation</td></tr>
+            <tr><td>Version</td><td>1.0.0</td></tr>
+            <tr><td>Status</td><td>Production Ready</td></tr>
+        </table>
+
+        <h2 id="quick-start">Quick Start</h2>
+        <h3>What This Repository Contains</h3>
+        <ul>
+            <li><strong>Standalone Prompts:</strong> agent_for_linkedin.md, analysis_project.chatmode.md, prompt_deep_research.md</li>
+            <li><strong>Reusable Agents:</strong> deep_research_agent.md, ml-performance-optimizer-agent.md, prompt_optimizer_agent.md, document_project.agent.md</li>
+            <li><strong>Generated Documentation:</strong> DEEP_RESEARCH_PROMPT_DOCS.md, ML_PERFORMANCE_OPTIMIZER_DOCS.md, PROMPT_OPTIMIZER_DOCS.md</li>
+        </ul>
+
+        <h2 id="core-components">Core Components</h2>
+        <h3>1. Standalone Prompts &amp; Workflows</h3>
+        <p><strong>Agent for LinkedIn:</strong> Autonomous content research and LinkedIn publishing with trend discovery (2-week window), viral-structured posts, and browser automation via Playwright.</p>
+        <p><strong>Analysis Project:</strong> Python project analysis with PDF documentation, bilingual support (EN/ES), and state-based workflow documentation.</p>
+        <p><strong>Deep Research Prompts:</strong> Comprehensive study guide generation at PhD-level with code examples, practice exercises, and curated resources.</p>
+
+        <h3>2. Reusable AI Agents</h3>
+        <table>
+            <tr>
+                <th>Agent</th>
+                <th>Version</th>
+                <th>Specialization</th>
+                <th>Key Features</th>
+            </tr>
+            <tr>
+                <td>Deep Research Expert</td>
+                <td>2.0.0</td>
+                <td>Technical research &amp; education</td>
+                <td>Expert analysis, pedagogical design, code examples</td>
+            </tr>
+            <tr>
+                <td>ML Performance Optimizer</td>
+                <td>1.0.0</td>
+                <td>Model optimization</td>
+                <td>Hyperparameter tuning, architecture optimization</td>
+            </tr>
+            <tr>
+                <td>Prompt Optimizer</td>
+                <td>1.0.0</td>
+                <td>Prompt engineering</td>
+                <td>Effectiveness analysis, structure improvement</td>
+            </tr>
+            <tr>
+                <td>Document Generator</td>
+                <td>1.2.0</td>
+                <td>Documentation generation</td>
+                <td>HTML with Mermaid, interactive navigation</td>
+            </tr>
+        </table>
+
+        <h2 id="project-architecture">Project Architecture</h2>
+        <p>The architecture follows a modular agent-based design:</p>
+        <div class="mermaid">graph TB
+    subgraph "Input Layer"
+        RawPrompts["Raw Prompts & Ideas"]
+        ProjectCode["Project Code/Files"]
+        ResearchTopic["Research Topics"]
+    end
+    
+    subgraph "Agent Processing"
+        DeepResearch["Deep Research Agent"]
+        MLOptimizer["ML Optimizer Agent"]
+        PromptOptimizer["Prompt Optimizer Agent"]
+        DocGenerator["Document Generator Agent"]
+        LinkedInAgent["LinkedIn Agent"]
+    end
+    
+    subgraph "Output Layer"
+        StudyGuides["Study Guides<br/>Markdown"]
+        OptimizedPrompts["Optimized Prompts"]
+        TechDocs["Technical Docs<br/>HTML+PDF"]
+        LinkedInPosts["Published Posts<br/>LinkedIn"]
+    end
+    
+    RawPrompts -->|optimize| PromptOptimizer
+    ResearchTopic -->|analyze| DeepResearch
+    ProjectCode -->|document| DocGenerator
+    ResearchTopic -->|trend research| LinkedInAgent
+    
+    DeepResearch --> StudyGuides
+    PromptOptimizer --> OptimizedPrompts
+    DocGenerator --> TechDocs
+    LinkedInAgent --> LinkedInPosts
+</div>
+
+        <h2 id="workflow-patterns">Workflow Patterns</h2>
+        <h3>Pattern 1: Research-to-Documentation</h3>
+        <pre><code>Research Topic
+    ↓
+[Deep Research Agent]
+    ↓
+Study Guide (3-5K words)
+    ↓
+Code Examples + Resources</code></pre>
+
+        <h3>Pattern 2: Code-to-Documentation</h3>
+        <pre><code>Project Codebase
+    ↓
+[Document Generator Agent]
+    ↓
+Markdown Documentation
+    ↓
+[HTML Converter]
+    ↓
+Professional HTML (with Diagrams)</code></pre>
+
+        <h3>Pattern 3: Prompt Optimization</h3>
+        <pre><code>Initial Prompt
+    ↓
+[Prompt Optimizer Agent]
+    ↓
+Refined Prompt
+    ↓
+Testing & Validation
+    ↓
+Optimized Output</code></pre>
+
+        <h3>Pattern 4: Content Automation</h3>
+        <pre><code>Research Keywords (2-week window)
+    ↓
+[LinkedIn Agent]
+    ↓
+Trend Discovery
+    ↓
+Content Drafting
+    ↓
+[Playwright]
+    ↓
+Auto-Published Post</code></pre>
+
+        <h2 id="agent-features-specifications">Agent Features &amp; Specifications</h2>
+        <h3>Deep Research Agent</h3>
+        <table>
+            <tr><th>Property</th><th>Value</th></tr>
+            <tr><td>Version</td><td>2.0.0</td></tr>
+            <tr><td>Author</td><td>@andresveraf</td></tr>
+            <tr><td>Output Format</td><td>Markdown study guide, code examples, exercises</td></tr>
+            <tr><td>Quality Level</td><td>PhD-level, verified sources</td></tr>
+            <tr><td>Content Length</td><td>3000-5000 words</td></tr>
+        </table>
+
+        <h3>Document Generator Agent</h3>
+        <table>
+            <tr><th>Feature</th><th>Description</th></tr>
+            <tr><td>Fixed Sidebar Navigation</td><td>Always visible with smooth scrolling</td></tr>
+            <tr><td>Gradient Headers</td><td>Modern blue gradients on headers and tables</td></tr>
+            <tr><td>Interactive Tables</td><td>Hover effects with alternating row colors</td></tr>
+            <tr><td>Copy Buttons</td><td>One-click code copying for all code blocks</td></tr>
+            <tr><td>Active Section Highlighting</td><td>Current section highlighted in navigation</td></tr>
+            <tr><td>Responsive Design</td><td>Mobile, tablet, and desktop optimized</td></tr>
+            <tr><td>Professional Color Palette</td><td>Blues (#2563eb), grays, strategic accents</td></tr>
+        </table>
+
+        <h2 id="implementation-guide">Implementation Guide</h2>
+        <h3>Using the Deep Research Agent</h3>
+        <ol>
+            <li>Define your topic (select technical subject, audience level, focus areas)</li>
+            <li>Run the agent with input parameters</li>
+            <li>Review & iterate on the generated study guide</li>
+        </ol>
+
+        <h3>Using the Document Generator</h3>
+        <ol>
+            <li>Prepare your project documentation</li>
+            <li>Run the generator script</li>
+            <li>Customize appearance (colors, layout)</li>
+            <li>Deploy HTML file or upload to GitHub Pages</li>
+        </ol>
+
+        <h2 id="file-structure-naming-conventions">File Structure &amp; Naming Conventions</h2>
+        <table>
+            <tr>
+                <th>File Type</th>
+                <th>Pattern</th>
+                <th>Example</th>
+            </tr>
+            <tr>
+                <td>Standalone Prompt</td>
+                <td>{name}.md</td>
+                <td>prompt_deep_research.md</td>
+            </tr>
+            <tr>
+                <td>Agent Definition</td>
+                <td>{name}-agent.md or {name}.agent.md</td>
+                <td>deep_research_agent.md</td>
+            </tr>
+            <tr>
+                <td>Generated Docs</td>
+                <td>{project}_documentation.html</td>
+                <td>Prompts_collection_documentation.html</td>
+            </tr>
+        </table>
+
+        <h2 id="technical-specifications">Technical Specifications</h2>
+        <h3>Supported Diagram Types</h3>
+        <ul>
+            <li>Mermaid Flowcharts (system architecture, workflows)</li>
+            <li>Class Diagrams (object-oriented relationships)</li>
+            <li>Sequence Diagrams (process interactions)</li>
+            <li>ER Diagrams (database schemas)</li>
+            <li>State Diagrams (state machines)</li>
+            <li>Gantt Charts (project timelines)</li>
+        </ul>
+
+        <h3>HTML Export Features</h3>
+        <ul>
+            <li>Sidebar Navigation: Fixed, smooth-scrolling TOC</li>
+            <li>Typography: Modern sans-serif with mono code fonts</li>
+            <li>Colors: Professional gradient headers, accessible contrast</li>
+            <li>Responsiveness: Mobile (320px), Tablet (768px), Desktop (1024px+)</li>
+            <li>Interactivity: Copy buttons, smooth navigation, section highlighting</li>
+            <li>Print: Clean layout without navigation elements</li>
+            <li>Accessibility: Semantic HTML, ARIA labels, keyboard navigation</li>
+        </ul>
+
+        <h2 id="configuration-customization">Configuration &amp; Customization</h2>
+        <h3>Color Scheme Customization</h3>
+        <p>Modify CSS variables in the HTML template to customize colors:</p>
+        <pre><code>:root {
+    --primary: #2563eb;        /* Brand color */
+    --dark: #1e40af;           /* Dark variant */
+    --secondary: #7c3aed;      /* Secondary color */
+    --accent: #06b6d4;         /* Accent color */
+}</code></pre>
+
+        <h2 id="use-cases-examples">Use Cases &amp; Examples</h2>
+        <h3>Use Case 1: Educational Content Creation</h3>
+        <p>Create comprehensive study material for technical topics using the Deep Research Agent.</p>
+
+        <h3>Use Case 2: Project Documentation</h3>
+        <p>Auto-generate documentation from codebase with architecture diagrams and convert to professional HTML.</p>
+
+        <h3>Use Case 3: Content Marketing</h3>
+        <p>Research and auto-publish LinkedIn content with the LinkedIn Agent (2-week trend window).</p>
+
+        <h3>Use Case 4: Model Optimization</h3>
+        <p>Optimize ML model performance with data-driven recommendations from the ML Optimizer Agent.</p>
+
+        <h2 id="quality-assurance">Quality Assurance</h2>
+        <table>
+            <tr>
+                <th>Criterion</th>
+                <th>Measurement</th>
+                <th>Target</th>
+            </tr>
+            <tr>
+                <td>Completeness</td>
+                <td>All components documented</td>
+                <td>100%</td>
+            </tr>
+            <tr>
+                <td>Accuracy</td>
+                <td>Cross-referenced with code</td>
+                <td>100%</td>
+            </tr>
+            <tr>
+                <td>Clarity</td>
+                <td>Readable by intermediate developer</td>
+                <td>&lt; 30 min</td>
+            </tr>
+            <tr>
+                <td>Examples</td>
+                <td>Real code snippets included</td>
+                <td>3+ per section</td>
+            </tr>
+            <tr>
+                <td>Diagrams</td>
+                <td>Visual representation of architecture</td>
+                <td>All key flows</td>
+            </tr>
+        </table>
+
+        <h2 id="troubleshooting">Troubleshooting</h2>
+        <table>
+            <tr>
+                <th>Issue</th>
+                <th>Cause</th>
+                <th>Solution</th>
+            </tr>
+            <tr>
+                <td>Diagrams not rendering</td>
+                <td>Mermaid CDN unreachable</td>
+                <td>Check internet connection</td>
+            </tr>
+            <tr>
+                <td>Navigation not working</td>
+                <td>Missing header IDs</td>
+                <td>Regenerate from markdown</td>
+            </tr>
+            <tr>
+                <td>Mobile layout broken</td>
+                <td>Viewport meta tag missing</td>
+                <td>Update HTML template</td>
+            </tr>
+            <tr>
+                <td>Copy button inactive</td>
+                <td>JavaScript disabled</td>
+                <td>Enable JS in browser</td>
+            </tr>
+        </table>
+
+        <h2 id="development-contribution">Development &amp; Contribution</h2>
+        <h3>Adding New Agents</h3>
+        <ol>
+            <li>Create agent file: <code>agents/my_new_agent.md</code></li>
+            <li>Define structure with metadata and objectives</li>
+            <li>Test and validate functionality</li>
+        </ol>
+
+        <h2 id="deployment">Deployment</h2>
+        <h3>Local Deployment</h3>
+        <pre><code>cd /path/to/prompts_collection
+open docs/Prompts_collection_documentation.html</code></pre>
+
+        <h3>GitHub Pages Deployment</h3>
+        <p>Use GitHub Actions to automatically generate and deploy documentation on push to main branch.</p>
+
+        <hr>
+        <p style="margin-top: 3rem; text-align: center; color: #6b7280; font-size: 0.9rem;">
+            Documentation generated by Project Documentation Generator v1.2.0<br>
+            Last Updated: December 16, 2025 | Status: Production Ready
+        </p>
+    </div>
+</main>
+
+<script>
+mermaid.initialize({ startOnLoad: true, theme: 'default', securityLevel: 'loose' });
+
+document.querySelectorAll('pre').forEach(pre => {
+    const btn = document.createElement('button');
+    btn.className = 'code-btn';
+    btn.textContent = 'Copy';
+    btn.onclick = () => {
+        const code = pre.querySelector('code');
+        navigator.clipboard.writeText(code.textContent);
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+    };
+    pre.appendChild(btn);
+});
+
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.onclick = (e) => {
+        e.preventDefault();
+        const id = link.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        }
+    };
+});
+
+const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            const id = e.target.id;
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.querySelector(`a[href="#${id}"]`)?.classList.add('active');
+        }
+    });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+document.querySelectorAll('h2[id], h3[id]').forEach(h => obs.observe(h));
+</script>
+
+</body>
+</html>

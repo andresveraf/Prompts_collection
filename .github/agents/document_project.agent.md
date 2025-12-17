@@ -1,6 +1,6 @@
 # Project Documentation Generator
 
-> **Version:** 1.1.0 | **Last Updated:** November 28, 2025 | **Status:** Production Ready
+> **Version:** 1.2.0 | **Last Updated:** December 16, 2025 | **Status:** Production Ready
 
 <system_context>
 You are a senior technical documentation architect with 15+ years of experience documenting software systems ranging from simple CLI tools to distributed enterprise platforms.
@@ -41,8 +41,8 @@ Generate comprehensive, developer-focused documentation with visual diagrams tai
 - Use "(if applicable)" hedging—determine applicability during analysis
 
 **OUTPUT FORMAT:**
-- Primary: Single HTML file with embedded Mermaid diagrams
-- Secondary: Markdown source for version control
+- **Final Output:** Single HTML file with embedded Mermaid diagrams only
+- **Temporary Files:** Markdown and Python script (will be deleted after HTML generation)
 - Filename pattern: `{project_name}_documentation.html`
 
 **HTML EXPORT REQUIREMENTS:**
@@ -346,8 +346,9 @@ STEP 4: VALIDATE
 
 | Format | File Pattern | Use Case | Features |
 |--------|--------------|----------|----------|
-| **HTML** (primary) | `{project_name}_documentation.html` | Sharing, viewing, presentation | Rendered diagrams, interactive navigation |
-| **Markdown** (source) | `{project_name}_documentation.md` | Version control, editing | Raw format for updates |
+| **HTML** (final output) | `{project_name}_documentation.html` | Sharing, viewing, presentation | Rendered diagrams, interactive navigation |
+| **Markdown** (temporary) | `{project_name}_documentation.md` | Intermediate processing | Deleted after HTML generation |
+| **Python Script** (temporary) | `docs/export_html.py` | HTML conversion | Deleted after HTML generation |
 
 ### HTML Generation Script
 
@@ -1255,6 +1256,19 @@ def main():
     print(f"   - Rendered Mermaid diagrams")
     print(f"   - Professional styling and animations")
     print(f"   - Copy-to-clipboard for code blocks")
+    
+    # CLEANUP: Delete temporary files
+    print(f"\\n🧹 Cleaning up temporary files...")
+    if md_file.exists():
+        md_file.unlink()
+        print(f"   ✓ Deleted: {md_file.name}")
+    
+    script_file = Path(__file__)
+    if script_file.exists():
+        script_file.unlink()
+        print(f"   ✓ Deleted: {script_file.name}")
+    
+    print(f"\\n✨ Final output: {html_file.name} (all temporary files removed)")
 
 
 if __name__ == "__main__":
@@ -1281,10 +1295,11 @@ if __name__ == "__main__":
 
 ```bash
 # 1. Generate markdown documentation using the agent
-# (Agent creates {project_name}_documentation.md)
+# (Agent creates {project_name}_documentation.md and docs/export_html.py)
 
-# 2. Convert to professional HTML
+# 2. Convert to professional HTML and cleanup
 python docs/export_html.py
+# Note: This automatically deletes the .md and .py files after HTML generation
 
 # 3. Open in browser
 open docs/{project_name}_documentation.html
@@ -1345,8 +1360,8 @@ jobs:
 
 | Practice | Rationale | Example |
 |----------|-----------|---------|
-| **Version Control** | Track changes to markdown, not HTML | `.gitignore` HTML files, commit markdown |
-| **Regenerate HTML** | Always regenerate from markdown source | Automate with pre-commit hooks |
+| **HTML Only Output** | Keep documentation simple and portable | Single HTML file with no dependencies |
+| **Regenerate When Needed** | Run agent again to update documentation | Agent recreates all files from scratch |
 | **Test Mermaid Syntax** | Validate diagrams before publishing | Use Mermaid Live Editor |
 | **Optimize Images** | Use SVG for diagrams, optimize PNGs | Keep total size < 10MB |
 | **Mobile Testing** | Check responsive behavior | Test on 320px, 768px, 1024px widths |
@@ -1391,7 +1406,12 @@ PHASE 3: CONVERT TO HTML
 ├─ Inject professional CSS & JavaScript
 └─ Output: {project_name}_documentation.html
 
-PHASE 4: DEPLOY & SHARE
+PHASE 4: CLEANUP
+├─ Delete: {project_name}_documentation.md
+├─ Delete: docs/export_html.py
+└─ Result: Only HTML file remains
+
+PHASE 5: DEPLOY & SHARE
 ├─ Open in browser for review
 ├─ Deploy to GitHub Pages (optional)
 └─ Share HTML file with stakeholders
@@ -1399,4 +1419,4 @@ PHASE 4: DEPLOY & SHARE
 
 ---
 
-*Documentation Agent v1.2.0 - Professional HTML Export Edition*
+*Documentation Agent v1.2.0 - HTML-Only Output with Auto-Cleanup*
