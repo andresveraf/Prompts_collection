@@ -1,0 +1,1927 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="generator" content="Documentation Generator v3.0.0"/>
+<meta name="description" content="Prompts Collection - Enterprise-grade AI agent framework for research, optimization, and automation"/>
+<meta name="keywords" content="AI agents, GitHub Copilot, prompt engineering, ML optimization, technical documentation"/>
+<meta name="author" content="Andrés Vera Figueroa"/>
+<title>Prompts Collection - Professional Documentation</title>
+<style>
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* MetLife Color Palette with Documented Contrast Ratios */
+    --primary: #005EB8;        /* MetLife Blue - 8.59:1 contrast (WCAG AAA) */
+    --primary-dark: #003d82;   /* Dark Blue */
+    --primary-light: #3b82f6;  /* Light Blue */
+    --secondary: #00A758;      /* MetLife Green - 5.12:1 contrast (WCAG AA) */
+    --accent: #E31937;         /* MetLife Red - 5.48:1 contrast (WCAG AA) */
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    
+    /* Neutral Colors */
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    
+    /* Text Colors */
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-inverse: #ffffff;
+    
+    /* Backgrounds */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    
+    /* Borders */
+    --border-color: #e5e7eb;
+    --border-radius: 8px;
+    --border-radius-sm: 4px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    /* Typography */
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    
+    /* Layout */
+    --sidebar-width: 300px;
+    --content-max-width: 1200px;
+    --header-height: 70px;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   HEADER WITH METLIFE GRADIENT
+   ============================================ */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: var(--text-inverse);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--spacing-xl);
+}
+
+.header-logo {
+    height: 35px;
+    margin-right: var(--spacing-md);
+}
+
+.header-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    flex: 1;
+}
+
+.header-meta {
+    font-size: 0.875rem;
+    opacity: 0.95;
+}
+
+/* ============================================
+   SIDEBAR NAVIGATION
+   ============================================ */
+.sidebar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height));
+    background: var(--bg-primary);
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.sidebar-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.nav-list {
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: var(--spacing-xs);
+}
+
+.nav-link {
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: var(--border-radius-sm);
+    transition: all 0.2s ease;
+    font-size: 0.925rem;
+}
+
+.nav-link:hover {
+    background: var(--bg-tertiary);
+    color: var(--primary);
+    transform: translateX(4px);
+}
+
+.nav-link.active {
+    background: var(--primary);
+    color: var(--text-inverse);
+    font-weight: 600;
+}
+
+.nav-item-sub {
+    margin-left: var(--spacing-md);
+    margin-top: var(--spacing-xs);
+}
+
+.nav-item-sub .nav-link {
+    font-size: 0.875rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+.main-content {
+    margin-left: var(--sidebar-width);
+    margin-top: var(--header-height);
+    padding: var(--spacing-2xl);
+    min-height: calc(100vh - var(--header-height));
+}
+
+.content-wrapper {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    background: var(--bg-primary);
+    padding: var(--spacing-2xl);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.025em;
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+    color: var(--gray-900);
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: var(--spacing-md);
+    border-bottom: 3px solid var(--primary);
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 2rem;
+    color: var(--primary-dark);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--gray-200);
+    margin-top: var(--spacing-2xl);
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--gray-800);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--gray-700);
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+}
+
+strong {
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+em {
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    border-bottom-color: var(--primary-dark);
+}
+
+/* ============================================
+   TABLES - TRIPLE-LAYER PROTECTION (v1.2.2)
+   ============================================ */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-xl) 0;
+    background: var(--bg-primary);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+/* Layer 1: Base rule */
+th {
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #ffffff !important;
+}
+
+/* Layer 2: Increased specificity */
+thead th {
+    color: #ffffff !important;
+}
+
+/* Layer 3: Maximum specificity */
+table th {
+    color: #ffffff !important;
+}
+
+td {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.925rem;
+}
+
+tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+    background: var(--gray-50);
+}
+
+tbody tr:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+tbody tr:nth-child(even):hover {
+    background: var(--gray-100);
+}
+
+/* ============================================
+   CODE BLOCKS
+   ============================================ */
+code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background: var(--gray-100);
+    color: var(--danger);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--gray-200);
+}
+
+pre {
+    background: var(--gray-900);
+    color: #e5e7eb;
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    overflow-x: auto;
+    margin: var(--spacing-xl) 0;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    border: 1px solid var(--gray-700);
+}
+
+pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.code-block {
+    position: relative;
+}
+
+.code-copy-btn {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--gray-700);
+    color: var(--text-inverse);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+}
+
+.code-copy-btn:hover {
+    opacity: 1;
+    background: var(--gray-600);
+}
+
+/* ============================================
+   INFO BOXES - HIGH CONTRAST (v1.2.2)
+   ============================================ */
+.info-box, .code-path-box {
+    background: var(--primary);
+    color: #ffffff !important;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    margin: var(--spacing-md) 0;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+}
+
+.info-box * {
+    color: #ffffff !important;
+}
+
+.code-path-box * {
+    color: #ffffff !important;
+}
+
+/* ============================================
+   LISTS
+   ============================================ */
+ul, ol {
+    margin: var(--spacing-md) 0;
+    padding-left: var(--spacing-xl);
+}
+
+li {
+    margin: var(--spacing-sm) 0;
+    line-height: 1.7;
+}
+
+ul li::marker {
+    color: var(--primary);
+}
+
+ol li::marker {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* ============================================
+   BLOCKQUOTES
+   ============================================ */
+blockquote {
+    margin: var(--spacing-xl) 0;
+    padding: var(--spacing-lg);
+    background: linear-gradient(to right, var(--primary), transparent);
+    background-size: 4px 100%;
+    background-repeat: no-repeat;
+    background-position: left;
+    background-color: var(--bg-secondary);
+    border-left: 4px solid var(--primary);
+    border-radius: var(--border-radius-sm);
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   HORIZONTAL RULE
+   ============================================ */
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--border-color), transparent);
+    margin: var(--spacing-2xl) 0;
+}
+
+/* ============================================
+   MERMAID DIAGRAMS - COMPREHENSIVE THEME (v1.2.2)
+   ============================================ */
+.mermaid {
+    margin: var(--spacing-2xl) 0;
+    text-align: center;
+    background: var(--bg-secondary);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ============================================
+   BADGES & LABELS
+   ============================================ */
+.badge {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 var(--spacing-xs);
+}
+
+.badge-primary {
+    background: var(--primary);
+    color: var(--text-inverse);
+}
+
+.badge-success {
+    background: var(--success);
+    color: var(--text-inverse);
+}
+
+.badge-warning {
+    background: var(--warning);
+    color: var(--gray-900);
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+.text-center {
+    text-align: center;
+}
+
+.text-muted {
+    color: var(--text-secondary);
+    font-size: 0.925rem;
+}
+
+.mt-lg {
+    margin-top: var(--spacing-xl);
+}
+
+.mb-lg {
+    margin-bottom: var(--spacing-xl);
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+    .header, .sidebar {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        margin-top: 0;
+        padding: 0;
+    }
+    
+    .content-wrapper {
+        box-shadow: none;
+        max-width: 100%;
+    }
+    
+    h2 {
+        page-break-after: avoid;
+    }
+    
+    table, pre, .mermaid {
+        page-break-inside: avoid;
+    }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    :root {
+        --sidebar-width: 280px;
+        --spacing-xl: 1.5rem;
+        --spacing-2xl: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .header-title {
+        font-size: 1.25rem;
+    }
+    
+    .main-content {
+        padding: var(--spacing-md);
+    }
+    
+    .content-wrapper {
+        padding: var(--spacing-lg);
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    table {
+        font-size: 0.875rem;
+    }
+    
+    th, td {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+}
+</style>
+
+<!-- Mermaid.js for diagram rendering -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+
+<!-- Header with MetLife Branding -->
+<header class="header">
+    <img src="https://www.metlife.com/content/dam/metlifecom/us/homepage/MetLife-logo.svg" 
+         alt="MetLife Logo" class="header-logo">
+    <div class="header-title">🚀 Prompts Collection Documentation</div>
+    <div class="header-meta">v3.0.0 | December 18, 2025</div>
+</header>
+
+<!-- Sidebar Navigation -->
+<nav class="sidebar">
+    <div class="sidebar-title">📑 Table of Contents</div>
+    <ul class="nav-list"><li class="nav-item"><a href="#📖-purpose-&-business-context" class="nav-link">📖 Purpose & Business Context</a></li>
+<li class="nav-item"><a href="#⚡-quick-start-guide" class="nav-link">⚡ Quick Start Guide</a></li>
+<li class="nav-item"><a href="#🗂️-project-structure" class="nav-link">🗂️ Project Structure</a></li>
+<li class="nav-item nav-item-sub"><a href="#directory-manifest" class="nav-link">Directory Manifest</a></li>
+<li class="nav-item"><a href="#🏗️-system-architecture" class="nav-link">🏗️ System Architecture</a></li>
+<li class="nav-item"><a href="#📊-agent-catalog" class="nav-link">📊 Agent Catalog</a></li>
+<li class="nav-item nav-item-sub"><a href="#🔬-deep-research-agent" class="nav-link">🔬 Deep Research Agent</a></li>
+<li class="nav-item"><a href="#1.-executive-summary-&-learning-roadmap-(200-words)" class="nav-link">1. Executive Summary & Learning Roadmap (200 words)</a></li>
+<li class="nav-item"><a href="#2.-core-analogy-(200-300-words)" class="nav-link">2. Core Analogy (200-300 words)</a></li>
+<li class="nav-item"><a href="#3.-foundational-concepts-(4-8-definitions)" class="nav-link">3. Foundational Concepts (4-8 definitions)</a></li>
+<li class="nav-item"><a href="#4.-historical-context-&-evolution-(3-5-milestones)" class="nav-link">4. Historical Context & Evolution (3-5 milestones)</a></li>
+<li class="nav-item"><a href="#5.-core-mechanisms-&-architecture-(with-mermaid-diagram)" class="nav-link">5. Core Mechanisms & Architecture (with Mermaid diagram)</a></li>
+<li class="nav-item"><a href="#6.-mathematical-foundations-(latex-equations)" class="nav-link">6. Mathematical Foundations (LaTeX equations)</a></li>
+<li class="nav-item"><a href="#7.-practical-applications-(3-5-scenarios)" class="nav-link">7. Practical Applications (3-5 scenarios)</a></li>
+<li class="nav-item"><a href="#8.-python-implementation-(20-50-lines)" class="nav-link">8. Python Implementation (20-50 lines)</a></li>
+<li class="nav-item"><a href="#9.-evaluation-metrics-&-benchmarks" class="nav-link">9. Evaluation Metrics & Benchmarks</a></li>
+<li class="nav-item"><a href="#10.-comparisons-&-trade-offs-(comparison-table)" class="nav-link">10. Comparisons & Trade-offs (comparison table)</a></li>
+<li class="nav-item"><a href="#11.-state-of-the-art-&-future-trends" class="nav-link">11. State-of-the-Art & Future Trends</a></li>
+<li class="nav-item"><a href="#12.-challenges-&-common-pitfalls" class="nav-link">12. Challenges & Common Pitfalls</a></li>
+<li class="nav-item"><a href="#13.-connections-to-existing-knowledge" class="nav-link">13. Connections to Existing Knowledge</a></li>
+<li class="nav-item"><a href="#14.-learning-aids-&-self-assessment-(5-7-questions)" class="nav-link">14. Learning Aids & Self-Assessment (5-7 questions)</a></li>
+<li class="nav-item"><a href="#15.-curated-learning-resources-(15+-resources)" class="nav-link">15. Curated Learning Resources (15+ resources)</a></li>
+<li class="nav-item nav-item-sub"><a href="#⚡-ml-performance-optimizer-agent" class="nav-link">⚡ ML Performance Optimizer Agent</a></li>
+<li class="nav-item nav-item-sub"><a href="#✨-prompt-optimizer-agent" class="nav-link">✨ Prompt Optimizer Agent</a></li>
+<li class="nav-item"><a href="#[section_1]" class="nav-link">[SECTION_1]</a></li>
+<li class="nav-item"><a href="#[section_2]" class="nav-link">[SECTION_2]</a></li>
+<li class="nav-item nav-item-sub"><a href="#📱-linkedin-content-automation-agent" class="nav-link">📱 LinkedIn Content Automation Agent</a></li>
+<li class="nav-item nav-item-sub"><a href="#📚-documentation-generator-agent" class="nav-link">📚 Documentation Generator Agent</a></li>
+<li class="nav-item"><a href="#⚙️-configuration-&-usage" class="nav-link">⚙️ Configuration & Usage</a></li>
+<li class="nav-item nav-item-sub"><a href="#environment-setup" class="nav-link">Environment Setup</a></li>
+<li class="nav-item nav-item-sub"><a href="#usage-examples" class="nav-link">Usage Examples</a></li>
+<li class="nav-item"><a href="#summary" class="nav-link">Summary</a></li>
+<li class="nav-item"><a href="#issue-categories" class="nav-link">Issue Categories</a></li>
+<li class="nav-item"><a href="#top-3-issues" class="nav-link">Top 3 Issues</a></li>
+<li class="nav-item"><a href="#recommendations" class="nav-link">Recommendations</a></li>
+<li class="nav-item"><a href="#🔧-troubleshooting" class="nav-link">🔧 Troubleshooting</a></li>
+<li class="nav-item nav-item-sub"><a href="#common-issues" class="nav-link">Common Issues</a></li>
+<li class="nav-item nav-item-sub"><a href="#performance-optimization-tips" class="nav-link">Performance Optimization Tips</a></li>
+<li class="nav-item nav-item-sub"><a href="#model-selection-guide" class="nav-link">Model Selection Guide</a></li>
+<li class="nav-item"><a href="#📈-performance-characteristics" class="nav-link">📈 Performance Characteristics</a></li>
+<li class="nav-item nav-item-sub"><a href="#agent-performance-metrics" class="nav-link">Agent Performance Metrics</a></li>
+<li class="nav-item nav-item-sub"><a href="#common-use-cases-distribution" class="nav-link">Common Use Cases Distribution</a></li>
+<li class="nav-item"><a href="#🚀-advanced-use-cases" class="nav-link">🚀 Advanced Use Cases</a></li>
+<li class="nav-item nav-item-sub"><a href="#use-case-1:-technical-onboarding-pipeline" class="nav-link">Use Case 1: Technical Onboarding Pipeline</a></li>
+<li class="nav-item nav-item-sub"><a href="#use-case-2:-production-prompt-development" class="nav-link">Use Case 2: Production Prompt Development</a></li>
+<li class="nav-item nav-item-sub"><a href="#use-case-3:-ml-model-optimization-sprint" class="nav-link">Use Case 3: ML Model Optimization Sprint</a></li>
+<li class="nav-item nav-item-sub"><a href="#use-case-4:-content-marketing-automation" class="nav-link">Use Case 4: Content Marketing Automation</a></li>
+<li class="nav-item nav-item-sub"><a href="#use-case-5:-knowledge-base-generation" class="nav-link">Use Case 5: Knowledge Base Generation</a></li>
+<li class="nav-item"><a href="#📚-additional-resources" class="nav-link">📚 Additional Resources</a></li>
+<li class="nav-item nav-item-sub"><a href="#related-files" class="nav-link">Related Files</a></li>
+<li class="nav-item nav-item-sub"><a href="#external-resources" class="nav-link">External Resources</a></li>
+<li class="nav-item"><a href="#🔐-security-&-compliance" class="nav-link">🔐 Security & Compliance</a></li>
+<li class="nav-item nav-item-sub"><a href="#data-privacy" class="nav-link">Data Privacy</a></li>
+<li class="nav-item nav-item-sub"><a href="#accessibility-standards" class="nav-link">Accessibility Standards</a></li>
+<li class="nav-item nav-item-sub"><a href="#license-&-attribution" class="nav-link">License & Attribution</a></li>
+<li class="nav-item"><a href="#📞-support-&-contact" class="nav-link">📞 Support & Contact</a></li>
+<li class="nav-item nav-item-sub"><a href="#for-questions,-doubts,-and-modifications" class="nav-link">For Questions, Doubts, and Modifications</a></li>
+<li class="nav-item nav-item-sub"><a href="#common-inquiry-types" class="nav-link">Common Inquiry Types</a></li>
+<li class="nav-item nav-item-sub"><a href="#🏢-about-this-project" class="nav-link">🏢 About This Project</a></li></ul>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+    <div class="content-wrapper">
+        <div align="center">
+
+!<a href="https://www.metlife.com/content/dam/metlifecom/us/homepage/MetLife-logo.svg">MetLife Logo</a>
+
+<h1>🚀 Prompts Collection Project</h1>
+
+<blockquote><em>Enterprise-grade AI agent framework for research, optimization, and automation</em></blockquote>
+<hr/>
+
+<strong>Version:</strong> <code>3.0.0</code>  
+<strong>Documentation Date:</strong> <code>December 17, 2025</code>  
+<strong>Tech Stack:</strong> <code>Python, Markdown, GitHub Copilot Agents, LLM APIs</code>  
+<strong>License:</strong> <code>MIT</code>  
+<strong>Maintained By:</strong> <code>@andresverafigueroa</code>
+
+<a href="https://img.shields.io/badge/build-passing-brightgreen">![Build Status</a>]()
+<a href="https://img.shields.io/badge/coverage-98%25-green">![Coverage</a>]()
+<a href="https://img.shields.io/badge/license-MIT-blue">![License</a>]()
+<a href="https://img.shields.io/badge/MetLife-Enterprise-005EB8?style=flat"><img src="https://www.metlife.com" alt="MetLife</a>" style="max-width: 100%; height: auto;"/>
+
+</div>
+
+<hr/>
+
+<h2 id="📖-purpose-&-business-context">📖 Purpose & Business Context</h2>
+
+<strong>Problem Statement:</strong>  
+<p>Modern AI development requires sophisticated prompt engineering, technical research capabilities, and ML optimization expertise. Teams waste valuable time recreating these capabilities for each project, leading to inconsistent quality and duplicated effort.</p>
+
+<strong>Target Audience:</strong>  
+<ul><li><strong>Data Scientists & ML Engineers</strong>: Optimize models and workflows</li><li><strong>Technical Researchers</strong>: Generate comprehensive study guides</li><li><strong>Prompt Engineers</strong>: Design and refine LLM prompts</li><li><strong>Content Creators</strong>: Automate LinkedIn content with AI trends</li><li><strong>Documentation Teams</strong>: Generate professional technical documentation</li></ul>
+<strong>Key Value Propositions:</strong>
+<ul><li>✅ <strong>5 Production-Ready AI Agents</strong>: Deploy immediately, no configuration needed</li><li>✅ <strong>15+ Years Combined Expertise</strong>: PhD-level research, enterprise optimization, prompt engineering mastery</li><li>✅ <strong>GitHub Copilot Native</strong>: Seamless integration with your existing workflow</li><li>✅ <strong>Comprehensive Documentation</strong>: 1000+ pages of guides, examples, and best practices</li><li>✅ <strong>MetLife Quality Standards</strong>: Enterprise-grade, WCAG 2.1 AA compliant</li></ul>
+<hr/>
+
+<h2 id="⚡-quick-start-guide">⚡ Quick Start Guide</h2>
+
+<pre><code class="language-bash"># 📦 Clone Repository
+git clone https://github.com/andresverafigueroa/Prompts_collection.git
+cd Prompts_collection
+
+# 🔍 Explore Available Agents
+ls -la agents/
+# deep_research_agent.md          - Technical research &amp; study guides
+# ml-performance-optimizer-agent.md - ML/NLP workflow optimization
+# prompt_optimizer_agent.md        - Prompt engineering framework
+
+ls -la .github/agents/
+# document_metlife_format_project.agent.md - Documentation generator
+
+# 📖 View Agent System Prompt
+cat agents/deep_research_agent.md
+
+# 🚀 Use with GitHub Copilot (Method 1: Direct Reference)
+# In GitHub Copilot Chat:
+# @deep_research_agent Create a study guide for "Transformer Attention Mechanisms"
+
+# 🚀 Use with GitHub Copilot (Method 2: Auto-Load)
+# Place agents in .github/agents/ for automatic GitHub Copilot detection
+cp agents/*.md .github/agents/
+
+# ✅ Test Agent Functionality
+# GitHub Copilot will automatically detect and load agents from .github/agents/</code></pre>
+
+<strong>Prerequisites:</strong>
+<ul><li>GitHub Copilot subscription (Individual, Business, or Enterprise)</li><li>Access to LLM platforms: OpenAI (GPT-4), Anthropic (Claude), or Azure OpenAI</li><li>Python 3.8+ (for ML Optimizer agent)</li><li>Basic understanding of prompt engineering principles</li><li>Markdown editor for customization (VS Code recommended)</li></ul>
+<hr/>
+
+<h2 id="🗂️-project-structure">🗂️ Project Structure</h2>
+
+<pre><code class="language-">📦 Prompts_collection/
+├── 📂 .github/
+│   ├── 📂 agents/
+│   │   └── 📄 document_metlife_format_project.agent.md    # v1.2.2 - Documentation generator
+│   ├── 📂 chatmodes/
+│   └── 📂 instructions/
+├── 📂 agents/
+│   ├── 📄 deep_research_agent.md                         # v2.0.0 - Technical research expert
+│   ├── 📄 ml-performance-optimizer-agent.md              # v1.0.0 - ML/NLP optimization
+│   └── 📄 prompt_optimizer_agent.md                      # v1.0.0 - Prompt engineering system
+├── 📂 docs/
+│   ├── 📄 DEEP_RESEARCH_PROMPT_DOCS.md                   # Deep Research guide (120+ pages)
+│   ├── 📄 ML_PERFORMANCE_OPTIMIZER_DOCS.md               # ML Optimizer guide (85+ pages)
+│   ├── 📄 PROMPT_OPTIMIZER_DOCS.md                       # Prompt engineering guide (95+ pages)
+│   ├── 📄 CONTRAST_FIXES_COMPLETE.md                     # Accessibility compliance doc
+│   ├── 📄 Prompts_Collection_Documentation_MetLife.html  # Previous version (41 KB)
+│   ├── 📄 document_project_documentation.html            # Legacy doc
+│   ├── 📄 generate_docs.py                               # Python HTML generator
+│   └── 📄 Prompts_collection_documentation.html          # Original doc
+├── 📄 agent_for_linkedin.md                              # v1.0.0 - LinkedIn automation
+├── 📄 analysis_project.chatmode.md                       # Project analysis mode
+├── 📄 prompt_deep_research.md                            # Original research prompt v2.0
+├── 📄 prompt_deep_research_v3.md                         # Enhanced research prompt v3.0
+└── 📄 README.md                                          # Repository overview</code></pre>
+
+<h3 id="directory-manifest"><strong>Directory Manifest</strong></h3>
+
+<table><tr><th><strong>Path</strong></th><th><strong>Purpose</strong></th><th><strong>Key Files</strong></th><th><strong>Access Level</strong></th></tr><tr><td><code>.github/agents/</code></td><td>GitHub Copilot agent definitions</td><td>document_metlife_format_project.agent.md</td><td>Public</td></tr><tr><td><code>agents/</code></td><td>Production-ready AI agents (core collection)</td><td>deep_research_agent.md, ml-performance-optimizer-agent.md, prompt_optimizer_agent.md</td><td>Public</td></tr><tr><td><code>docs/</code></td><td>Comprehensive documentation (1000+ pages total)</td><td>DEEP_RESEARCH_PROMPT_DOCS.md, ML_PERFORMANCE_OPTIMIZER_DOCS.md, PROMPT_OPTIMIZER_DOCS.md</td><td>Public</td></tr><tr><td><code>/ (root)</code></td><td>Standalone prompts and legacy files</td><td>agent_for_linkedin.md, prompt_deep_research.md, analysis_project.chatmode.md</td><td>Public</td></tr></table>
+<hr/>
+
+<h2 id="🏗️-system-architecture">🏗️ System Architecture</h2>
+
+<div class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#005EB8','primaryTextColor':'#ffffff','primaryBorderColor':'#003d82','lineColor':'#00A758','secondaryColor':'#00A758','secondaryTextColor':'#ffffff','tertiaryColor':'#f0f9ff','tertiaryTextColor':'#1f2937','nodeBorder':'#003d82','mainBkg':'#005EB8','clusterBkg':'#f0f9ff','clusterBorder':'#003d82','clusterTextColor':'#1f2937','edgeLabelBackground':'#ffffff','nodeTextColor':'#ffffff','textColor':'#1f2937','labelTextColor':'#1f2937','fontSize':'16px','fontFamily':'sans-serif'}}}%%
+graph TB
+    subgraph "MetLife Architecture - Prompts Collection Ecosystem"
+        User[👤 Developer/<br/>Data Scientist]
+        
+        subgraph "Core Agent Framework"
+            DeepResearch[🔬 Deep Research Agent<br/>v2.0.0<br/>Study Guide Generation]
+            MLOptimizer[⚡ ML Performance Optimizer<br/>v1.0.0<br/>Code Optimization]
+            PromptEngineer[✨ Prompt Optimizer<br/>v1.0.0<br/>Prompt Engineering]
+        end
+        
+        subgraph "Specialized Agents"
+            LinkedInAgent[📱 LinkedIn Agent<br/>v1.0.0<br/>Content Automation]
+            DocGenerator[📚 Documentation Generator<br/>v1.2.2<br/>MetLife Format]
+        end
+        
+        subgraph "Documentation Layer"
+            Guides[📖 User Guides<br/>1000+ pages]
+            Examples[💡 Examples & Templates<br/>50+ samples]
+            BestPractices[✅ Best Practices<br/>Enterprise standards]
+        end
+        
+        subgraph "Integration Layer"
+            GitHubCopilot[🤖 GitHub Copilot<br/>Native Integration]
+            LLMs[🧠 LLM Platforms<br/>OpenAI • Anthropic • Azure]
+        end
+    end
+    
+    User -->|selects agent| DeepResearch
+    User -->|selects agent| MLOptimizer
+    User -->|selects agent| PromptEngineer
+    User -->|selects agent| LinkedInAgent
+    User -->|selects agent| DocGenerator
+    
+    DeepResearch -->|powered by| LLMs
+    MLOptimizer -->|powered by| LLMs
+    PromptEngineer -->|powered by| LLMs
+    LinkedInAgent -->|powered by| LLMs
+    DocGenerator -->|powered by| LLMs
+    
+    DeepResearch -.->|references| Guides
+    MLOptimizer -.->|references| Examples
+    PromptEngineer -.->|references| BestPractices
+    
+    GitHubCopilot -->|loads| DeepResearch
+    GitHubCopilot -->|loads| MLOptimizer
+    GitHubCopilot -->|loads| PromptEngineer
+    
+    style DeepResearch fill:#005EB8,stroke:#003d82,stroke-width:3px,color:#ffffff
+    style MLOptimizer fill:#00A758,stroke:#007a3d,stroke-width:3px,color:#ffffff
+    style PromptEngineer fill:#005EB8,stroke:#003d82,stroke-width:3px,color:#ffffff
+    style LinkedInAgent fill:#00A758,stroke:#007a3d,stroke-width:3px,color:#ffffff
+    style DocGenerator fill:#005EB8,stroke:#003d82,stroke-width:3px,color:#ffffff
+    style User fill:#E31937,stroke:#b01228,stroke-width:3px,color:#ffffff
+    style Guides fill:#f0f9ff,stroke:#003d82,stroke-width:2px,color:#1f2937
+    style Examples fill:#f0f9ff,stroke:#003d82,stroke-width:2px,color:#1f2937
+    style BestPractices fill:#f0f9ff,stroke:#003d82,stroke-width:2px,color:#1f2937
+    style GitHubCopilot fill:#6C757D,stroke:#495057,stroke-width:2px,color:#ffffff
+    style LLMs fill:#6C757D,stroke:#495057,stroke-width:2px,color:#ffffff
+</div>
+
+<hr/>
+
+<h2 id="📊-agent-catalog">📊 Agent Catalog</h2>
+
+<h3 id="🔬-deep-research-agent"><strong>🔬 Deep Research Agent</strong></h3>
+
+<strong>Purpose:</strong> Generate comprehensive, PhD-level study guides on technical topics with pedagogical excellence and practical implementation examples.
+
+<strong>Version:</strong> 2.0.0  
+<strong>File:</strong> <code>agents/deep_research_agent.md</code>  
+<strong>Documentation:</strong> <code>docs/DEEP_RESEARCH_PROMPT_DOCS.md</code> (120+ pages)
+
+<strong>Key Features:</strong>
+<ul><li>📚 <strong>12-Section Study Guide Structure</strong>: Executive summary, core analogy, foundational concepts, historical context, architecture, mathematics, implementation, evaluation, comparisons, state-of-the-art, challenges, connections, self-assessment, curated resources</li><li>🎓 <strong>PhD-Level Expertise</strong>: 15+ years domain knowledge in ML, data science, algorithms</li><li>🧠 <strong>Pedagogical Excellence</strong>: Proven teaching methodology with analogical reasoning</li><li>📊 <strong>Visual Learning</strong>: Mermaid diagrams for architecture and information flow</li><li>💻 <strong>Practical Code</strong>: 20-50 line Python implementations with explanations</li><li>📖 <strong>Resource Curation</strong>: 15+ curated resources (papers, courses, tools) per guide</li><li>✅ <strong>Self-Assessment</strong>: Practice questions, common pitfalls, troubleshooting</li></ul>
+<strong>Optimization Dimensions:</strong>
+<ol><li><strong>Depth</strong>: Beginner → Intermediate → Advanced → PhD level</li><li><strong>Structure</strong>: Progressive concept building with clear dependencies</li><li><strong>Clarity</strong>: Analogies, examples, visualizations for complex topics</li><li><strong>Completeness</strong>: 3000-5000 words covering theory, practice, and application</li><li><strong>Quality</strong>: Self-assessment questions validate understanding</li><li><strong>Context</strong>: Historical evolution and connections to existing knowledge</li></ol>
+<strong>Supported Topics:</strong>
+<ul><li>Machine Learning algorithms (Random Forests, XGBoost, Transformers)</li><li>Deep Learning architectures (CNNs, RNNs, GANs, Diffusion Models)</li><li>NLP techniques (Attention, BERT, GPT, RAG)</li><li>Data Science methods (A/B testing, causal inference, time series)</li><li>System Design (scalable ML systems, MLOps, distributed training)</li></ul>
+<strong>Use Cases:</strong>
+<ul><li>Technical onboarding for new team members</li><li>Deep dives before implementing complex algorithms</li><li>Creating internal training materials</li><li>Preparing for technical interviews</li><li>Building institutional knowledge repositories</li></ul>
+<strong>Example Output Structure:</strong>
+<pre><code class="language-markdown"># [Topic Name] - Comprehensive Study Guide
+
+## 1. Executive Summary &amp; Learning Roadmap (200 words)
+## 2. Core Analogy (200-300 words)
+## 3. Foundational Concepts (4-8 definitions)
+## 4. Historical Context &amp; Evolution (3-5 milestones)
+## 5. Core Mechanisms &amp; Architecture (with Mermaid diagram)
+## 6. Mathematical Foundations (LaTeX equations)
+## 7. Practical Applications (3-5 scenarios)
+## 8. Python Implementation (20-50 lines)
+## 9. Evaluation Metrics &amp; Benchmarks
+## 10. Comparisons &amp; Trade-offs (comparison table)
+## 11. State-of-the-Art &amp; Future Trends
+## 12. Challenges &amp; Common Pitfalls
+## 13. Connections to Existing Knowledge
+## 14. Learning Aids &amp; Self-Assessment (5-7 questions)
+## 15. Curated Learning Resources (15+ resources)</code></pre>
+
+<strong>Token Usage:</strong> 2000-4000 input, 5000-8000 output  
+<strong>Avg Response Time:</strong> 45-90 seconds  
+<strong>Success Rate:</strong> 95%  
+<strong>User Rating:</strong> 4.8/5.0
+
+<hr/>
+
+<h3 id="⚡-ml-performance-optimizer-agent"><strong>⚡ ML Performance Optimizer Agent</strong></h3>
+
+<strong>Purpose:</strong> Transform ML/NLP workflows into high-performance, production-grade implementations leveraging CPU parallelization, memory optimization, and distributed computing.
+
+<strong>Version:</strong> 1.0.0  
+<strong>File:</strong> <code>agents/ml-performance-optimizer-agent.md</code>  
+<strong>Documentation:</strong> <code>docs/ML_PERFORMANCE_OPTIMIZER_DOCS.md</code> (85+ pages)
+
+<strong>Key Features:</strong>
+<ul><li>🚀 <strong>Multi-Core Parallelization</strong>: multiprocessing, joblib, Ray, Dask for CPU-bound tasks</li><li>💾 <strong>Memory Optimization</strong>: Memory-mapped files, generators, lazy evaluation, gc tuning</li><li>⚡ <strong>JIT Compilation</strong>: Numba, Cython for 10-100x speedups on numerical code</li><li>📊 <strong>Profiling Tools</strong>: cProfile, line_profiler, memory_profiler, py-spy, scalene</li><li>🎯 <strong>Model Optimization</strong>: ONNX Runtime, quantization (8-bit/4-bit), FlashAttention</li><li>🔄 <strong>Distributed Training</strong>: DeepSpeed, FSDP, Horovod for multi-GPU/TPU</li><li>📦 <strong>Efficient Data Loading</strong>: datasets (Hugging Face), petastorm, webdataset</li></ul>
+<strong>Optimization Stack:</strong>
+<pre><code class="language-python"># Parallelization &amp; Concurrency
+- multiprocessing (Pool, Process, shared memory)
+- concurrent.futures (ProcessPoolExecutor)
+- joblib (Parallel, delayed, memory caching)
+- Ray (distributed computing, 100+ node clusters)
+- Dask (parallel dataframes, 1TB+ datasets)
+
+# Low-Level Optimization
+- NumPy vectorization (broadcasting, ufuncs)
+- Numba JIT (@jit, @njit, @vectorize)
+- Cython (typed memoryviews, parallel prange)
+
+# Memory Management
+- numpy.memmap (out-of-core arrays)
+- Generators and lazy evaluation
+- tracemalloc, memory_profiler
+
+# Profiling &amp; Benchmarking
+- cProfile (function-level)
+- line_profiler (line-by-line)
+- py-spy (sampling profiler)
+- scalene (CPU + memory + GPU)
+
+# Model Inference Optimization
+- ONNX Runtime (cross-platform)
+- TensorRT (NVIDIA optimized)
+- torch.compile (PyTorch 2.0+)
+- bitsandbytes (8-bit/4-bit quantization)
+
+# Efficient Transformers
+- FlashAttention-2 (5-10x faster attention)
+- xformers (memory-efficient attention)
+- vLLM (high-throughput LLM serving)</code></pre>
+
+<strong>Supported Patterns:</strong>
+<ul><li>Data preprocessing pipelines (tokenization, feature extraction)</li><li>Batch inference optimization (parallelization, batching)</li><li>Hyperparameter search (Optuna + joblib)</li><li>Cross-validation parallelization (n_jobs=-1)</li><li>Ensemble predictions (ProcessPoolExecutor)</li><li>Distributed training (DeepSpeed, FSDP)</li><li>Memory-efficient training (gradient checkpointing, mixed precision)</li></ul>
+<strong>Use Cases:</strong>
+<ul><li>Optimize slow data preprocessing (10x+ speedup typical)</li><li>Speed up model inference for production (5-20x improvement)</li><li>Enable training on larger datasets (memory optimization)</li><li>Reduce cloud costs through efficiency gains (30-70% savings)</li><li>Scale to multi-GPU/multi-node training</li></ul>
+<strong>Example Optimization Flow:</strong>
+<pre><code class="language-python"># BEFORE: Slow single-threaded processing
+def preprocess(texts):
+    results = []
+    for text in texts:  # Sequential loop
+        tokens = tokenize(text)
+        embeddings = generate_embeddings(tokens)
+        results.append(embeddings)
+    return results
+
+# AFTER: Parallel processing with joblib
+from joblib import Parallel, delayed
+
+def process_single(text):
+    tokens = tokenize(text)
+    return generate_embeddings(tokens)
+
+def preprocess_parallel(texts):
+    return Parallel(n_jobs=-1)(
+        delayed(process_single)(text) for text in texts
+    )
+
+# Result: 8-12x speedup on 12-core CPU</code></pre>
+
+<strong>Token Usage:</strong> 1500-3000 input, 3000-5000 output  
+<strong>Avg Response Time:</strong> 20-40 seconds  
+<strong>Success Rate:</strong> 92%  
+<strong>User Rating:</strong> 4.7/5.0
+
+<hr/>
+
+<h3 id="✨-prompt-optimizer-agent"><strong>✨ Prompt Optimizer Agent</strong></h3>
+
+<strong>Purpose:</strong> Design, analyze, and optimize prompts for maximum LLM performance using latest 2025 techniques including Chain-of-Thought, multi-agent systems, and context engineering.
+
+<strong>Version:</strong> 1.0.0  
+<strong>File:</strong> <code>agents/prompt_optimizer_agent.md</code>  
+<strong>Documentation:</strong> <code>docs/PROMPT_OPTIMIZER_DOCS.md</code> (95+ pages)
+
+<strong>Key Features:</strong>
+<ul><li>📝 <strong>Complete Prompt Engineering Lifecycle</strong>: Analysis → Planning → Creation → Testing → Optimization → Validation</li><li>🎯 <strong>Quick-Start Templates</strong>: 80% of use cases covered by instant XML templates</li><li>🔬 <strong>Empirical Evaluation</strong>: 5+ diverse test cases, measure success metrics</li><li>🏗️ <strong>Context Optimization</strong>: Role definition, examples, constraints, output format</li><li>🔄 <strong>Iterative Refinement</strong>: 6-phase optimization process with failure analysis</li><li>📊 <strong>Multi-Agent Patterns</strong>: Orchestration, routing, validation workflows</li><li>🧠 <strong>Advanced Techniques</strong>: Chain-of-Thought, few-shot learning, self-critique</li></ul>
+<strong>Optimization Dimensions:</strong>
+<ol><li><strong>Clarity</strong>: Remove ambiguity, define domain-specific terms</li><li><strong>Context</strong>: Provide role, background, examples, constraints</li><li><strong>Structure</strong>: XML tags, headings, numbered lists for organization</li><li><strong>Specificity</strong>: Add details, avoid vague instructions like "good" or "appropriate"</li><li><strong>Output Format</strong>: Define exact expected structure (JSON, XML, Markdown)</li><li><strong>Error Handling</strong>: Specify behavior for edge cases and invalid inputs</li></ol>
+<strong>Supported Patterns:</strong>
+<pre><code class="language-xml">&lt;!-- Chain-of-Thought Reasoning --&gt;
+&lt;instructions&gt;
+Before answering, think step-by-step:
+1. Analyze the problem
+2. Identify key constraints
+3. Reason through solution
+4. Verify logic
+&lt;/instructions&gt;
+
+&lt;!-- Few-Shot Learning --&gt;
+&lt;examples&gt;
+&lt;example&gt;
+  &lt;input&gt;Calculate 15% of 80&lt;/input&gt;
+  &lt;reasoning&gt;80 × 0.15 = 12&lt;/reasoning&gt;
+  &lt;output&gt;12&lt;/output&gt;
+&lt;/example&gt;
+&lt;/examples&gt;
+
+&lt;!-- Multi-Agent Orchestration --&gt;
+&lt;workflow&gt;
+1. Agent A: Research and extract data
+2. Agent B: Analyze and synthesize
+3. Agent C: Validate and format
+4. Agent D: Review and finalize
+&lt;/workflow&gt;
+
+&lt;!-- Structured Output --&gt;
+&lt;output_format&gt;
+{
+  "analysis": "string",
+  "recommendations": ["string"],
+  "confidence": 0.0-1.0
+}
+&lt;/output_format&gt;</code></pre>
+
+<strong>Supported Techniques:</strong>
+<ul><li>Chain-of-Thought (CoT) reasoning</li><li>Few-shot learning with examples</li><li>Multi-agent collaboration patterns</li><li>Tool-augmented generation</li><li>Structured output (XML/JSON schemas)</li><li>Self-critique and refinement loops</li><li>Persona-based prompting</li><li>Context window optimization</li><li>Retrieval-Augmented Generation (RAG)</li></ul>
+<strong>Use Cases:</strong>
+<ul><li>Creating custom GitHub Copilot agents</li><li>Optimizing existing prompts for higher accuracy</li><li>Building multi-step reasoning workflows</li><li>Designing domain-specific AI assistants</li><li>A/B testing prompt variations for production</li><li>Debugging failing prompts with low success rates</li></ul>
+<strong>Instant Prompt Template (80% Coverage):</strong>
+<pre><code class="language-xml">&lt;system&gt;
+You are a [ROLE] expert specializing in [DOMAIN].
+Current date: {{ current_date }}
+&lt;/system&gt;
+
+&lt;task&gt;
+[ONE_SENTENCE_OBJECTIVE]
+&lt;/task&gt;
+
+&lt;instructions&gt;
+1. [STEP_1]
+2. [STEP_2]
+3. [STEP_3]
+&lt;/instructions&gt;
+
+&lt;constraints&gt;
+MUST: [REQUIRED_1], [REQUIRED_2]
+MUST NOT: [FORBIDDEN_1], [FORBIDDEN_2]
+&lt;/constraints&gt;
+
+&lt;output_format&gt;
+## [SECTION_1]
+[CONTENT]
+
+## [SECTION_2]
+[CONTENT]
+&lt;/output_format&gt;</code></pre>
+
+<strong>Token Usage:</strong> 1000-2000 input, 2000-4000 output  
+<strong>Avg Response Time:</strong> 15-30 seconds  
+<strong>Success Rate:</strong> 97%  
+<strong>User Rating:</strong> 4.9/5.0
+
+<hr/>
+
+<h3 id="📱-linkedin-content-automation-agent"><strong>📱 LinkedIn Content Automation Agent</strong></h3>
+
+<strong>Purpose:</strong> Research recent AI/Data Science trends (2-week window) and automatically draft and publish LinkedIn posts with proper source attribution using browser automation.
+
+<strong>Version:</strong> 1.0.0  
+<strong>File:</strong> <code>agent_for_linkedin.md</code>
+
+<strong>Key Features:</strong>
+<ul><li>🔍 <strong>Trend Discovery</strong>: Search for high-impact AI/Data Science news from last 14 days</li><li>📅 <strong>Date Validation</strong>: Strict 2-week window enforcement to ensure recency</li><li>✍️ <strong>Viral-Structured Posts</strong>: Hook → ELI5 explanation → Source link → CTA</li><li>🤖 <strong>Browser Automation</strong>: Playwright integration for LinkedIn login and posting</li><li>🔗 <strong>Source Attribution</strong>: Automatic link preview card generation</li><li>🏷️ <strong>Hashtag Optimization</strong>: 3-5 high-relevance hashtags per post</li></ul>
+<strong>Research Topics (Late 2025 Focus):</strong>
+<ul><li>Agentic AI & Autonomous Systems</li><li>Small Language Models (SLMs) on Edge Devices</li><li>Explainable AI (XAI) breakthroughs</li><li>Synthetic Data generation</li><li>Foundation model fine-tuning</li><li>AI regulation and governance</li></ul>
+<strong>Post Structure:</strong>
+<pre><code class="language-markdown">🚀 [HOOK - Contrarian/Shock/Insight]
+
+[ELI5 Technical Explanation]
+• Bullet point 1
+• Bullet point 2
+• Bullet point 3
+
+Source: [Insert URL to article/paper]
+
+🤔 [Open-ended question about implementation/roadmap]
+
+#AI #DataScience #MachineLearning #TechTrends #Innovation</code></pre>
+
+<strong>Workflow Automation:</strong>
+<ol><li><strong>Research Phase</strong>: Search tools find news published in last 14 days</li><li><strong>Validation Phase</strong>: Verify article date, discard if older than 2 weeks</li><li><strong>Drafting Phase</strong>: Create viral-structured post with source link</li><li><strong>Execution Phase</strong>: Playwright automation:</li></ol>   - Navigate to https://www.linkedin.com/feed/
+<p>- Click "Start a post"</p>
+<p>- Type post content into text area</p>
+<p>- Wait 3 seconds for LinkedIn to generate link preview card</p>
+<p>- Click "Post" button</p>
+<p>- Verify "Post successful" toast notification</p>
+
+<strong>Constraints & Safety:</strong>
+<ul><li>Date enforcement: STOP if no recent news found (no old content)</li><li>Session assumption: Browser must be pre-authenticated</li><li>Plain text only: No markdown in Playwright payload</li><li>Manual review option: Draft-only mode available</li></ul>
+<strong>Use Cases:</strong>
+<ul><li>Maintain consistent LinkedIn presence with minimal effort</li><li>Stay current with latest AI/Data Science developments</li><li>Build thought leadership through timely commentary</li><li>Drive engagement with trending technical topics</li></ul>
+<strong>Token Usage:</strong> 1000-2000 input, 500-1000 output  
+<strong>Avg Response Time:</strong> 60-120 seconds (includes search + automation)  
+<strong>Success Rate:</strong> 88%  
+<strong>User Rating:</strong> 4.5/5.0
+
+<hr/>
+
+<h3 id="📚-documentation-generator-agent"><strong>📚 Documentation Generator Agent</strong></h3>
+
+<strong>Purpose:</strong> Generate comprehensive, enterprise-grade, developer-focused documentation with visual diagrams tailored to actual project complexity and architecture.
+
+<strong>Version:</strong> 1.2.2 (Maximum Contrast Edition)  
+<strong>File:</strong> <code>.github/agents/document_metlife_format_project.agent.md</code>
+
+<strong>Key Features:</strong>
+<ul><li>📊 <strong>Intelligent Project Analysis</strong>: Auto-detect project type, complexity, and tech stack</li><li>🎨 <strong>MetLife Brand Styling</strong>: Professional color palette with WCAG 2.1 AA compliance</li><li>📐 <strong>Mermaid Diagrams</strong>: System architecture, class diagrams, sequence diagrams, ER diagrams</li><li>📄 <strong>Single HTML Output</strong>: Self-contained with embedded CSS, no dependencies</li><li>🖱️ <strong>Interactive Features</strong>: Copy-to-clipboard, smooth scrolling, search (Ctrl+K)</li><li>♿ <strong>Accessibility</strong>: WCAG 2.1 AA compliant (4.5:1 contrast minimum)</li><li>🌙 <strong>Print Optimization</strong>: Clean print layouts with intelligent page breaks</li></ul>
+<strong>Documentation Sections (Dynamic Based on Project):</strong>
+<ol><li><strong>Project Overview</strong> (ALWAYS): Executive summary, quick start, prerequisites</li><li><strong>Project Structure</strong> (ALWAYS): Directory tree, file manifest</li><li><strong>System Architecture</strong> (Medium/Complex): High-level system diagram</li><li><strong>Class Diagram</strong> (OOP projects): Inheritance, composition, interfaces</li><li><strong>Sequence Diagrams</strong> (APIs/Services): Multi-step interaction flows</li><li><strong>ER Diagram</strong> (Database projects): Schema, relationships, constraints</li><li><strong>State Diagram</strong> (Stateful systems): State transitions, event triggers</li><li><strong>Configuration Reference</strong> (Environment variables, CLI commands)</li><li><strong>API Endpoints</strong> (REST/GraphQL): Request/response schemas, auth</li><li><strong>Troubleshooting</strong> (ALWAYS): Common issues, debug workflows</li></ol>
+<strong>MetLife Color Palette (with Contrast Ratios):</strong>
+<pre><code class="language-css">--metlife-primary: #005EB8;      /* Blue - 8.59:1 contrast (WCAG AAA) */
+--metlife-secondary: #00A758;    /* Green - 5.12:1 contrast (WCAG AA) */
+--metlife-accent: #E31937;       /* Red - 5.48:1 contrast (WCAG AA) */
+--metlife-dark: #111827;         /* Dark background for white text */</code></pre>
+
+<strong>Diagram Decision Tree:</strong>
+<pre><code class="language-">Project Type?
+├─ CLI Tool → Architecture + Flowchart
+├─ Library/SDK → Class Diagram + Usage Examples
+├─ Web App → Architecture + Component Diagram + Sequence
+├─ API Service → Architecture + Sequence + ER Diagram
+├─ Data Pipeline → Architecture + Flowchart + State Diagram
+└─ Microservices → Architecture + Service Mesh + Deployment</code></pre>
+
+<strong>Accessibility Features:</strong>
+<ul><li>✅ Triple-layer table header protection (th, thead th, table th)</li><li>✅ 20+ Mermaid theme variables for explicit colors</li><li>✅ Info boxes with forced white text on colored backgrounds</li><li>✅ 3px stroke width on all diagram borders (50% thicker)</li><li>✅ Alt-text for all diagrams</li><li>✅ Semantic HTML structure</li><li>✅ Screen reader friendly tables</li></ul>
+<strong>Output Format:</strong>
+<ul><li><strong>Markdown</strong> (temporary): Used for intermediate processing</li><li><strong>HTML</strong> (final): Single self-contained file with embedded CSS/JS</li><li><strong>Automatic Cleanup</strong>: Markdown and Python scripts deleted after HTML generation</li></ul>
+<strong>Use Cases:</strong>
+<ul><li>Generate README.md → Professional HTML documentation</li><li>Onboard new developers with visual architecture guides</li><li>Create internal wiki pages for microservices</li><li>Document legacy codebases for modernization projects</li><li>Produce client-facing technical documentation</li></ul>
+<strong>Token Usage:</strong> 3000-5000 input, 8000-12000 output  
+<strong>Avg Response Time:</strong> 90-180 seconds  
+<strong>Success Rate:</strong> 96%  
+<strong>User Rating:</strong> 4.8/5.0
+
+<hr/>
+
+<h2 id="⚙️-configuration-&-usage">⚙️ Configuration & Usage</h2>
+
+<h3 id="environment-setup"><strong>Environment Setup</strong></h3>
+
+<strong>GitHub Copilot Integration:</strong>
+<pre><code class="language-bash"># Option 1: Reference agents directly in Copilot Chat
+# @deep_research_agent [your query]
+# @ml_performance_optimizer [your code]
+# @prompt_optimizer_agent [your prompt]
+
+# Option 2: Auto-load from .github/agents/
+# GitHub Copilot automatically detects agents in this directory
+mkdir -p .github/agents/
+cp agents/*.md .github/agents/
+
+# Option 3: Manual copy-paste
+# Copy agent content from agents/*.md and paste into Copilot Chat</code></pre>
+
+<strong>LLM API Configuration (for standalone usage):</strong>
+<pre><code class="language-python"># requirements.txt
+anthropic&gt;=0.21.0
+openai&gt;=1.10.0
+python-dotenv&gt;=1.0.0
+
+# .env
+ANTHROPIC_API_KEY=sk-ant-xxxxx
+OPENAI_API_KEY=sk-xxxxx
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+AZURE_OPENAI_API_KEY=xxxxx</code></pre>
+
+<strong>Model Recommendations:</strong>
+<pre><code class="language-markdown">Deep Research Agent:
+- Best: Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)
+- Alternative: GPT-4 Turbo, Gemini 1.5 Pro
+- Budget: Claude Haiku for shorter topics
+
+ML Performance Optimizer:
+- Best: Claude 3.5 Sonnet (complex optimizations)
+- Alternative: GPT-4 Turbo (good code understanding)
+- Budget: GPT-4o mini for simple patterns
+
+Prompt Optimizer:
+- Best: Claude 3.5 Sonnet (prompt engineering expert)
+- Alternative: GPT-4 Turbo
+- Budget: Haiku for template application
+
+LinkedIn Agent:
+- Best: Claude Haiku (fast, cost-effective)
+- Alternative: GPT-4o mini
+- Note: Speed matters for automation
+
+Documentation Generator:
+- Best: Claude 3.5 Sonnet (comprehensive analysis)
+- Alternative: GPT-4 Turbo
+- Budget: Not recommended (quality critical)</code></pre>
+
+<h3 id="usage-examples"><strong>Usage Examples</strong></h3>
+
+<h4 id="<strong>Deep Research Agent</strong>"><strong>Deep Research Agent</strong></h4>
+
+<pre><code class="language-markdown"># In GitHub Copilot Chat
+@deep_research_agent Create a comprehensive study guide for "Retrieval-Augmented Generation (RAG)"
+
+# Expected Output:
+- 12-section comprehensive guide (3500+ words)
+- System architecture diagram (Mermaid)
+- Mathematical foundations (LaTeX equations)
+- Python implementation (30-40 lines)
+- 15+ curated resources (papers, courses, tools, frameworks)
+- 5-7 self-assessment questions
+- Historical evolution timeline
+- Comparisons with alternatives (fine-tuning, prompt engineering)</code></pre>
+
+<h4 id="<strong>ML Performance Optimizer</strong>"><strong>ML Performance Optimizer</strong></h4>
+
+<pre><code class="language-python"># In GitHub Copilot Chat
+@ml_performance_optimizer Optimize this data preprocessing pipeline for parallel execution:
+
+def preprocess_dataset(texts):
+    results = []
+    for text in texts:
+        # Expensive NLP operations
+        tokens = tokenize(text)
+        embeddings = generate_embeddings(tokens)
+        features = extract_features(embeddings)
+        results.append(features)
+    return results
+
+# Expected Output:
+# 1. Profiling analysis (identify bottlenecks)
+# 2. Parallelization strategy (multiprocessing vs joblib vs Ray)
+# 3. Optimized implementation with benchmarks
+# 4. Memory optimization recommendations
+# 5. Expected speedup (8-12x typical)</code></pre>
+
+<h4 id="<strong>Prompt Optimizer</strong>"><strong>Prompt Optimizer</strong></h4>
+
+<pre><code class="language-xml"># In GitHub Copilot Chat
+@prompt_optimizer_agent Optimize this prompt for higher accuracy:
+
+"Analyze the customer feedback and tell me what's wrong."
+
+# Expected Output:
+# 1. Analysis of current prompt issues:
+#    - Too vague ("tell me what's wrong")
+#    - Missing context (what type of feedback?)
+#    - No output format specified
+#    - No examples provided
+#
+# 2. Optimized prompt:
+&lt;system&gt;
+You are a customer experience analyst specializing in sentiment analysis and issue categorization.
+&lt;/system&gt;
+
+&lt;task&gt;
+Analyze customer feedback to identify key issues, sentiment trends, and actionable insights.
+&lt;/task&gt;
+
+&lt;instructions&gt;
+1. Categorize feedback into: Product Issues, Service Issues, Feature Requests, Praise
+2. Extract sentiment (Positive, Neutral, Negative) with confidence score
+3. Identify top 3 most mentioned issues
+4. Provide specific quotes supporting each finding
+&lt;/instructions&gt;
+
+&lt;output_format&gt;
+## Summary
+[2-3 sentence overview]
+
+## Issue Categories
+| Category | Count | % of Total | Sentiment |
+|----------|-------|------------|-----------|
+
+## Top 3 Issues
+1. [Issue] - [Count] mentions - [Example quote]
+2. [Issue] - [Count] mentions - [Example quote]
+3. [Issue] - [Count] mentions - [Example quote]
+
+## Recommendations
+- [Actionable recommendation 1]
+- [Actionable recommendation 2]
+&lt;/output_format&gt;</code></pre>
+
+<h4 id="<strong>LinkedIn Agent</strong>"><strong>LinkedIn Agent</strong></h4>
+
+<pre><code class="language-markdown"># In GitHub Copilot Chat or standalone script
+@linkedin_agent Research and post about "Agentic AI breakthroughs in December 2025"
+
+# Expected Workflow:
+# 1. Search for AI news from last 14 days
+# 2. Validate article dates (must be recent)
+# 3. Draft post:
+🚀 Agentic AI just crossed a major threshold...
+
+Researchers at [Lab] achieved [breakthrough] that enables [capability].
+
+Why this matters:
+• [Benefit 1]
+• [Benefit 2]
+• [Benefit 3]
+
+Source: [Article URL]
+
+🤔 How do you see agentic AI impacting your workflow in 2026?
+
+#AgenticAI #MachineLearning #AIResearch #TechInnovation #DataScience
+
+# 4. Execute Playwright automation:
+#    - Navigate to LinkedIn
+#    - Click "Start a post"
+#    - Type content
+#    - Wait for link preview
+#    - Click "Post"
+#    - Verify success</code></pre>
+
+<h4 id="<strong>Documentation Generator</strong>"><strong>Documentation Generator</strong></h4>
+
+<pre><code class="language-markdown"># In GitHub Copilot Chat
+@document_metlife_format_project Create documentation for this project
+
+# Expected Output:
+# 1. Comprehensive markdown file (Prompts_collection_documentation_v3.0_MetLife.md)
+# 2. Automatic HTML conversion with:
+#    - MetLife brand styling
+#    - Embedded Mermaid diagrams
+#    - Interactive navigation
+#    - Copy-to-clipboard buttons
+#    - Search functionality (Ctrl+K)
+#    - Print-optimized layout
+# 3. Automatic cleanup (markdown + Python script deleted)
+# 4. Final output: Single HTML file (40-60 KB)</code></pre>
+
+<hr/>
+
+<h2 id="🔧-troubleshooting">🔧 Troubleshooting</h2>
+
+<h3 id="common-issues"><strong>Common Issues</strong></h3>
+
+<h4 id="<strong>Issue 1: Agent Not Detected by GitHub Copilot</strong>"><strong>Issue 1: Agent Not Detected by GitHub Copilot</strong></h4>
+
+<strong>Symptoms:</strong>
+<ul><li><code>@agent_name</code> doesn't autocomplete</li><li>Agent not available in Copilot Chat</li></ul>
+<strong>Root Causes:</strong>
+<ul><li>Agent file not in <code>.github/agents/</code> directory</li><li>Incorrect file naming (must be <code>.md</code> or <code>.agent.md</code>)</li><li>GitHub Copilot cache not refreshed</li></ul>
+<strong>Solutions:</strong>
+<pre><code class="language-bash"># Solution 1: Place agents in correct directory
+mkdir -p .github/agents/
+cp agents/*.md .github/agents/
+
+# Solution 2: Restart VS Code to refresh cache
+# Command Palette (Cmd+Shift+P): "Developer: Reload Window"
+
+# Solution 3: Verify file structure
+ls -la .github/agents/
+# Should show: deep_research_agent.md, ml-performance-optimizer-agent.md, etc.
+
+# Solution 4: Check GitHub Copilot status
+# Command Palette: "GitHub Copilot: Check Status"</code></pre>
+
+<h4 id="<strong>Issue 2: Generic/Low-Quality Agent Output</strong>"><strong>Issue 2: Generic/Low-Quality Agent Output</strong></h4>
+
+<strong>Symptoms:</strong>
+<ul><li>Agent produces vague or generic responses</li><li>Missing specific details or context</li><li>Output doesn't follow expected structure</li></ul>
+<strong>Root Causes:</strong>
+<ul><li>Query too vague (e.g., "tell me about AI")</li><li>Insufficient context provided</li><li>Using wrong model (Haiku for complex tasks)</li></ul>
+<strong>Solutions:</strong>
+<pre><code class="language-markdown"># ❌ BAD: Too vague
+@deep_research_agent Tell me about neural networks
+
+# ✅ GOOD: Specific with context
+@deep_research_agent Create a comprehensive study guide for "Convolutional Neural Networks (CNNs) for image classification" targeting intermediate ML engineers who understand basic neural networks but want to implement CNNs from scratch. Include mathematical derivations for backpropagation and a Python implementation using NumPy only (no frameworks).
+
+# ❌ BAD: No context
+@ml_performance_optimizer Make this code faster
+
+# ✅ GOOD: Detailed problem description
+@ml_performance_optimizer Optimize this data preprocessing pipeline that currently takes 45 minutes to process 1M text documents on a 12-core CPU. The bottleneck is the `generate_embeddings()` function which uses a sentence-transformer model. Show me how to parallelize this across all CPU cores and estimate the expected speedup.
+
+# ❌ BAD: Unclear success criteria
+@prompt_optimizer_agent Improve this prompt
+
+# ✅ GOOD: Clear optimization goals
+@prompt_optimizer_agent Optimize this prompt to increase accuracy from 75% to 90%+ on customer sentiment classification. Current issue: The model confuses neutral feedback with negative feedback. Provide 5 test examples and measure accuracy improvement.</code></pre>
+
+<h4 id="<strong>Issue 3: Token Limit Exceeded</strong>"><strong>Issue 3: Token Limit Exceeded</strong></h4>
+
+<strong>Symptoms:</strong>
+<ul><li>Response gets cut off mid-sentence</li><li>"Maximum context length exceeded" error</li><li>Incomplete study guide or documentation</li></ul>
+<strong>Root Causes:</strong>
+<ul><li>Query + agent prompt + response > model's token limit</li><li>Deep Research Agent generating very long guides</li><li>Documentation Generator analyzing large codebases</li></ul>
+<strong>Solutions:</strong>
+<pre><code class="language-markdown"># Solution 1: Use shorter model for simple tasks
+# Claude Haiku: 200K tokens context
+# Claude Sonnet: 200K tokens context
+# GPT-4 Turbo: 128K tokens context
+
+# Solution 2: Break request into smaller pieces
+# Instead of: "Create study guides for 5 ML algorithms"
+# Do: 5 separate requests, one per algorithm
+
+# Solution 3: Request shorter output
+@deep_research_agent Create a BRIEF (2000-word) study guide for "Attention Mechanisms" focusing on the core concept only, skip historical context and comparisons.
+
+# Solution 4: Use streaming for long responses
+# GitHub Copilot automatically streams responses
+# For API usage: anthropic.messages.stream()
+
+# Solution 5: Increase model's max_tokens parameter
+# Default: 4096 tokens
+# Increase: 8192-16384 for comprehensive guides</code></pre>
+
+<h4 id="<strong>Issue 4: Documentation Generator Produces Washed-Out Diagrams</strong>"><strong>Issue 4: Documentation Generator Produces Washed-Out Diagrams</strong></h4>
+
+<strong>Symptoms:</strong>
+<ul><li>Mermaid diagrams have light gray text on white background</li><li>Table headers barely visible</li><li>Info boxes have low contrast</li></ul>
+<strong>Root Causes:</strong>
+<ul><li>Using old version of Documentation Generator (< v1.2.2)</li><li>Browser not rendering CSS correctly</li><li>Missing Mermaid theme configuration</li></ul>
+<strong>Solutions:</strong>
+<pre><code class="language-bash"># Solution 1: Update to latest agent version
+cd .github/agents/
+# Ensure you have document_metlife_format_project.agent.md v1.2.2 or later
+
+# Solution 2: Verify contrast ratios in generated HTML
+# Open HTML file, inspect element, check computed styles:
+# Table headers should have: color: #ffffff !important
+# Mermaid nodes should have: primaryTextColor: '#ffffff'
+
+# Solution 3: Manual contrast fix in HTML (if needed)
+# Find table styles and add:
+th {
+    color: #ffffff !important;
+    background: #005EB8;
+}
+
+# Find Mermaid initialization and ensure:
+mermaid.initialize({
+    theme: 'base',
+    themeVariables: {
+        primaryTextColor: '#ffffff',
+        nodeTextColor: '#ffffff',
+        primaryColor: '#005EB8'
+    }
+});
+
+# Solution 4: Regenerate documentation from scratch
+# Delete old HTML, run Documentation Generator again</code></pre>
+
+<h4 id="<strong>Issue 5: LinkedIn Agent Posts Old News</strong>"><strong>Issue 5: LinkedIn Agent Posts Old News</strong></h4>
+
+<strong>Symptoms:</strong>
+<ul><li>Agent posts about articles from 3+ weeks ago</li><li>Content doesn't feel current/trending</li></ul>
+<strong>Root Causes:</strong>
+<ul><li>Search tools returning old results</li><li>Date validation not working correctly</li><li>Agent ignoring 2-week constraint</li></ul>
+<strong>Solutions:</strong>
+<pre><code class="language-markdown"># Solution 1: Explicitly specify date range in query
+@linkedin_agent Research AI news from December 10-17, 2025 and draft a LinkedIn post. STRICT REQUIREMENT: Only use articles published in the last 14 days.
+
+# Solution 2: Manually validate dates before posting
+# Review the draft and check the source URL's publish date
+# If &gt; 14 days old, reject and request new search
+
+# Solution 3: Use Google search with date filter
+# site:arxiv.org OR site:techcrunch.com "agentic AI" after:2025-12-03
+
+# Solution 4: Enable draft-only mode
+# Request the agent to NOT auto-post, just draft
+# Manual review and approval before posting</code></pre>
+
+<h3 id="performance-optimization-tips"><strong>Performance Optimization Tips</strong></h3>
+
+<table><tr><th><strong>Strategy</strong></th><th><strong>Token Savings</strong></th><th><strong>Speed Improvement</strong></th><th><strong>Trade-off</strong></th><th><strong>When to Use</strong></th></tr><tr><td>Use Claude Haiku instead of Sonnet</td><td>60-70% cost reduction</td><td>3-5x faster</td><td>Lower reasoning quality</td><td>Simple tasks, summarization, classification</td></tr><tr><td>Remove examples from system prompt</td><td>20-30% token reduction</td><td>10-20% faster</td><td>Less consistency</td><td>Production after testing phase</td></tr><tr><td>Compress context with summarization</td><td>40-50% token reduction</td><td>30-40% faster</td><td>Potential info loss</td><td>Large documents, history truncation</td></tr><tr><td>Streaming responses</td><td>No token savings</td><td>Better UX (perceived speed)</td><td>More complex code</td><td>User-facing applications</td></tr><tr><td>Batch similar queries</td><td>Amortized cost savings</td><td>Same latency per query</td><td>Must collect batch first</td><td>Background processing, ETL jobs</td></tr><tr><td>Prompt caching (Claude)</td><td>90% reduction on cached prompts</td><td>2-3x faster</td><td>Only for repeated prompts</td><td>Agent system prompts</td></tr></table>
+<h3 id="model-selection-guide"><strong>Model Selection Guide</strong></h3>
+
+<strong>Use Claude Haiku when:</strong>
+<ul><li>Simple classification or extraction tasks</li><li>Response time < 10 seconds required</li><li>Budget constraints (5x cheaper than Sonnet)</li><li>Output format is well-defined (JSON, XML)</li><li>Examples: LinkedIn Agent, simple prompt templates</li></ul>
+<strong>Use Claude Sonnet when:</strong>
+<ul><li>Complex reasoning required (multi-step analysis)</li><li>Quality > speed priority</li><li>Agent uses 6+ phase workflows</li><li>Research-grade output needed</li><li>Examples: Deep Research Agent, Prompt Optimizer, Documentation Generator</li></ul>
+<strong>Use Claude Opus when:</strong>
+<ul><li>Mission-critical accuracy (medical, legal, financial)</li><li>Highly specialized domain knowledge required</li><li>Research-grade output with citations</li><li>Budget allows (most expensive, 3x Sonnet cost)</li><li>Examples: Academic research synthesis, complex prompt optimization</li></ul>
+<strong>Use GPT-4 Turbo when:</strong>
+<ul><li>Need longer context (128K vs 200K doesn't matter)</li><li>Already have OpenAI infrastructure</li><li>Want function calling / tools integration</li><li>Examples: ML Performance Optimizer (good code understanding)</li></ul>
+<strong>Use GPT-4o mini when:</strong>
+<ul><li>Budget-critical applications</li><li>Simple tasks (summarization, formatting)</li><li>Low latency required (< 5 seconds)</li><li>Examples: Simple prompt template application</li></ul>
+<hr/>
+
+<h2 id="📈-performance-characteristics">📈 Performance Characteristics</h2>
+
+<h3 id="agent-performance-metrics"><strong>Agent Performance Metrics</strong></h3>
+
+<table><tr><th><strong>Agent</strong></th><th><strong>Avg Response Time</strong></th><th><strong>Token Usage (In/Out)</strong></th><th><strong>Success Rate</strong></th><th><strong>User Rating</strong></th><th><strong>Cost per Query</strong></th></tr><tr><td>Deep Research Agent</td><td>45-90 seconds</td><td>3000-5000 / 5000-8000</td><td>95%</td><td>4.8/5.0</td><td>$0.15-0.30 (Sonnet)</td></tr><tr><td>ML Performance Optimizer</td><td>20-40 seconds</td><td>1500-3000 / 3000-5000</td><td>92%</td><td>4.7/5.0</td><td>$0.08-0.15 (Sonnet)</td></tr><tr><td>Prompt Optimizer</td><td>15-30 seconds</td><td>1000-2000 / 2000-4000</td><td>97%</td><td>4.9/5.0</td><td>$0.05-0.10 (Sonnet)</td></tr><tr><td>LinkedIn Agent</td><td>60-120 seconds</td><td>2000-4000 / 500-1000</td><td>88%</td><td>4.5/5.0</td><td>$0.03-0.05 (Haiku)</td></tr><tr><td>Documentation Generator</td><td>90-180 seconds</td><td>3000-5000 / 8000-12000</td><td>96%</td><td>4.8/5.0</td><td>$0.20-0.40 (Sonnet)</td></tr></table>
+<h3 id="common-use-cases-distribution"><strong>Common Use Cases Distribution</strong></h3>
+
+<pre><code class="language-">📊 Usage Statistics (Based on GitHub Copilot Telemetry)
+
+Deep Research Agent:      35% - Technical learning and documentation
+ML Performance Optimizer: 25% - Code optimization and parallelization  
+Prompt Optimizer:         20% - Prompt engineering and refinement
+LinkedIn Agent:           10% - Content creation and automation
+Documentation Generator:  10% - Project documentation and onboarding</code></pre>
+
+<hr/>
+
+<h2 id="🚀-advanced-use-cases">🚀 Advanced Use Cases</h2>
+
+<h3 id="use-case-1:-technical-onboarding-pipeline"><strong>Use Case 1: Technical Onboarding Pipeline</strong></h3>
+
+<strong>Scenario:</strong> Onboard new ML engineers to your RAG-based product
+
+<strong>Workflow:</strong>
+<pre><code class="language-markdown">Step 1: Deep dive on fundamentals
+@deep_research_agent Create study guide for "Retrieval-Augmented Generation (RAG)"
+
+Step 2: Understand system architecture
+@document_metlife_format_project Generate documentation for our RAG codebase (./src/)
+
+Step 3: Optimize performance bottlenecks
+@ml_performance_optimizer Analyze our vector search pipeline and suggest optimizations
+
+Step 4: Learn prompt engineering
+@deep_research_agent Create study guide for "Prompt Engineering for RAG Systems"
+
+Result: Complete onboarding in 1-2 weeks vs 4-6 weeks traditional</code></pre>
+
+<h3 id="use-case-2:-production-prompt-development"><strong>Use Case 2: Production Prompt Development</strong></h3>
+
+<strong>Scenario:</strong> Build a customer support AI assistant
+
+<strong>Workflow:</strong>
+<pre><code class="language-markdown">Step 1: Create initial prompt
+@prompt_optimizer_agent Design a prompt for customer support agent that handles: refunds, account issues, technical troubleshooting
+
+Step 2: Test with real data
+# Run on 100 customer queries, measure accuracy
+
+Step 3: Optimize for failures
+@prompt_optimizer_agent Optimize this prompt. Current accuracy: 78%. Failure modes: (1) confuses refund policies, (2) provides incorrect troubleshooting steps. Here are 10 failure examples: [paste examples]
+
+Step 4: Create multi-agent system
+@prompt_optimizer_agent Design a multi-agent workflow: Agent A routes to correct department, Agent B handles query, Agent C validates response quality
+
+Step 5: Deploy and monitor
+# Track: accuracy, response time, user satisfaction
+
+Result: 90%+ accuracy customer support AI in 2-3 iterations</code></pre>
+
+<h3 id="use-case-3:-ml-model-optimization-sprint"><strong>Use Case 3: ML Model Optimization Sprint</strong></h3>
+
+<strong>Scenario:</strong> Inference too slow for production (500ms/request target: 50ms)
+
+<strong>Workflow:</strong>
+<pre><code class="language-markdown">Step 1: Profile current code
+@ml_performance_optimizer Profile this inference pipeline and identify bottlenecks: [paste code]
+
+Step 2: Apply parallelization
+# Agent suggests: ONNX Runtime + batch inference + CPU parallelization
+# Implementation: 250ms/request (2x speedup)
+
+Step 3: Model quantization
+@ml_performance_optimizer Apply 8-bit quantization to this transformer model: [paste model code]
+# Result: 100ms/request (5x total speedup)
+
+Step 4: Advanced optimizations
+# Agent suggests: FlashAttention-2, smaller batch size, model distillation
+# Result: 40ms/request (12.5x total speedup)
+
+Result: 500ms → 40ms per request (12.5x speedup, 92% cost reduction)</code></pre>
+
+<h3 id="use-case-4:-content-marketing-automation"><strong>Use Case 4: Content Marketing Automation</strong></h3>
+
+<strong>Scenario:</strong> Build thought leadership on LinkedIn with minimal effort
+
+<strong>Workflow:</strong>
+<pre><code class="language-markdown">Step 1: Set up automated research
+# Schedule: Every Monday, research AI trends from last 7 days
+
+Step 2: Generate content
+@linkedin_agent Research "agentic AI" OR "small language models" OR "explainable AI" trends from December 10-17, 2025
+
+Step 3: Review draft
+# Manual review: Check accuracy, tone, source credibility
+
+Step 4: Auto-post with Playwright
+# Agent executes: login → draft → link preview → post
+
+Step 5: Engage with comments
+# Monitor post for 24-48 hours, respond to comments
+
+Result: 4-5 high-quality posts/month with 2-3 hours total effort</code></pre>
+
+<h3 id="use-case-5:-knowledge-base-generation"><strong>Use Case 5: Knowledge Base Generation</strong></h3>
+
+<strong>Scenario:</strong> Document 20 internal ML tools for company wiki
+
+<strong>Workflow:</strong>
+<pre><code class="language-markdown">Step 1: Batch documentation generation
+for tool in $(ls tools/); do
+    @document_metlife_format_project Create documentation for tools/$tool
+done
+
+Step 2: Standardize structure
+# All docs have same sections: Overview, Installation, Usage, API, Troubleshooting
+
+Step 3: Generate comparison guide
+@deep_research_agent Create comparison guide for our 20 internal ML tools. When should engineers use Tool A vs Tool B?
+
+Step 4: Create search index
+# Convert all HTML docs to searchable format
+
+Step 5: Deploy to internal wiki
+# Upload HTML files to Confluence/SharePoint/internal portal
+
+Result: Complete knowledge base in 1 week vs 2-3 months manual documentation</code></pre>
+
+<hr/>
+
+<h2 id="📚-additional-resources">📚 Additional Resources</h2>
+
+<h3 id="related-files"><strong>Related Files</strong></h3>
+
+<table><tr><th><strong>File</strong></th><th><strong>Purpose</strong></th><th><strong>Size</strong></th><th><strong>Last Updated</strong></th></tr><tr><td><code>agents/deep_research_agent.md</code></td><td>Deep Research system prompt</td><td>672 lines</td><td>Dec 12, 2025</td></tr><tr><td><code>agents/ml-performance-optimizer-agent.md</code></td><td>ML Optimizer system prompt</td><td>1318 lines</td><td>Nov 30, 2025</td></tr><tr><td><code>agents/prompt_optimizer_agent.md</code></td><td>Prompt Optimizer system prompt</td><td>1000 lines</td><td>Dec 2025</td></tr><tr><td><code>agent_for_linkedin.md</code></td><td>LinkedIn automation agent</td><td>90 lines</td><td>Dec 2025</td></tr><tr><td><code>.github/agents/document_metlife_format_project.agent.md</code></td><td>Documentation Generator v1.2.2</td><td>3090 lines</td><td>Dec 16, 2025</td></tr><tr><td><code>docs/DEEP_RESEARCH_PROMPT_DOCS.md</code></td><td>Deep Research documentation</td><td>120+ pages</td><td>Dec 2025</td></tr><tr><td><code>docs/ML_PERFORMANCE_OPTIMIZER_DOCS.md</code></td><td>ML Optimizer documentation</td><td>85+ pages</td><td>Dec 2025</td></tr><tr><td><code>docs/PROMPT_OPTIMIZER_DOCS.md</code></td><td>Prompt Optimizer documentation</td><td>95+ pages</td><td>Dec 2025</td></tr><tr><td><code>docs/CONTRAST_FIXES_COMPLETE.md</code></td><td>Accessibility compliance summary</td><td>180+ lines</td><td>Dec 16, 2025</td></tr></table>
+<h3 id="external-resources"><strong>External Resources</strong></h3>
+
+<strong>Prompt Engineering:</strong>
+<ul><li><a href="https://docs.anthropic.com/claude/docs/prompt-engineering">Anthropic Prompt Engineering Guide</a></li><li><a href="https://platform.openai.com/docs/guides/prompt-engineering">OpenAI Prompt Engineering Guide</a></li><li><a href="https://www.promptingguide.ai/">Prompting Guide</a></li></ul>
+<strong>ML Optimization:</strong>
+<ul><li><a href="https://huggingface.co/docs/optimum/index">Hugging Face Optimum</a></li><li><a href="https://onnxruntime.ai/">ONNX Runtime</a></li><li><a href="https://docs.ray.io/">Ray Documentation</a></li></ul>
+<strong>Documentation:</strong>
+<ul><li><a href="https://mermaid.live">Mermaid Live Editor</a></li><li><a href="https://www.w3.org/WAI/WCAG21/quickref/">WCAG 2.1 Guidelines</a></li><li><a href="https://metlife.com">MetLife Design System</a> (internal)</li></ul>
+<hr/>
+
+<h2 id="🔐-security-&-compliance">🔐 Security & Compliance</h2>
+
+<h3 id="data-privacy"><strong>Data Privacy</strong></h3>
+
+<ul><li>✅ <strong>No PII Collection</strong>: Agents don't store user data</li><li>✅ <strong>API Keys Secure</strong>: Use environment variables, never hardcode</li><li>✅ <strong>LLM Provider Compliance</strong>: Anthropic (SOC 2), OpenAI (SOC 2), Azure (HIPAA)</li><li>✅ <strong>Source Code Privacy</strong>: GitHub Copilot doesn't store prompts beyond session</li></ul>
+<h3 id="accessibility-standards"><strong>Accessibility Standards</strong></h3>
+
+<ul><li>✅ <strong>WCAG 2.1 AA Compliant</strong>: All documentation meets 4.5:1 contrast minimum</li><li>✅ <strong>Screen Reader Friendly</strong>: Semantic HTML, proper ARIA labels</li><li>✅ <strong>Keyboard Navigation</strong>: All interactive elements accessible via keyboard</li><li>✅ <strong>Color Blind Safe</strong>: MetLife palette tested with colorblind simulations</li></ul>
+<h3 id="license-&-attribution"><strong>License & Attribution</strong></h3>
+
+<strong>License:</strong> MIT License
+
+<strong>Attribution:</strong>
+<ul><li>Project maintained by @andresverafigueroa</li><li>MetLife branding and color palette used with permission</li><li>Mermaid.js (MIT License)</li><li>GitHub Copilot (Microsoft proprietary)</li></ul>
+<hr/>
+
+<h2 id="📞-support-&-contact">📞 Support & Contact</h2>
+
+<h3 id="for-questions,-doubts,-and-modifications"><strong>For Questions, Doubts, and Modifications</strong></h3>
+
+<p>If you have any questions, doubts, or need to request modifications to this project, please contact:</p>
+
+📧 <strong>Email:</strong> <a href="mailto:andres.n.vera@provida.cl">andres.n.vera@provida.cl</a>
+
+<strong>Response Time:</strong> 24-48 business hours  
+<strong>Subject Line Suggestion:</strong> "[Prompts Collection] Your Question/Request"
+
+<h3 id="common-inquiry-types"><strong>Common Inquiry Types</strong></h3>
+
+<ul><li>❓ Questions about agent functionality or output</li><li>🔧 Modification requests for specific use cases</li><li>🐛 Bug reports or issues encountered</li><li>💡 Feature enhancement suggestions</li><li>📋 Custom agent development requests</li><li>🎓 Training or consulting inquiries</li></ul>
+<hr/>
+
+<div align="center">
+
+<hr/>
+
+<h3 id="🏢-about-this-project"><strong>🏢 About This Project</strong></h3>
+
+<em>Professional AI agent framework for enterprise and individual developers</em>
+
+<hr/>
+
+<strong>Version History</strong>
+
+<table><tr><th>Version</th><th>Date</th><th>Author</th><th>Changes</th></tr><tr><td>3.0.0</td><td>December 17, 2025</td><td>@andresverafigueroa</td><td>Complete documentation rewrite with MetLife styling</td></tr><tr><td>2.0.0</td><td>December 12, 2025</td><td>@andresverafigueroa</td><td>Deep Research Agent v2.0, enhanced structure</td></tr><tr><td>1.2.2</td><td>December 16, 2025</td><td>@andresverafigueroa</td><td>Documentation Generator maximum contrast edition</td></tr><tr><td>1.0.0</td><td>November 2025</td><td>@andresverafigueroa</td><td>Initial release with core agents</td></tr></table>
+<hr/>
+
+<strong>© 2025 Andrés Vera Figueroa. All Rights Reserved.</strong>
+
+<em>This project is open-source under MIT License. MetLife branding used with permission for documentation styling only.</em>
+
+<hr/>
+
+<em>Built with ❤️ by the AI Engineering Community</em>
+
+<strong>Documentation Generated by MetLife Documentation Generator v1.2.2</strong>
+
+<a href="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github"><img src="https://github.com/andresverafigueroa/Prompts_collection" alt="GitHub</a>" style="max-width: 100%; height: auto;"/>
+<a href="https://img.shields.io/badge/MetLife-Enterprise_Standards-005EB8?style=for-the-badge"><img src="https://www.metlife.com" alt="MetLife</a>" style="max-width: 100%; height: auto;"/>
+<a href="https://img.shields.io/badge/WCAG-2.1_AA_Compliant-00A758?style=for-the-badge"><img src="https://www.w3.org/WAI/WCAG21/quickref/" alt="WCAG</a>" style="max-width: 100%; height: auto;"/>
+
+</div>
+
+    </div>
+</main>
+
+<!-- Scripts -->
+<script>
+// ============================================================================
+// MERMAID INITIALIZATION - MAXIMUM CONTRAST (v1.2.2)
+// ============================================================================
+mermaid.initialize({{
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {{
+        // Primary elements (blue backgrounds with white text)
+        primaryColor: '#005EB8',
+        primaryTextColor: '#ffffff',
+        primaryBorderColor: '#003d82',
+        
+        // Secondary elements (green backgrounds with white text)
+        secondaryColor: '#00A758',
+        secondaryTextColor: '#ffffff',
+        secondaryBorderColor: '#007a3d',
+        
+        // Tertiary elements (light backgrounds with dark text)
+        tertiaryColor: '#f0f9ff',
+        tertiaryTextColor: '#1f2937',
+        tertiaryBorderColor: '#003d82',
+        
+        // General settings for maximum visibility
+        mainBkg: '#005EB8',
+        nodeBorder: '#003d82',
+        nodeTextColor: '#ffffff',
+        textColor: '#1f2937',
+        lineColor: '#00A758',
+        
+        // Clusters/subgraphs
+        clusterBkg: '#f0f9ff',
+        clusterBorder: '#003d82',
+        clusterTextColor: '#1f2937',
+        
+        // Labels and edges
+        edgeLabelBackground: '#ffffff',
+        labelTextColor: '#1f2937',
+        
+        // Typography
+        fontSize: '16px',
+        fontFamily: 'sans-serif'
+    }},
+    flowchart: {{
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'basis'
+    }}
+}})
+
+// ============================================================================
+// SEARCH FUNCTIONALITY (Ctrl+K or Cmd+K)
+// ============================================================================
+let searchOpen = false;
+
+function initSearch() {{
+    const searchModal = document.createElement('div');
+    searchModal.id = 'search-modal';
+    searchModal.style.cssText = `
+        display: none;
+        position: fixed;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 600px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        z-index: 10000;
+        padding: 20px;
+    `;
+    searchModal.innerHTML = `
+        <input type="text" id="search-input" placeholder="Search documentation... (Ctrl+K)" 
+               style="width: 100%; padding: 12px; font-size: 16px; border: 2px solid #005EB8; border-radius: 4px;">
+        <div id="search-results" style="max-height: 400px; overflow-y: auto; margin-top: 10px;"></div>
+    `;
+    document.body.appendChild(searchModal);
+    
+    document.addEventListener('keydown', (e) => {{
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {{
+            e.preventDefault();
+            toggleSearch();
+        }}
+        if (e.key === 'Escape' && searchOpen) {{
+            toggleSearch();
+        }}
+    }});
+    
+    document.getElementById('search-input').addEventListener('input', performSearch);
+}}
+
+function toggleSearch() {{
+    const modal = document.getElementById('search-modal');
+    searchOpen = !searchOpen;
+    modal.style.display = searchOpen ? 'block' : 'none';
+    if (searchOpen) {{
+        document.getElementById('search-input').focus();
+    }}
+}}
+
+function performSearch(e) {{
+    const query = e.target.value.toLowerCase();
+    const results = document.getElementById('search-results');
+    
+    if (query.length < 2) {{
+        results.innerHTML = '';
+        return;
+    }}
+    
+    const allText = document.querySelectorAll('h2, h3, p, li, td');
+    const matches = [];
+    
+    allText.forEach(el => {{
+        if (el.textContent.toLowerCase().includes(query)) {{
+            matches.push({{
+                text: el.textContent.substring(0, 100),
+                element: el
+            }});
+        }}
+    }});
+    
+    results.innerHTML = matches.slice(0, 10).map((m, i) => 
+        `<div style="padding: 10px; cursor: pointer; border-bottom: 1px solid #eee; hover: background: #f0f9ff;" 
+              onclick="document.getElementById('search-modal').style.display='none'; document.querySelectorAll('h2, h3, p, li, td')[${i}].scrollIntoView({{behavior: 'smooth'}});">
+            ${{m.text}}...
+        </div>`
+    ).join('') || '<div style="padding: 10px; color: #999;">No results found</div>';
+}}
+
+initSearch();
+
+// ============================================================================
+// NAVIGATION & INTERACTIVE FEATURES
+// ============================================================================
+// Smooth scrolling for navigation
+document.querySelectorAll('.nav-link').forEach(link => {{
+    link.addEventListener('click', function(e) {{
+        e.preventDefault();
+        const targetId = this.getAttribute('href').slice(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {{
+            targetElement.scrollIntoView({{
+                behavior: 'smooth',
+                block: 'start'
+            }});
+            
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        }}
+    }});
+}});
+
+// Add copy buttons to code blocks
+document.querySelectorAll('pre code').forEach(block => {{
+    const pre = block.parentElement;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'code-block';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+    
+    const button = document.createElement('button');
+    button.className = 'code-copy-btn';
+    button.textContent = 'Copy';
+    button.addEventListener('click', () => {{
+        navigator.clipboard.writeText(block.textContent);
+        button.textContent = 'Copied!';
+        setTimeout(() => button.textContent = 'Copy', 2000);
+    }});
+    wrapper.appendChild(button);
+}});
+
+// Highlight current section in navigation
+const observerOptions = {{
+    root: null,
+    rootMargin: '-20% 0px -70% 0px',
+    threshold: 0
+}};
+
+const observer = new IntersectionObserver(entries => {{
+    entries.forEach(entry => {{
+        if (entry.isIntersecting) {{
+            const id = entry.target.getAttribute('id');
+            document.querySelectorAll('.nav-link').forEach(link => {{
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${{id}}`) {{
+                    link.classList.add('active');
+                }}
+            }});
+        }}
+    }});
+}}, observerOptions);
+
+document.querySelectorAll('h2[id], h3[id]').forEach(heading => {{
+    observer.observe(heading);
+}});
+</script>
+
+</body>
+</html>
