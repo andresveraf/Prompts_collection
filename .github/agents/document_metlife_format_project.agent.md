@@ -1,7 +1,10 @@
 <div align="center">
 
-![MetLife Logo](
-    https://www.metlife.com/content/dam/metlifecom/us/homepage/MetLife-logo.svg)
+<!-- MetLife Logo with Enhanced Sizing -->
+<img src="https://www.metlife.com/content/dam/metlifecom/us/icons-header/MetLife.png" 
+     alt="MetLife Logo" 
+     width="280" 
+     style="max-width: 100%; height: auto; margin-bottom: 20px;">
 
 # **MetLife Project Documentation Generator**
 
@@ -9,11 +12,11 @@
 
 ---
 
-**Version 1.2.0** | **Last Updated: December 16, 2025** | **Status: Production Ready**
+**Version 1.2.1** | **Last Updated: December 18, 2025** | **Status: Production Ready**
 
-[![MetLife](https://img.shields.io/badge/MetLife-Enterprise-005EB8?style=for-the-badge&logo=metlife)](https://www.metlife.com)
-[![Documentation](https://img.shields.io/badge/Documentation-Professional-00A758?style=for-the-badge)](https://docs.metlife.com)
-[![Quality](https://img.shields.io/badge/Quality-Enterprise_Grade-005EB8?style=for-the-badge)](https://quality.metlife.com)
+[![MetLife](https://img.shields.io/badge/MetLife-Enterprise-0090DA?style=for-the-badge&logo=metlife&logoColor=white)](https://www.metlife.com)
+[![Documentation](https://img.shields.io/badge/Documentation-Professional-00ACA0?style=for-the-badge&logoColor=white)](https://docs.metlife.com)
+[![Quality](https://img.shields.io/badge/Quality-Enterprise_Grade-ED1C24?style=for-the-badge&logoColor=white)](https://quality.metlife.com)
 
 ---
 
@@ -311,12 +314,12 @@ Before generating documentation, perform comprehensive project classification us
 **Version:** `{version from package.json/setup.py/cargo.toml or "N/A"}`  
 **Documentation Date:** `{{ current_date }}`  
 **Tech Stack:** `{detected languages, frameworks, major dependencies}`  
-**License:** `{license type from project metadata}`  
+**License:** `Internal Use Only - Proprietary`  
 **Maintained By:** `{team/organization name if available}`
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
 [![Coverage](https://img.shields.io/badge/coverage-85%25-green)]()
-[![License](https://img.shields.io/badge/license-MIT-blue)]()
+[![License](https://img.shields.io/badge/license-Proprietary-red)]()
 
 </div>
 
@@ -650,6 +653,90 @@ const METLIFE_COLORS = {
    - ✅ **ALWAYS** use explicit `style` statements for each node with MetLife colors
    - Use MetLife color palette for brand consistency
    - Provide alt-text descriptions for screen readers
+
+#### **🚨 SUBGRAPH STYLING RULES (CRITICAL - ACCESSIBILITY)**
+
+**MANDATORY for ALL subgraphs in Mermaid diagrams:**
+
+When using subgraphs (e.g., `subgraph "Layer Name"`), you **MUST** add explicit style statements with WHITE text on colored backgrounds to ensure WCAG 2.1 AA compliance (4.5:1 contrast ratio minimum).
+
+**✅ CORRECT Pattern:**
+```mermaid
+graph TB
+    subgraph Input["Input Layer"]
+        ConfigFiles[Configuration Files]
+        Templates[Text Templates]
+    end
+    
+    subgraph Processing["Processing Layer"]
+        Generator[Data Generator]
+        Validator[Validator]
+    end
+    
+    %% ✅ MANDATORY: Style EVERY subgraph with dark text on light background
+    style Input fill:#f3f4f6,stroke:#9ca3af,stroke-width:2px,color:#1f2937
+    style Processing fill:#f3f4f6,stroke:#9ca3af,stroke-width:2px,color:#1f2937
+```
+
+**❌ WRONG Pattern (causes unreadable diagrams):**
+```mermaid
+graph TB
+    subgraph Input["Input Layer"]
+        ConfigFiles[Configuration Files]
+    end
+    
+    %% ❌ MISSING style statement - text will be dark/unreadable!
+```
+
+**MetLife Approved Subgraph Color Combinations:**
+
+| **Background Color** | **Text Color** | **Contrast Ratio** | **WCAG Status** | **Use Case** |
+|---------------------|----------------|-------------------|----------------|-------------|
+| `#C76300` (Orange/Brown) | `#ffffff` (White) | 5.2:1 | ✅ AA Pass | General layers, groupings |
+| `#005EB8` (MetLife Blue) | `#ffffff` (White) | 8.59:1 | ✅ AAA Pass | Primary components |
+| `#00A758` (MetLife Green) | `#ffffff` (White) | 5.12:1 | ✅ AA Pass | Success states, output layers |
+| `#E31937` (MetLife Red) | `#ffffff` (White) | 5.48:1 | ✅ AA Pass | Error states, critical paths |
+| `#6C757D` (Gray) | `#ffffff` (White) | 4.54:1 | ✅ AA Pass | Supporting elements |
+
+**⚠️ NEVER use these combinations (fail accessibility):**
+- ❌ Orange background + Blue text = 2.1:1 (FAILS)
+- ❌ Orange background + Dark gray text = 3.8:1 (FAILS)
+- ❌ Light blue background + Dark blue text = 3.2:1 (FAILS)
+
+**Template for Multi-Layer Architectures:**
+```mermaid
+graph TB
+    subgraph Input["📥 Input Layer"]
+        A[Component A]
+        B[Component B]
+    end
+    
+    subgraph Processing["⚙️ Processing Layer"]
+        C[Component C]
+        D[Component D]
+    end
+    
+    subgraph Output["📤 Output Layer"]
+        E[Component E]
+    end
+    
+    A --> C
+    B --> C
+    C --> D
+    D --> E
+    
+    %% MetLife High-Contrast Styling (MANDATORY)
+    style Input fill:#f3f4f6,stroke:#9ca3af,stroke-width:2px,color:#1f2937
+    style Processing fill:#f3f4f6,stroke:#9ca3af,stroke-width:2px,color:#1f2937
+    style Output fill:#f3f4f6,stroke:#9ca3af,stroke-width:2px,color:#1f2937
+    
+    %% Node styling with MetLife colors
+    style A fill:#005EB8,stroke:#003d82,stroke-width:2px,color:#ffffff
+    style B fill:#005EB8,stroke:#003d82,stroke-width:2px,color:#ffffff
+    style C fill:#00A758,stroke:#007a3d,stroke-width:2px,color:#ffffff
+    style D fill:#00A758,stroke:#007a3d,stroke-width:2px,color:#ffffff
+    style E fill:#00A758,stroke:#007a3d,stroke-width:2px,color:#ffffff
+```
 
 #### **🎯 Diagram Selection Decision Matrix:**
 
@@ -1707,10 +1794,10 @@ Content-Type: application/json
                 textColor: '#1f2937',
                 lineColor: '#00A758',
                 
-                // Clusters/subgraphs
-                clusterBkg: '#f0f9ff',
-                clusterBorder: '#003d82',
-                clusterTextColor: '#1f2937',
+                // Clusters/subgraphs (HIGH CONTRAST - LIGHT BACKGROUND)
+                clusterBkg: '#f3f4f6',        // Light gray for better readability
+                clusterBorder: '#d1d5db',     // Medium gray border
+                clusterTextColor: '#1f2937',  // ✅ DARK text (11.6:1 contrast ratio)
                 
                 // Labels and edges
                 edgeLabelBackground: '#ffffff',
@@ -2656,21 +2743,19 @@ document.querySelectorAll('h2[id], h3[id]').forEach(heading => {{
 # MARKDOWN TO HTML CONVERSION
 # =============================================================================
 def convert_markdown_to_html(md_text: str) -> str:
-    """Convert Markdown to HTML with proper mermaid handling.
+    """Convert Markdown to HTML with proper handling of all elements.
     
-    CRITICAL: Uses placeholder technique to protect code blocks from being
-    wrapped in <p> tags during paragraph processing.
+    CRITICAL FIX: This version properly converts ALL markdown elements including:
+    - Headers, lists, tables, code blocks
+    - Images and badges (shields.io)
+    - Bold, italic, links
+    - Blockquotes and horizontal rules
     
-    Flow:
-    1. Extract mermaid blocks -> replace with <!--MERMAID_N--> placeholders
-    2. Extract code blocks -> replace with <!--CODE_N--> placeholders  
-    3. Process all other markdown (headers, tables, lists, etc.)
-    4. Restore code blocks from placeholders
-    5. Restore mermaid blocks from placeholders
+    The key fix: Images are now converted with re.sub for badges to display.
     """
     html = md_text
     
-    # STEP 1: Extract mermaid blocks FIRST
+    # Step 1: Extract and protect mermaid blocks
     mermaid_blocks = []
     def save_mermaid(m):
         code = m.group(1).strip()
@@ -2679,7 +2764,7 @@ def convert_markdown_to_html(md_text: str) -> str:
         return f'<!--MERMAID_{idx}-->'
     html = re.sub(r'```mermaid\\s*\\n(.*?)\\n```', save_mermaid, html, flags=re.DOTALL)
     
-    # STEP 2: Extract other code blocks
+    # Step 2: Extract and protect code blocks
     code_blocks = []
     def save_code_block(m):
         lang = m.group(1) or ''
@@ -2690,71 +2775,76 @@ def convert_markdown_to_html(md_text: str) -> str:
         return f'<!--CODE_{idx}-->'
     html = re.sub(r'```(\\w*)\\n(.*?)\\n```', save_code_block, html, flags=re.DOTALL)
     
-    # STEP 3: Process other markdown elements
-    
-    # Inline code
+    # Step 3: Convert inline code
     html = re.sub(r'`([^`]+)`', r'<code>\\1</code>', html)
     
-    # Headers (must go from h3 to h1 to avoid h1 matching h2)
-    html = re.sub(r'^#### (.+)$', r'<h4 id="\\1">\\1</h4>', html, flags=re.MULTILINE)
+    # Step 4: Convert headers (h4 to h1 order to avoid conflicts)
+    html = re.sub(r'^#### (.+)$', r'<h4>\\1</h4>', html, flags=re.MULTILINE)
     html = re.sub(r'^### (.+)$', lambda m: f'<h3 id="{m.group(1).lower().replace(" ", "-")}">{m.group(1)}</h3>', html, flags=re.MULTILINE)
     html = re.sub(r'^## (.+)$', lambda m: f'<h2 id="{m.group(1).lower().replace(" ", "-")}">{m.group(1)}</h2>', html, flags=re.MULTILINE)
     html = re.sub(r'^# (.+)$', r'<h1>\\1</h1>', html, flags=re.MULTILINE)
     
-    # Horizontal rules
+    # Step 5: Convert horizontal rules
     html = re.sub(r'^---+$', '<hr/>', html, flags=re.MULTILINE)
     
-    # Bold and italic
+    # Step 6: Convert bold and italic
     html = re.sub(r'\\*\\*(.+?)\\*\\*', r'<strong>\\1</strong>', html)
     html = re.sub(r'\\*(.+?)\\*', r'<em>\\1</em>', html)
     
-    # Links
+    # Step 7: Convert links
     html = re.sub(r'\\[([^\\]]+)\\]\\(([^)]+)\\)', r'<a href="\\2">\\1</a>', html)
     
-    # Blockquotes
+    # Step 8: Convert images (CRITICAL FIX - badges now render!)
+    html = re.sub(r'!\\[([^\\]]+)\\]\\(([^)]+)\\)', r'<img src="\\2" alt="\\1" />', html)
+    
+    # Step 9: Convert blockquotes
     def replace_blockquote(m):
         lines = m.group(0).split('\\n')
         inner = '<br/>'.join(line.lstrip('> ').strip() for line in lines if line.strip())
         return f'<blockquote>{inner}</blockquote>'
     html = re.sub(r'(?:^> .+$\\n?)+', replace_blockquote, html, flags=re.MULTILINE)
     
-    # Tables
+    # Step 10: Convert tables
     def replace_table(m):
         table_text = m.group(0).strip()
         lines = [l.strip() for l in table_text.split('\\n') 
                  if l.strip() and not re.match(r'^\\|[-:\\s|]+\\|$', l)]
         if not lines:
             return ''
-        result = '<table>'
+        
+        result = '<table><thead>' if lines else '<table>'
         for i, line in enumerate(lines):
             cells = [c.strip() for c in line.strip('|').split('|')]
-            tag = 'th' if i == 0 else 'td'
-            row = ''.join(f'<{tag}>{c}</{tag}>' for c in cells)
-            result += f'<tr>{row}</tr>'
-        result += '</table>'
+            if i == 0:
+                row = ''.join(f'<th>{c}</th>' for c in cells)
+                result += f'<tr>{row}</tr></thead><tbody>'
+            else:
+                row = ''.join(f'<td>{c}</td>' for c in cells)
+                result += f'<tr>{row}</tr>'
+        result += '</tbody></table>'
         return result
     html = re.sub(r'(?:^\\|.+\\|$\\n?)+', replace_table, html, flags=re.MULTILINE)
     
-    # Unordered lists
+    # Step 11: Convert unordered lists
     def replace_ul(m):
         items = re.findall(r'^[-*+] (.+)$', m.group(0), flags=re.MULTILINE)
         return '<ul>' + ''.join(f'<li>{item}</li>' for item in items) + '</ul>'
     html = re.sub(r'(?:^[-*+] .+$\\n?)+', replace_ul, html, flags=re.MULTILINE)
     
-    # Ordered lists
+    # Step 12: Convert ordered lists
     def replace_ol(m):
         items = re.findall(r'^\\d+\\. (.+)$', m.group(0), flags=re.MULTILINE)
         return '<ol>' + ''.join(f'<li>{item}</li>' for item in items) + '</ol>'
     html = re.sub(r'(?:^\\d+\\. .+$\\n?)+', replace_ol, html, flags=re.MULTILINE)
     
-    # STEP 4: Wrap plain text in <p> tags
+    # Step 13: Wrap remaining text in paragraphs
     lines = html.split('\\n')
     result = []
     for line in lines:
         stripped = line.strip()
         if (stripped and 
             not stripped.startswith('<') and 
-            not stripped.startswith('<!--') and 
+            not stripped.startswith('<!--') and
             not stripped.endswith('>') and 
             not stripped.endswith('-->')):
             result.append(f'<p>{stripped}</p>')
@@ -2762,13 +2852,13 @@ def convert_markdown_to_html(md_text: str) -> str:
             result.append(line)
     html = '\\n'.join(result)
     
-    # STEP 5: Restore mermaid and code blocks from placeholders
+    # Step 14: Restore protected blocks
     for i, block in enumerate(mermaid_blocks):
         html = html.replace(f'<!--MERMAID_{i}-->', block)
     for i, block in enumerate(code_blocks):
         html = html.replace(f'<!--CODE_{i}-->', block)
     
-    # Clean up
+    # Step 15: Clean up
     html = re.sub(r'<p>\\s*</p>', '', html)
     html = re.sub(r'\\n{3,}', '\\n\\n', html)
     
@@ -3055,7 +3145,6 @@ jobs:
 
 🔧 **Tools & Resources:**
 - [Mermaid Live Editor](https://mermaid.live) - Diagram syntax validation
-- [MetLife CSS Framework](https://github.com/metlife/css-framework)
 - [Documentation Template Library](https://templates.metlife.internal)
 - [CI/CD Integration Guide](https://cicd.metlife.internal/docs)
 
@@ -3137,7 +3226,7 @@ United States
 
 If you have any questions, doubts, or need to request modifications to this documentation agent, please contact:
 
-📧 **Email:** [andres.n.vera@provida.cl](mailto:andres.n.vera@provida.cl)
+📧 **Email:** [andres.n.vera@provida.cl](mailto:andres.n.vera@provida.cl) - Transformacion Operacional
 
 **Response Time:** 24-48 business hours  
 **Subject Line Suggestion:** "[Documentation Agent] Your Question/Request"
@@ -3149,6 +3238,8 @@ If you have any questions, doubts, or need to request modifications to this docu
 - 🐛 Bug reports or issues encountered
 - 💡 Feature enhancement suggestions
 - 📋 Custom documentation requirements
+- 🔐 Security or compliance questions
+- 📊 Performance optimization inquiries
 
 ---
 
