@@ -2,8 +2,8 @@
 
 > A curated collection of specialized AI agents and advanced prompt engineering templates for GitHub Copilot, AI-powered development, and automated content workflows.
 
-**Version:** 2.0.0  
-**Last Updated:** December 18, 2025  
+**Version:** 2.1.0  
+**Last Updated:** December 22, 2025  
 **Status:** Production Ready ✅
 
 ---
@@ -14,13 +14,14 @@ The **Prompts Collection** is a comprehensive repository of production-ready AI 
 
 ### Key Features
 
-- 🤖 **4+ Specialized AI Agents** - Pre-configured GitHub Copilot agents for specific tasks
+- 🤖 **6+ Specialized AI Agents** - Pre-configured GitHub Copilot agents for specific tasks
 - 📚 **Advanced Prompt Templates** - Battle-tested prompt patterns following 2025 best practices
 - 🏢 **Enterprise-Grade Documentation** - MetLife-standard documentation generator
 - 🔬 **Research Automation** - Deep research agent with comprehensive study guide generation
 - ⚡ **Performance Optimization** - ML/NLP performance optimization expert
 - ✍️ **Content Automation** - LinkedIn content research-to-publish pipeline
 - 🎯 **Prompt Engineering** - Complete prompt lifecycle from planning to optimization
+- 🔄 **Legacy Code Migration Review** - Comprehensive validation for code modernization projects
 
 ---
 
@@ -31,12 +32,14 @@ Prompts_collection/
 ├── agents/                              # Specialized GitHub Copilot agents
 │   ├── deep_research_agent.md          # Deep research & study guide generator
 │   ├── ml-performance-optimizer-agent.md # ML/NLP performance optimization
-│   └── prompt_optimizer_agent.md       # Advanced prompt engineering lifecycle
+│   ├── prompt_optimizer_agent.md       # Advanced prompt engineering lifecycle
+│   └── legacy_migration_review_agent.md # Legacy code migration review specialist
 ├── .github/
 │   └── agents/
 │       └── document_metlife_format_project.agent.md # Enterprise documentation
 ├── docs/                                # Documentation & tools
 │   ├── DOCUMENTATION_SUMMARY.md        # Documentation generation summary
+│   ├── LEGACY_MIGRATION_REVIEW_DOCS.md # Migration review comprehensive guide
 │   ├── generate_docs.py                # Documentation generation script
 │   ├── generate_metlife_html.py        # HTML export with MetLife branding
 │   └── *.html                          # Generated documentation outputs
@@ -170,6 +173,48 @@ Generate comprehensive documentation for this Python microservice
 **Example Usage:**
 ```markdown
 Research and post about recent Agentic AI developments
+```
+
+### 6. Legacy Code Migration Review Agent
+
+**File:** [`agents/legacy_migration_review_agent.md`](agents/legacy_migration_review_agent.md)  
+**Version:** 1.0.0  
+**Purpose:** Comprehensive review and validation of code migrations from legacy to modern systems
+
+**Capabilities:**
+- 10-phase systematic migration review framework
+- Functional parity verification between legacy and new code
+- Side-by-side code comparison and analysis
+- Data migration validation and integrity checking
+- Performance and security assessment
+- Integration point compatibility verification
+- Risk assessment and mitigation strategies
+- Comprehensive migration documentation with Mermaid diagrams
+- Rollback planning and production readiness evaluation
+- Migration flow visualization and checkpoint system
+
+**Use Cases:**
+- Reviewing legacy system modernization projects
+- Validating microservices migrations from monoliths
+- Framework or language upgrade assessments
+- Cloud migration validations
+- Go/no-go recommendations for production cutover
+- Technical debt analysis and improvement tracking
+
+**Example Usage:**
+```markdown
+@legacy_migration_review_agent
+
+Review the migration of our Python 2.7 monolithic application to Python 3.11 microservices.
+
+Legacy code: /path/to/legacy
+New code: /path/to/new-system
+
+Focus areas:
+1. Order processing logic (critical business function)
+2. Data migration from MySQL to PostgreSQL
+3. REST API compatibility for mobile apps
+4. Performance comparison under load
 ```
 
 ---
@@ -571,6 +616,14 @@ Contributions are welcome! Please follow these guidelines:
 ---
 
 ## 📝 Changelog
+
+### Version 2.1.0 (December 22, 2025)
+- **NEW**: Legacy Code Migration Review Agent - Comprehensive validation for code modernization projects
+- **NEW**: Migration review documentation with 10-phase framework
+- **NEW**: Migration flow diagrams and checkpoint systems
+- **NEW**: Best practices for code migration, performance optimization, and security
+- Added comprehensive use cases and templates for migration reviews
+- Enhanced repository documentation structure
 
 ### Version 2.0.0 (December 2025)
 - Added ML Performance Optimizer agent
