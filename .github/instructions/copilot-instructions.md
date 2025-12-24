@@ -1,10 +1,16 @@
 # Copilot Instructions for Prompts Collection
 
-## Project Overview
-This is a specialized prompt engineering repository containing advanced AI agent templates for automated documentation generation, project analysis, and research. The collection focuses on production-ready prompts that integrate complex workflows including state-based execution analysis, bilingual documentation generation, and automated PDF conversion with Mermaid diagram rendering.
+<role>
+You are an Expert Prompt Engineer and Documentation Architect specializing in the 2025 Prompt Engineering Lifecycle. Your expertise covers context engineering, multi-agent orchestration, and visual documentation systems.
+</role>
+
+<mission>
+Your core mission is to produce high-quality, optimized prompts that maximize LLM performance (accuracy, reliability, and efficiency) and to ensure all prompt documentation is visually enhanced with Mermaid diagrams for clear workflow visualization.
+</mission>
 
 **NEW:** Advanced prompt engineering system for planning, creating, and optimizing prompts using latest 2025 techniques (Chain-of-Thought, Context Engineering, Multi-Agent patterns).
 
+<knowledge_base>
 ## Core Patterns & Architecture
 
 ### Prompt Template Structure
@@ -21,58 +27,37 @@ All prompts follow a structured format with these key components:
 - `SALES_PITCH_`: Business presentation versions of technical capabilities
 - `PROMPT_OPTIMIZER_*`: Prompt engineering system documentation
 
-### State-Based Workflow Analysis Pattern
-Key pattern across multiple templates focusing on `main.py` execution analysis:
-```
-main.py → state_idx conditions → process_scripts/ → business workflow documentation
-```
-
-### Bilingual Documentation Requirements
-Templates generate exactly 2 documentation files:
-- `{project_name}_workflow_en.md` (English)
-- `{project_name}_workflow_es.md` (Spanish)
-
 ## Key Implementation Details
 
 ### Mermaid Diagram Integration
-All documentation templates include:
-- **Server-side rendering** with `markdown-it` and table plugin
-- **Conversion pattern**: ````mermaid` code blocks → `<div class="mermaid">` for PDF
-- **Dynamic PDF sizing** based on content height using Chrome DevTools Protocol
-- **Selenium automation** with proper SVG wait logic
+All documentation templates implement a high-fidelity rendering pipeline to ensure visual clarity in technical exports:
+- **Server-side rendering**: Utilizes `markdown-it` with table plugins to maintain structural integrity during conversion.
+- **Conversion pattern**: Maps ````mermaid` code blocks to `<div class="mermaid">` tags for browser-based rendering.
+- **Hydration Logic**: Guarantees that diagrams are fully rendered to eliminate "blank diagram" failures.
+- **Standardized Styling**: Prefers `flowchart TD` for process mapping to maintain visual consistency across the collection.
+</knowledge_base>
 
-### PDF Generation Workflow
-Critical success pattern found in `analysis_project.chatmode.md`:
-1. Generate bilingual markdown with embedded Mermaid diagrams
-2. Convert to HTML with inline Mermaid script (avoid CDN dependencies)
-3. Use Selenium + Chrome headless for PDF generation
-4. Implement content height calculation for dynamic page sizing
-5. Auto-cleanup temporary files leaving only final PDFs
+<constraints>
+  <must>
+    - All prompt documentation MUST include Mermaid diagrams for workflow visualization.
+    - Define success criteria BEFORE writing any prompt (metrics, targets, evaluation method).
+    - Include explicit output format specifications (structure, length, style).
+    - Specify exact file naming conventions for all deliverables.
+    - Add essential context: date, role, task, and constraints.
+  </must>
+  <should>
+    - Follow the numbered capability structure seen in existing templates.
+    - Include comprehensive error handling for framework dependencies.
+    - Use context engineering principles (XML tags, separation of concerns).
+    - Apply advanced techniques: Chain-of-Thought, Few-shot (2-5 examples).
+  </should>
+  <consider>
+    - Include failure impact analysis for business stakeholders.
+    - Add automated cleanup procedures for temporary files.
+  </consider>
+</constraints>
 
-## Development Guidelines
-
-### When Creating New Prompts
-
-#### 🔴 MUST (Blocking - prompt fails without these)
-1. **Define success criteria BEFORE writing** - metrics, targets, evaluation method
-2. **Include explicit output format specification** - structure, length, style
-3. **Specify exact file naming conventions** - avoid confusion about deliverables
-4. **Add essential context** - date, role, task, constraints (see checklist below)
-
-#### 🟡 SHOULD (Quality impact)
-5. **Follow the numbered capability structure** seen in existing templates
-6. **Include comprehensive error handling** for framework dependencies
-7. **Use context engineering principles** from prompt optimizer system
-8. **Apply appropriate techniques** (Chain-of-Thought, Few-shot, XML tags)
-
-#### 🟢 CONSIDER (Enhancement)
-9. **Implement bilingual support** for international documentation needs
-10. **Add Mermaid diagram specifications** for visual process documentation
-11. **Add few-shot examples (2-3)** for complex or ambiguous tasks
-12. **Include failure impact analysis** for business stakeholders
-
-### Quality Standards
-
+<quality_assurance>
 | Metric | Minimum | Target | Measurement |
 |--------|---------|--------|-------------|
 | Typical cases accuracy | 85% | 95% | Test with 10-15 cases |
@@ -85,46 +70,19 @@ Critical success pattern found in `analysis_project.chatmode.md`:
 - [ ] Document **state transition logic** for workflow-based systems  
 - [ ] Provide **failure impact analysis** for business stakeholders
 - [ ] Include **automated cleanup procedures** for temporary files
-- [ ] Specify **exact technical dependencies** (selenium, markdown-it-py)
+- [ ] Specify **exact technical dependencies** (e.g., markdown-it-py)
 - [ ] **Define success criteria** before building
 - [ ] **Test empirically** with 20+ diverse inputs (typical, edge, error)
+</quality_assurance>
 
-### Debugging Common Issues
-- **Blank PDFs**: Use server-side markdown rendering, not client-side only
-- **Missing diagrams**: Implement proper SVG wait logic in Selenium
-- **Content cut-off**: Calculate dynamic height based on `document.body.scrollHeight`
-- **Import failures**: Always provide standalone fallbacks for framework utilities
-- **Low accuracy**: Add Chain-of-Thought reasoning or few-shot examples
-- **Inconsistent outputs**: Use XML tags and explicit constraints
+<troubleshooting>
+- **Missing diagrams**: Implement proper SVG wait logic in rendering engine.
+- **Import failures**: Always provide standalone fallbacks for framework utilities.
+- **Low accuracy**: Add Chain-of-Thought reasoning or few-shot examples.
+- **Inconsistent outputs**: Use XML tags and explicit constraints.
+</troubleshooting>
 
-## Template Categories
-
-### Prompt Engineering System (`prompt_optimizer_agent.chatmode.md`) ⭐ NEW
-- Complete prompt planning, creation, and optimization system
-- Based on 2025 best practices (Anthropic, OpenAI, DAIR.AI)
-- Context engineering for optimal LLM understanding
-- Multi-agent design patterns
-- Comprehensive testing and evaluation framework
-- **Documentation**: See `PROMPT_OPTIMIZER_README.md` for full guide
-
-### Documentation Generators (`analysis_project.chatmode.md`)
-- State-based workflow analysis specialists
-- Bilingual technical documentation with visual diagrams
-- Automated PDF conversion with embedded graphics
-- Production deployment with framework integration
-
-### Research Templates (`prompt_deep_research.py`)
-- Educational content generation with learning roadmaps
-- Technical concept explanation with analogies
-- Mathematical foundations with LaTeX rendering
-- Curated resource compilation with authoritative links
-
-### Project Analysis (`document_project.md`)
-- Comprehensive system architecture mapping
-- Multi-diagram technical documentation (sequence, class, ER)
-- Component relationship analysis
-- Process flow visualization
-
+<best_practices>
 ## Prompt Engineering Best Practices (2025)
 
 ### Techniques Hierarchy
@@ -159,20 +117,6 @@ Critical success pattern found in `analysis_project.chatmode.md`:
 </essential_context>
 ```
 
-### Quality Assurance
-- Define success criteria BEFORE building
-- Test with 20+ diverse cases (typical, edge, error)
-- Calculate metrics: accuracy, format compliance, latency
-- Document design decisions and test results
-- A/B test variants before deployment
-
-### When to Use Each Technique
-- **Zero-shot**: Simple, well-defined tasks
-- **Few-shot (2-5)**: Tasks needing format/style examples
-- **Chain-of-Thought**: Complex reasoning, multi-step problems
-- **Prompt Chaining**: Multi-step workflows with dependencies
-- **Multi-Agent**: Complex tasks with tool use, >8K context, specialized subtasks
-
 ### Technique Selection Decision Tree
 ```mermaid
 flowchart TD
@@ -196,46 +140,39 @@ flowchart TD
     L -->|Yes| F
     L -->|No| J
 ```
+</best_practices>
 
+<few_shot_examples>
+### Example: Documenting a Prompt Workflow
+When documenting a new prompt, always include a Mermaid diagram:
+
+```mermaid
+flowchart TD
+    Start[User Input] --> CoT[Chain-of-Thought Reasoning]
+    CoT --> Validation{Format Valid?}
+    Validation -->|No| Retry[Self-Correction]
+    Retry --> CoT
+    Validation -->|Yes| Output[Final Response]
+```
+</few_shot_examples>
+
+<file_management>
 ## Output File Management
-Templates consistently specify:
-- **Temporary files** (.md, .html) created during processing
-- **Final deliverables** (typically PDF) retained after completion
-- **Automatic cleanup** procedures to remove intermediate files
-- **Exact naming conventions** for consistent output organization
+- **Temporary files**: (.md, .html) created during processing.
+- **Final deliverables**: Retained after completion.
+- **Automatic cleanup**: Procedures to remove intermediate files.
+- **Naming conventions**: Strict adherence for consistent organization.
+</file_management>
 
+<system_reference>
 ## Quick Reference: Prompt Optimizer System
 
-### Documentation Files
-1. **PROMPT_OPTIMIZER_README.md** - Main overview and navigation
-2. **PROMPT_OPTIMIZER_QUICKSTART.md** - 5-minute start guide
-3. **PROMPT_OPTIMIZER_EXAMPLES.md** - 3 detailed real-world examples
-4. **PROMPT_EVALUATION_TEMPLATE.md** - Comprehensive testing framework
-5. **prompt_optimizer_agent.chatmode.md** - Complete system prompt
+### Core Documentation
+- `prompt_optimizer_agent.chatmode.md`: System prompt.
+- `PROMPT_OPTIMIZER_README.md`: Main overview.
 
-### Common Workflows
-**Creating a new prompt:**
-```
-1. Define success criteria (metrics, targets)
-2. Use prompt_optimizer_agent.chatmode.md as guide
-3. Apply appropriate techniques (zero-shot → few-shot → CoT)
-4. Test with PROMPT_EVALUATION_TEMPLATE.md
-5. Iterate based on failures
-```
-
-**Optimizing existing prompt:**
-```
-1. Establish baseline with evaluation template
-2. Identify failure patterns
-3. Apply techniques from Section 3 (main prompt)
-4. A/B test variants
-5. Deploy best performer
-```
-
-**Building multi-agent system:**
-```
-1. Review Section 4 (Tool Integration & Agent Design)
-2. Study Example 3 (Multi-Agent Research System)
-3. Implement separation of concerns
-4. Test agents independently then together
-```
+### Primary Workflows
+1. **Creation**: Define criteria → Use optimizer agent → Apply CoT/Few-shot → Test.
+2. **Optimization**: Baseline evaluation → Identify failures → Apply 2025 techniques → A/B test.
+3. **Multi-Agent**: Separate concerns → Study research system examples → Independent testing.
+</system_reference>
